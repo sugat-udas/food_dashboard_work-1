@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Menu(),
+            _Menu(),
           ],
         ),
       ),
@@ -86,7 +86,7 @@ class UserInfo extends StatelessWidget {
   }
 }
 
-class Menu extends StatelessWidget {
+class _Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
