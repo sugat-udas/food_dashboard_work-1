@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 class AdminAdvanceCredit extends StatelessWidget {
   var realOrientation;
   double height;
-
   double width;
 
   bool isMenuFixed(BuildContext context) {
@@ -180,17 +179,17 @@ class AdminAdvanceCredit extends StatelessWidget {
                 _CustomFixedDivider(),
                 _eachUserPayDetail(
                     name: "Niraj Karanjeet",
-                    amount: "10000",
+                    amount: "1000",
                     paymentGetway: "via eSewa"),
                 _CustomSizedBoxed(height: 20),
                 _eachUserPayDetail(
                     name: "Niruta Devkota",
-                    amount: "20000",
+                    amount: "2000",
                     paymentGetway: "via Khati"),
                 _CustomSizedBoxed(height: 20),
                 _eachUserPayDetail(
                   name: "Kriti Gurung",
-                  amount: "20000",
+                  amount: "2000",
                   paymentGetway: "via Cash",
                 ),
               ],
