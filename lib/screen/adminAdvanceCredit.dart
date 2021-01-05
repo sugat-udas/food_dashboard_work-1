@@ -149,16 +149,37 @@ class AdminAdvanceCredit extends StatelessWidget {
   }
 
   Widget _PaymentData() {
+    return getDeviceType()
+        ? _mobileViewPaymentData()
+        : _tabletViewPaymentData();
+  }
+
+  Widget _tabletViewPaymentData() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Expanded(
-            flex: getDeviceType() ? 5 : 3,
-            child: _RecentsTransaction(text: "Recent Payments")),
-        Expanded(
-            flex: getDeviceType() ? 5 : 3,
-            child: _RecentsPending(text: "Recent Pending")),
-        Expanded(flex: getDeviceType() ? 6 : 4, child: _CustomerStat())
+        Expanded(flex: 3, child: _RecentsTransaction(text: "Recent Payments")),
+        Expanded(flex: 3, child: _RecentsPending(text: "Recent Pending")),
+        Expanded(flex: 4, child: _CustomerStat())
+      ],
+    );
+  }
+
+  Widget _mobileViewPaymentData() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+                flex: 1, child: _RecentsTransaction(text: "Recent Payments")),
+            Expanded(flex: 1, child: _RecentsPending(text: "Recent Pending")),
+            _CustomSizedBoxed(width: 20)
+          ],
+        ),
+        _CustomSizedBoxed(height: 20),
+        _CustomerStat()
       ],
     );
   }
@@ -171,7 +192,7 @@ class AdminAdvanceCredit extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(getDeviceType() ? 12 : 17.0),
+            padding: EdgeInsets.all(17.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -230,11 +251,11 @@ class AdminAdvanceCredit extends StatelessWidget {
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-      margin: EdgeInsets.only(left: getDeviceType() ? 10 : 20),
+      margin: EdgeInsets.only(left: 20),
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(getDeviceType() ? 12 : 17.0),
+            padding: EdgeInsets.all(17.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -268,12 +289,12 @@ class AdminAdvanceCredit extends StatelessWidget {
       color: Colors.white,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-      margin: EdgeInsets.only(left: getDeviceType() ? 10 : 20, right: 20),
+      margin: EdgeInsets.only(left: 20, right: 20),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2, vertical: 19),
         child: Image.asset(
           "icons/customer stat.jpg",
-          scale: 4.5,
+          scale: getDeviceType() ? 2.1 : 4.5,
         ),
       ),
     );
