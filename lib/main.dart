@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food/screen/adminAdvanceCredit.dart';
+import 'package:food/screen/home.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -13,12 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Food app',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        backgroundColor: Colors.white,
-      ),
-      home: AdminAdvanceCredit(),
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(),
     );
   }
 }

@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:food/controller/adminController.dart';
+import 'package:food/util/customWidgets.dart';
+import 'package:get/get.dart';
 
-class AdminAdvanceCredit extends StatelessWidget {
-  var realOrientation;
+class AdminDashBoard extends StatelessWidget {
   double height;
   double width;
-
   bool isMenuFixed(BuildContext context) {
     return MediaQuery.of(context).size.width > 500;
   }
@@ -17,113 +16,11 @@ class AdminAdvanceCredit extends StatelessWidget {
     return data.size.shortestSide < 600 ? true : false;
   }
 
-  List clientIdList = [
-    "0192",
-    "0192",
-    "0192",
-    "0192",
-    "0192",
-    "0192",
-  ];
-
-  List businnessIdList = [
-    "0293k",
-    "8282w",
-    "29399",
-    "022",
-    "2392e",
-    "2234",
-  ];
-
-  List name = [
-    "Kriti Gurung",
-    "Sneha Thapa",
-    "Chelsi Khetan",
-    "Bhagyashree Thapa",
-    "Niruta Devkota",
-    "Anmol Devkota",
-  ];
-
-  List contact = [
-    "9825374929",
-    "9827324929",
-    "9827374929",
-    "9827374949",
-    "9827371929",
-    "9827372929",
-  ];
-
-  List bonus = [
-    "Rs. 2000",
-    "Rs. 1000",
-    "Rs. 2000",
-    "Rs. 2000",
-    "Rs. 2000",
-    "Rs. 2000",
-  ];
-
-  List limit = [
-    "Rs. 20000",
-    "Rs. 10000",
-    "Rs. 20000",
-    "Rs. 20000",
-    "Rs. 20000",
-    "Rs. 20000",
-  ];
-
-  List spend = [
-    "Rs. 5000",
-    "Rs. 1000",
-    "Rs. 1000",
-    "Rs. 100",
-    "--",
-    "Rs 2900",
-  ];
-
   @override
   Widget build(BuildContext context) {
-    realOrientation = MediaQuery.of(context).orientation;
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
-    print(realOrientation.toString() + " realOrientation");
-
-    if (getDeviceType()) {
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ]);
-    }
-
-    return Scaffold(
-      drawer: (getDeviceType() ||
-              (getDeviceType() == false &&
-                  getOpacityForOrientation(context) == 1))
-          ? _MenuSideBar(context)
-          : null,
-      appBar: _AppBar(),
-      backgroundColor: Colors.white,
-      body: _body(context),
-    );
-  }
-
-  int getOpacityForOrientation(context) {
-    if (MediaQuery.of(context).orientation == Orientation.landscape) {
-      return 0;
-    } else {
-      return 1;
-    }
-  }
-
-  Widget _body(context) {
-    print(realOrientation.toString() + " orientation");
-    return Row(
-      children: [
-        (getDeviceType() == false && getOpacityForOrientation(context) == 0)
-            ? _MenuSideBar(context)
-            : SizedBox(),
-        _ContentBody(),
-      ],
-    );
+    height = Get.height;
+    width = Get.width;
+    return _ContentBody();
   }
 
   Widget _ContentBody() {
@@ -134,13 +31,13 @@ class AdminAdvanceCredit extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _CustomSizedBoxed(height: 20),
+              CustomSizedBoxed(height: 20),
               _SearchBar(),
-              _CustomSizedBoxed(height: 10),
+              CustomSizedBoxed(height: 10),
               _FinanceDataCard(),
-              _CustomSizedBoxed(height: 20),
+              CustomSizedBoxed(height: 20),
               _PaymentData(),
-              _CustomSizedBoxed(height: 20),
+              CustomSizedBoxed(height: 20),
             ],
           ),
         ),
@@ -175,10 +72,10 @@ class AdminAdvanceCredit extends StatelessWidget {
             Expanded(
                 flex: 1, child: _RecentsTransaction(text: "Recent Payments")),
             Expanded(flex: 1, child: _RecentsPending(text: "Recent Pending")),
-            _CustomSizedBoxed(width: 20)
+            CustomSizedBoxed(width: 20)
           ],
         ),
-        _CustomSizedBoxed(height: 20),
+        CustomSizedBoxed(height: 20),
         _CustomerStat()
       ],
     );
@@ -186,7 +83,7 @@ class AdminAdvanceCredit extends StatelessWidget {
 
   Widget _RecentsTransaction({String text}) {
     return Card(
-      elevation: 0,
+      elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
       margin: EdgeInsets.only(left: 20),
       child: Column(
@@ -196,18 +93,18 @@ class AdminAdvanceCredit extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _CustomBoldText(text: text),
-                _CustomFixedDivider(),
+                CustomBoldText(text: text),
+                CustomFixedDivider(),
                 _eachUserPayDetail(
                     name: "Niraj Karanjeet",
                     amount: "1000",
                     paymentGetway: "via eSewa"),
-                _CustomSizedBoxed(height: 20),
+                CustomSizedBoxed(height: 20),
                 _eachUserPayDetail(
                     name: "Niruta Devkota",
                     amount: "2000",
                     paymentGetway: "via Khati"),
-                _CustomSizedBoxed(height: 20),
+                CustomSizedBoxed(height: 20),
                 _eachUserPayDetail(
                   name: "Kriti Gurung",
                   amount: "2000",
@@ -249,7 +146,7 @@ class AdminAdvanceCredit extends StatelessWidget {
 
   Widget _RecentsPending({String text}) {
     return Card(
-      elevation: 0,
+      elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
       margin: EdgeInsets.only(left: 20),
       child: Column(
@@ -259,18 +156,18 @@ class AdminAdvanceCredit extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _CustomBoldText(text: text),
-                _CustomFixedDivider(),
+                CustomBoldText(text: text),
+                CustomFixedDivider(),
                 _eachUserPayDetail(
                   name: "Niraj Karanjeet",
                   amount: "1110",
                 ),
-                _CustomSizedBoxed(height: 20),
+                CustomSizedBoxed(height: 20),
                 _eachUserPayDetail(
                   name: "Niruta Devkota",
                   amount: "5000",
                 ),
-                _CustomSizedBoxed(height: 20),
+                CustomSizedBoxed(height: 20),
                 _eachUserPayDetail(
                   name: "Kriti Gurung",
                   amount: "9000",
@@ -287,7 +184,7 @@ class AdminAdvanceCredit extends StatelessWidget {
   Widget _CustomerStat() {
     return Card(
       color: Colors.white,
-      elevation: 0,
+      elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
       margin: EdgeInsets.only(left: 20, right: 20),
       child: Padding(
@@ -312,7 +209,7 @@ class AdminAdvanceCredit extends StatelessWidget {
               backgroundImage: NetworkImage(
                   "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=0gu5vxX82-oAX-gc96F&_nc_ht=scontent.fktm3-1.fna&oh=35af3a76207cc2e56368dbde03f20eee&oe=6000DDD1"),
             ),
-            _CustomSizedBoxed(
+            CustomSizedBoxed(
               width: 10,
             ),
             Column(
@@ -360,79 +257,89 @@ class AdminAdvanceCredit extends StatelessWidget {
   }
 
   Widget _FinanceDataCard() {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-      elevation: 0,
-      margin: EdgeInsets.symmetric(horizontal: 20),
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _data(list: clientIdList, name: "Client ID"),
-            _data(list: businnessIdList, name: "Business ID"),
-            _data(list: name, name: "Name"),
-            _data(list: contact, name: "Contact"),
-            _data(list: bonus, name: "Bonus"),
-            _data(list: limit, name: "Limit"),
-            _data(list: spend, name: "Spend"),
-            Divider(),
-            _editData(name: "Actions"),
-          ],
+    return GetBuilder(
+      init: AdminController(),
+      builder: (AdminController adminController) => Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+        elevation: 1,
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _data(
+                  list: adminController.info["clientIdList"],
+                  name: "Client ID"),
+              _data(
+                  list: adminController.info["businnessIdList"],
+                  name: "Business ID"),
+              _data(list: adminController.info["name"], name: "Name"),
+              _data(list: adminController.info["contact"], name: "Contact"),
+              _data(list: adminController.info["bonus"], name: "Bonus"),
+              _data(list: adminController.info["limit"], name: "Limit"),
+              _data(list: adminController.info["spend"], name: "Spend"),
+              Divider(),
+              _editData(name: "Actions"),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _editData({String name}) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: _CustomBoldText(text: name),
-        ),
-        _CustomFixedDivider(),
-        for (var i = 0; i < clientIdList.length; i++)
+    return GetBuilder(
+      init: AdminController(),
+      builder: (AdminController adminController) => Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: (Row(
-              children: [
-                _CustomSizedBoxed(
-                  width: 7,
-                ),
-                Icon(
-                  Icons.edit,
-                  color: Colors.blue,
-                  size: 15,
-                ),
-                _CustomSizedBoxed(
-                  width: 6,
-                ),
-                Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                  size: 15,
-                ),
-              ],
-            )),
-          )
-      ],
+            padding: const EdgeInsets.only(left: 8.0),
+            child: CustomBoldText(text: name),
+          ),
+          CustomFixedDivider(),
+          for (var i = 0; i < adminController.info["clientIdList"].length; i++)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: (Row(
+                children: [
+                  CustomSizedBoxed(
+                    width: 7,
+                  ),
+                  Icon(
+                    Icons.edit,
+                    color: Colors.blue,
+                    size: 15,
+                  ),
+                  CustomSizedBoxed(
+                    width: 6,
+                  ),
+                  Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                    size: 15,
+                  ),
+                ],
+              )),
+            )
+        ],
+      ),
     );
   }
 
-  Widget _data({List list, String name}) {
+  Widget _data({var list, String name}) {
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: _CustomBoldText(text: name),
+          child: CustomBoldText(text: name),
         ),
-        _CustomFixedDivider(),
+        CustomFixedDivider(),
         for (final data in list)
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -445,24 +352,10 @@ class AdminAdvanceCredit extends StatelessWidget {
     );
   }
 
-  Widget _CustomFixedDivider() {
-    return Divider(
-      height: 15,
-      color: Color(0xffE8E8E8),
-    );
-  }
-
-  Text _CustomBoldText({String text}) {
-    return Text(
-      text,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-    );
-  }
-
   Widget _SearchBar() {
     return Row(
       children: [
-        _CustomSizedBoxed(
+        CustomSizedBoxed(
           width: 16,
         ),
         Expanded(
@@ -496,7 +389,7 @@ class AdminAdvanceCredit extends StatelessWidget {
             ),
           ),
         ),
-        _CustomSizedBoxed(
+        CustomSizedBoxed(
           width: 13,
         ),
         Expanded(
@@ -524,7 +417,7 @@ class AdminAdvanceCredit extends StatelessWidget {
             ),
           ),
         ),
-        _CustomSizedBoxed(
+        CustomSizedBoxed(
           width: 13,
           height: 0,
         ),
@@ -544,165 +437,11 @@ class AdminAdvanceCredit extends StatelessWidget {
                 ),
               ),
             )),
-        _CustomSizedBoxed(
+        CustomSizedBoxed(
           width: 20,
           height: 0,
         ),
       ],
     );
   }
-
-  Widget _CustomSizedBoxed({double height, double width}) {
-    return SizedBox(height: height, width: width);
-  }
-
-  double _MenuSidebarSizeMaintain(context) {
-    if (getDeviceType() ||
-        (!getDeviceType() && getOpacityForOrientation(context) == 1)) {
-      return 180;
-    } else if (!getDeviceType() && getOpacityForOrientation(context) == 0) {
-      return width * 0.17;
-    }
-  }
-
-  Widget _MenuSideBar(context) {
-    return Container(
-      color: Colors.green,
-      width: _MenuSidebarSizeMaintain(context),
-      child: Drawer(
-        elevation: 0,
-        child: ListView(
-          children: [
-            _CustomSizedBoxed(height: 15),
-            _DashBoardMenus(icons: Icons.dashboard, text: "Dashboard"),
-            _DashBoardMenus(icons: Icons.local_dining, text: "Orders"),
-            _DashBoardMenus(icons: Icons.menu_book_rounded, text: "Menu"),
-            _DashBoardMenus(icons: Icons.group_rounded, text: "Customer"),
-            _DashBoardMenus(
-              icons: Icons.star,
-              text: "Credit",
-              color: Color(0xff7FC66E),
-              generalColor: Colors.white,
-            ),
-            _DashBoardMenus(icons: Icons.settings, text: "Settings"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _DashBoardMenus(
-      {IconData icons, String text, Color color, Color generalColor}) {
-    return Card(
-      margin: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 2,
-      ),
-      color: color ?? Color(0xffFAFAFA),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Icon(
-              icons,
-              color: generalColor ?? Colors.black,
-              size: 16,
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              text,
-              style: TextStyle(color: generalColor ?? Colors.black),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _AppBar() {
-    return AppBar(
-      iconTheme: IconThemeData(color: Colors.green),
-      title: Text(
-        "FOODIZM",
-        style: TextStyle(
-          color: Color(0xff7FC66E),
-        ),
-      ),
-      actions: [
-        Row(
-          children: [
-            CircleAvatar(
-              radius: 16,
-              backgroundImage: NetworkImage(
-                  "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=0gu5vxX82-oAX-gc96F&_nc_ht=scontent.fktm3-1.fna&oh=35af3a76207cc2e56368dbde03f20eee&oe=6000DDD1"),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              "Niraj Karanjeet",
-              style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
-            ),
-            Icon(
-              Icons.keyboard_arrow_down,
-              color: Colors.grey.shade600,
-              size: 22,
-            ),
-            SizedBox(
-              width: 30,
-            ),
-          ],
-        )
-      ],
-      backgroundColor: Colors.white,
-    );
-  }
 }
-
-// Container(
-// decoration: BoxDecoration(
-// color: color ?? Colors.white,
-// borderRadius: BorderRadius.circular(5),
-// ),
-// margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
-// padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-// child: Row(
-// children: [
-// Icon(
-// icons,
-// color: generalColor ?? Colors.black,
-// ),
-// SizedBox(
-// width: 5,
-// ),
-// Text(
-// text,
-// style: TextStyle(color: generalColor ?? Colors.black),
-// )
-// ],
-// ),
-// ),
-// leading: (getDeviceType() ||
-// (getDeviceType() == false &&
-// realOrientation == Orientation.portrait))
-// ? Builder(
-// builder: (BuildContext context) {
-// return IconButton(
-// icon: const Icon(
-// Icons.menu,
-// color: Colors.green,
-// ),
-// onPressed: () {
-// Scaffold.of(context).openDrawer();
-// },
-// tooltip:
-// MaterialLocalizations.of(context).openAppDrawerTooltip,
-// );
-// },
-// )
-// : null,
