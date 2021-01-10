@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food/controller/adminController.dart';
-import 'package:food/screen/adminDashboard.dart';
+import 'package:food/screen/foodItemsPage.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/eachDashboardMenu.dart';
 
@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
         (getDeviceType() == false && getOpacityForOrientation(context) == 0)
             ? _MenuSideBar(context)
             : SizedBox(),
-        AdminDashBoard(),
+        FoodItemsPage(),
       ],
     );
   }

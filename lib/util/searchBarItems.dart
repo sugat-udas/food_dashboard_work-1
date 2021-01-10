@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:get/get.dart';
 
@@ -62,6 +63,7 @@ class SearchBarItems extends StatelessWidget {
                 elevation: 1,
                 onPressed: () {},
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.add,
@@ -107,7 +109,7 @@ class SearchBar extends StatelessWidget {
           textAlign: TextAlign.start,
           decoration: InputDecoration(
               contentPadding: EdgeInsets.only(left: 15),
-              hintText: "Search..",
+              hintText: "Search...",
               hintStyle: TextStyle(color: Colors.grey),
               suffixIcon: Icon(
                 Icons.search,
