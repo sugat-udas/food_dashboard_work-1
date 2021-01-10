@@ -1,42 +1,70 @@
 import 'package:get/get.dart';
 
 class AdminController extends GetxController {
-  Map get info => _info;
-  Map _info = {
-    "clientIdList": ["0192", "0192", "0192", "0192", "0192", "0192"],
-    "businnessIdList": ["0293k", "8282w", "29399", "022", "2392e", "2234"],
-    "name": [
+  List get infoList => _infoList;
+
+  List _infoHeadList = [
+    "Client ID",
+    "Business ID",
+    "Name",
+    "Contact",
+    "Bonus",
+    "Limit",
+    "Spent",
+    "Actions"
+  ];
+
+  List get infoHeadList => _infoHeadList;
+  List _infoList = [
+    [
+      "01292",
+      "0293k",
       "Kriti Gurung",
+      9827271292,
+      "2000",
+      "Rs.2000",
+      "Rs.5000",
+      false,
+    ],
+    [
+      "02292",
+      "4293k",
       "Sneha Thapa",
+      9827171292,
+      "1000",
+      "Rs.10000",
+      "Rs.1000",
+      false,
+    ],
+    [
+      "01192",
+      "0293k",
       "Chelsi Khetan",
-      "Bhagyashree Thapa",
+      9827271242,
+      "2000",
+      "Rs.2000",
+      "Rs.1000",
+      false,
+    ],
+    [
+      "01932",
+      "0223k",
+      "Bhagyshress Thapa",
+      9827471292,
+      "2000",
+      "Rs.2000",
+      "Rs.100",
+      false,
+    ],
+    [
+      "01932",
+      "0223k",
       "Niruta Devkota",
-      "Anmol Devkota"
+      9827271192,
+      "1000",
+      "Rs.2000",
+      "--",
+      false,
     ],
-    "contact": [
-      "9825374929",
-      "9827324929",
-      "9827374929",
-      "9827374949",
-      "9827371929",
-      "9827372929"
-    ],
-    "bonus": [
-      "Rs. 2000",
-      "Rs. 1000",
-      "Rs. 2000",
-      "Rs. 2000",
-      "Rs. 2000",
-      "Rs. 2000"
-    ],
-    "limit": [
-      "Rs. 20000",
-      "Rs. 10000",
-      "Rs. 20000",
-      "Rs. 20000",
-      "Rs. 20000",
-      "Rs. 20000"
-    ],
-    "spend": ["Rs. 5000", "Rs. 1000", "Rs. 1000", "Rs. 100", "--", "Rs 2900"]
-  };
+  ];
 }

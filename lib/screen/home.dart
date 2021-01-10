@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food/constants/customColors.dart';
 import 'package:food/controller/adminController.dart';
-import 'package:food/screen/foodItemsPage.dart';
+import 'package:food/screen/adminDashboard.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/eachDashboardMenu.dart';
 
@@ -40,9 +41,9 @@ class HomeScreen extends StatelessWidget {
       drawer: (getDeviceType() ||
               (getDeviceType() == false &&
                   getOpacityForOrientation(context) == 1))
-          ? _MenuSideBar(context)
+          ? _menuSideBar(context)
           : null,
-      appBar: _AppBar(),
+      appBar: _appBar(),
       backgroundColor: Colors.white,
       body: _body(context),
     );
@@ -61,26 +62,28 @@ class HomeScreen extends StatelessWidget {
     return Row(
       children: [
         (getDeviceType() == false && getOpacityForOrientation(context) == 0)
-            ? _MenuSideBar(context)
+            ? _menuSideBar(context)
             : SizedBox(),
-        FoodItemsPage(),
+        AdminDashBoard(),
       ],
     );
   }
 
-  double _MenuSidebarSizeMaintain(context) {
+  double _menuSidebarSizeMaintain(context) {
+    var value;
     if (getDeviceType() ||
         (!getDeviceType() && getOpacityForOrientation(context) == 1)) {
-      return 180;
+      value = 180;
     } else if (!getDeviceType() && getOpacityForOrientation(context) == 0) {
-      return width * 0.17;
+      value = width * 0.17;
     }
+    return value;
   }
 
-  Widget _MenuSideBar(context) {
+  Widget _menuSideBar(context) {
     return Container(
       color: Colors.green,
-      width: _MenuSidebarSizeMaintain(context),
+      width: _menuSidebarSizeMaintain(context),
       child: Drawer(
         elevation: 0,
         child: ListView(
@@ -93,7 +96,7 @@ class HomeScreen extends StatelessWidget {
             EachDashboardMenu(
               icons: Icons.star,
               text: "Credit",
-              color: Color(0xff7FC66E),
+              color: CustomColors.buttonGreenColor,
               generalColor: Colors.white,
             ),
             EachDashboardMenu(icons: Icons.settings, text: "Settings"),
@@ -103,13 +106,13 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _AppBar() {
+  Widget _appBar() {
     return AppBar(
       iconTheme: IconThemeData(color: Colors.green),
       title: Text(
         "FOODIZM",
         style: TextStyle(
-          color: Color(0xff7FC66E),
+          color: CustomColors.buttonGreenColor,
         ),
       ),
       actions: [

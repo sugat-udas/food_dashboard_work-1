@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food/constants/customColors.dart';
+import 'package:food/controller/adminController.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
 import 'package:get/get.dart';
@@ -20,7 +22,33 @@ class FoodItemsPage extends StatelessWidget {
         child: Column(
           children: [
             _searchBarItems(),
+            _foodDataTable(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _foodDataTable() {
+    return GetBuilder(
+      init: AdminController(),
+      builder: (AdminController adminController) => Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        margin: EdgeInsets.symmetric(vertical: 15),
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Table(
+            border: TableBorder(
+                horizontalInside: BorderSide(width: 1, color: Colors.grey),
+                bottom: BorderSide(width: 1, color: Colors.red)),
+            children: [
+              for (List eachList in adminController.infoList)
+                TableRow(children: [
+                  for (var each in eachList)
+                    TableCell(child: Text(each.toString())),
+                ]),
+            ],
+          ),
         ),
       ),
     );
@@ -91,10 +119,10 @@ class FoodItemsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              color: Color(0xff7FC66E),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
+              color: CustomColors.buttonGreenColor,
             ),
           ),
         ],

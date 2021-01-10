@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food/constants/constants.dart';
+import 'package:food/constants/customColors.dart';
 import 'package:food/controller/adminController.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
@@ -29,9 +31,9 @@ class AdminDashBoard extends StatelessWidget {
             children: [
               customSizedBoxed(height: 20),
               SearchBarItems(),
-              customSizedBoxed(height: 10),
+              customSizedBoxed(height: 5),
               _financeDataCard(),
-              customSizedBoxed(height: 20),
+              customSizedBoxed(height: 10),
               _paymentData(),
               customSizedBoxed(height: 20),
             ],
@@ -78,9 +80,13 @@ class AdminDashBoard extends StatelessWidget {
   }
 
   Widget _recentsTransaction({String text}) {
-    return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(13),
+          boxShadow: [
+            Constants.kGeneralBoxShadow,
+          ]),
       margin: EdgeInsets.only(left: 20),
       child: Column(
         children: [
@@ -141,9 +147,13 @@ class AdminDashBoard extends StatelessWidget {
   }
 
   Widget _recentsPending({String text}) {
-    return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(13),
+          boxShadow: [
+            Constants.kGeneralBoxShadow,
+          ]),
       margin: EdgeInsets.only(left: 20),
       child: Column(
         children: [
@@ -178,10 +188,13 @@ class AdminDashBoard extends StatelessWidget {
   }
 
   Widget _customerStat() {
-    return Card(
-      color: Colors.white,
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(13),
+          boxShadow: [
+            Constants.kGeneralBoxShadow,
+          ]),
       margin: EdgeInsets.only(left: 20, right: 20),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2, vertical: 19),
@@ -255,29 +268,65 @@ class AdminDashBoard extends StatelessWidget {
   Widget _financeDataCard() {
     return GetBuilder(
       init: AdminController(),
-      builder: (AdminController adminController) => Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
-        elevation: 1,
-        margin: EdgeInsets.symmetric(horizontal: 20),
-        color: Colors.white,
+      builder: (AdminController adminController) => Container(
+        //elevation: 1,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [Constants.kGeneralBoxShadow]),
+
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+          child: Table(
+            columnWidths: {
+              0: FlexColumnWidth(1.4),
+              1: FlexColumnWidth(1.8),
+              2: FlexColumnWidth(2.6),
+              3: FlexColumnWidth(1.9),
+              4: FlexColumnWidth(1.3),
+              5: FlexColumnWidth(1.5),
+              6: FlexColumnWidth(1.3),
+              7: FlexColumnWidth(1.2),
+            },
+            border: TableBorder(
+              horizontalInside: BorderSide(
+                  width: 0.5, color: CustomColors.borderDividerColor),
+              // bottom: BorderSide(width: 1, color: Colors.red)
+            ),
             children: [
-              _data(
-                  list: adminController.info["clientIdList"],
-                  name: "Client ID"),
-              _data(
-                  list: adminController.info["businnessIdList"],
-                  name: "Business ID"),
-              _data(list: adminController.info["name"], name: "Name"),
-              _data(list: adminController.info["contact"], name: "Contact"),
-              _data(list: adminController.info["bonus"], name: "Bonus"),
-              _data(list: adminController.info["limit"], name: "Limit"),
-              _data(list: adminController.info["spend"], name: "Spend"),
-              Divider(),
-              _editData(name: "Actions"),
+              TableRow(children: [
+                for (var head in adminController.infoHeadList)
+                  TableCell(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 7.0,
+                      bottom: 13.0,
+                    ),
+                    child: Text(
+                      head.toString(),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                  ))
+              ]),
+              for (List eachList in adminController.infoList)
+                TableRow(children: [
+                  for (var each in eachList)
+                    TableCell(
+                      child: each == false
+                          ? _actionButtons()
+                          : Padding(
+                              padding: EdgeInsets.only(
+                                top: 17.0,
+                                bottom: 7.0,
+                              ),
+                              child: Text(
+                                each.toString(),
+                              ),
+                            ),
+                    ),
+                ]),
             ],
           ),
         ),
@@ -285,66 +334,26 @@ class AdminDashBoard extends StatelessWidget {
     );
   }
 
-  Widget _editData({String name}) {
-    return GetBuilder(
-      init: AdminController(),
-      builder: (AdminController adminController) => Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _actionButtons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      child: (Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: customBoldText(text: name),
+          Icon(
+            Icons.edit,
+            color: Colors.blue,
+            size: 20,
           ),
-          customFixedDivider(),
-          for (var i = 0; i < adminController.info["clientIdList"].length; i++)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: (Row(
-                children: [
-                  customSizedBoxed(
-                    width: 7,
-                  ),
-                  Icon(
-                    Icons.edit,
-                    color: Colors.blue,
-                    size: 15,
-                  ),
-                  customSizedBoxed(
-                    width: 6,
-                  ),
-                  Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                    size: 15,
-                  ),
-                ],
-              )),
-            )
+          customSizedBoxed(
+            width: 10,
+          ),
+          Icon(
+            Icons.delete,
+            color: Colors.red,
+            size: 20,
+          ),
         ],
-      ),
-    );
-  }
-
-  Widget _data({var list, String name}) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: customBoldText(text: name),
-        ),
-        customFixedDivider(),
-        for (final data in list)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              data,
-              style: TextStyle(fontSize: 12),
-            ),
-          ),
-      ],
+      )),
     );
   }
 }

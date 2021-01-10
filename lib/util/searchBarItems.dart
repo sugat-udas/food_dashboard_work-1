@@ -25,7 +25,7 @@ class SearchBarItems extends StatelessWidget {
           width: 13,
         ),
         Expanded(
-          flex: 9,
+          flex: getDeviceType() ? 9 : 8,
           child: Card(
             elevation: 2,
             color: Colors.white,
@@ -36,7 +36,7 @@ class SearchBarItems extends StatelessWidget {
                   horizontal: 10,
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Advance Credit",
@@ -56,7 +56,7 @@ class SearchBarItems extends StatelessWidget {
           height: 0,
         ),
         Expanded(
-            flex: 6,
+            flex: 7,
             child: Container(
               height: _commonHeight,
               child: RaisedButton(
