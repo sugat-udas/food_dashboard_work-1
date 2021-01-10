@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food/controller/adminController.dart';
 import 'package:food/screen/adminDashboard.dart';
 import 'package:food/util/customWidgets.dart';
+import 'package:food/util/eachDashboardMenu.dart';
 
 class HomeScreen extends StatelessWidget {
+  AdminController adminController;
   var realOrientation;
   double height;
   double width;
@@ -54,7 +57,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _body(context) {
-    print(realOrientation.toString() + " orientation");
+    print(realOrientation.toString() + " orientations");
     return Row(
       children: [
         (getDeviceType() == false && getOpacityForOrientation(context) == 0)
@@ -82,51 +85,18 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         child: ListView(
           children: [
-            CustomSizedBoxed(height: 15),
-            _DashBoardMenus(icons: Icons.dashboard, text: "Dashboard"),
-            _DashBoardMenus(icons: Icons.local_dining, text: "Orders"),
-            _DashBoardMenus(icons: Icons.menu_book_rounded, text: "Menu"),
-            _DashBoardMenus(icons: Icons.group_rounded, text: "Customer"),
-            _DashBoardMenus(
+            customSizedBoxed(height: 15),
+            EachDashboardMenu(icons: Icons.dashboard, text: "Dashboard"),
+            EachDashboardMenu(icons: Icons.local_dining, text: "Orders"),
+            EachDashboardMenu(icons: Icons.menu_book_rounded, text: "Product"),
+            EachDashboardMenu(icons: Icons.group_rounded, text: "Customer"),
+            EachDashboardMenu(
               icons: Icons.star,
               text: "Credit",
               color: Color(0xff7FC66E),
               generalColor: Colors.white,
             ),
-            _DashBoardMenus(icons: Icons.settings, text: "Settings"),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _DashBoardMenus(
-      {IconData icons, String text, Color color, Color generalColor}) {
-    return Card(
-      margin: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 2,
-      ),
-      color: color ?? Color(0xffFAFAFA),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Icon(
-              icons,
-              color: generalColor ?? Colors.black,
-              size: 16,
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              text,
-              style: TextStyle(color: generalColor ?? Colors.black),
-            )
+            EachDashboardMenu(icons: Icons.settings, text: "Settings"),
           ],
         ),
       ),

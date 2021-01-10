@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:food/controller/adminController.dart';
 import 'package:food/util/customWidgets.dart';
+import 'package:food/util/searchBarItems.dart';
 import 'package:get/get.dart';
 
 class AdminDashBoard extends StatelessWidget {
+  AdminController adminController;
   double height;
   double width;
   bool isMenuFixed(BuildContext context) {
     return MediaQuery.of(context).size.width > 500;
   }
 
-  bool getDeviceType() {
-    final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
-    print(data.size.shortestSide < 600 ? 'phone' : 'tablet');
-    return data.size.shortestSide < 600 ? true : false;
-  }
-
   @override
   Widget build(BuildContext context) {
     height = Get.height;
     width = Get.width;
-    return _ContentBody();
+    return _contentBody();
   }
 
-  Widget _ContentBody() {
+  Widget _contentBody() {
     return Expanded(
       child: Container(
         color: Color(0xffF4F4F4),
@@ -31,13 +27,13 @@ class AdminDashBoard extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomSizedBoxed(height: 20),
-              _SearchBar(),
-              CustomSizedBoxed(height: 10),
-              _FinanceDataCard(),
-              CustomSizedBoxed(height: 20),
-              _PaymentData(),
-              CustomSizedBoxed(height: 20),
+              customSizedBoxed(height: 20),
+              SearchBarItems(),
+              customSizedBoxed(height: 10),
+              _financeDataCard(),
+              customSizedBoxed(height: 20),
+              _paymentData(),
+              customSizedBoxed(height: 20),
             ],
           ),
         ),
@@ -45,7 +41,7 @@ class AdminDashBoard extends StatelessWidget {
     );
   }
 
-  Widget _PaymentData() {
+  Widget _paymentData() {
     return getDeviceType()
         ? _mobileViewPaymentData()
         : _tabletViewPaymentData();
@@ -55,9 +51,9 @@ class AdminDashBoard extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Expanded(flex: 3, child: _RecentsTransaction(text: "Recent Payments")),
-        Expanded(flex: 3, child: _RecentsPending(text: "Recent Pending")),
-        Expanded(flex: 4, child: _CustomerStat())
+        Expanded(flex: 3, child: _recentsTransaction(text: "Recent Payments")),
+        Expanded(flex: 3, child: _recentsPending(text: "Recent Pending")),
+        Expanded(flex: 4, child: _customerStat())
       ],
     );
   }
@@ -70,18 +66,18 @@ class AdminDashBoard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Expanded(
-                flex: 1, child: _RecentsTransaction(text: "Recent Payments")),
-            Expanded(flex: 1, child: _RecentsPending(text: "Recent Pending")),
-            CustomSizedBoxed(width: 20)
+                flex: 1, child: _recentsTransaction(text: "Recent Payments")),
+            Expanded(flex: 1, child: _recentsPending(text: "Recent Pending")),
+            customSizedBoxed(width: 20)
           ],
         ),
-        CustomSizedBoxed(height: 20),
-        _CustomerStat()
+        customSizedBoxed(height: 20),
+        _customerStat()
       ],
     );
   }
 
-  Widget _RecentsTransaction({String text}) {
+  Widget _recentsTransaction({String text}) {
     return Card(
       elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
@@ -93,18 +89,18 @@ class AdminDashBoard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomBoldText(text: text),
-                CustomFixedDivider(),
+                customBoldText(text: text),
+                customFixedDivider(),
                 _eachUserPayDetail(
                     name: "Niraj Karanjeet",
                     amount: "1000",
                     paymentGetway: "via eSewa"),
-                CustomSizedBoxed(height: 20),
+                customSizedBoxed(height: 20),
                 _eachUserPayDetail(
                     name: "Niruta Devkota",
                     amount: "2000",
                     paymentGetway: "via Khati"),
-                CustomSizedBoxed(height: 20),
+                customSizedBoxed(height: 20),
                 _eachUserPayDetail(
                   name: "Kriti Gurung",
                   amount: "2000",
@@ -113,13 +109,13 @@ class AdminDashBoard extends StatelessWidget {
               ],
             ),
           ),
-          _ViewAll(),
+          _viewAll(),
         ],
       ),
     );
   }
 
-  Widget _ViewAll() {
+  Widget _viewAll() {
     return Padding(
       padding: EdgeInsets.only(
         bottom: 8.0,
@@ -144,7 +140,7 @@ class AdminDashBoard extends StatelessWidget {
     );
   }
 
-  Widget _RecentsPending({String text}) {
+  Widget _recentsPending({String text}) {
     return Card(
       elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
@@ -156,18 +152,18 @@ class AdminDashBoard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomBoldText(text: text),
-                CustomFixedDivider(),
+                customBoldText(text: text),
+                customFixedDivider(),
                 _eachUserPayDetail(
                   name: "Niraj Karanjeet",
                   amount: "1110",
                 ),
-                CustomSizedBoxed(height: 20),
+                customSizedBoxed(height: 20),
                 _eachUserPayDetail(
                   name: "Niruta Devkota",
                   amount: "5000",
                 ),
-                CustomSizedBoxed(height: 20),
+                customSizedBoxed(height: 20),
                 _eachUserPayDetail(
                   name: "Kriti Gurung",
                   amount: "9000",
@@ -175,13 +171,13 @@ class AdminDashBoard extends StatelessWidget {
               ],
             ),
           ),
-          _ViewAll(),
+          _viewAll(),
         ],
       ),
     );
   }
 
-  Widget _CustomerStat() {
+  Widget _customerStat() {
     return Card(
       color: Colors.white,
       elevation: 1,
@@ -209,7 +205,7 @@ class AdminDashBoard extends StatelessWidget {
               backgroundImage: NetworkImage(
                   "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=0gu5vxX82-oAX-gc96F&_nc_ht=scontent.fktm3-1.fna&oh=35af3a76207cc2e56368dbde03f20eee&oe=6000DDD1"),
             ),
-            CustomSizedBoxed(
+            customSizedBoxed(
               width: 10,
             ),
             Column(
@@ -256,7 +252,7 @@ class AdminDashBoard extends StatelessWidget {
     );
   }
 
-  Widget _FinanceDataCard() {
+  Widget _financeDataCard() {
     return GetBuilder(
       init: AdminController(),
       builder: (AdminController adminController) => Card(
@@ -298,15 +294,15 @@ class AdminDashBoard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: CustomBoldText(text: name),
+            child: customBoldText(text: name),
           ),
-          CustomFixedDivider(),
+          customFixedDivider(),
           for (var i = 0; i < adminController.info["clientIdList"].length; i++)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: (Row(
                 children: [
-                  CustomSizedBoxed(
+                  customSizedBoxed(
                     width: 7,
                   ),
                   Icon(
@@ -314,7 +310,7 @@ class AdminDashBoard extends StatelessWidget {
                     color: Colors.blue,
                     size: 15,
                   ),
-                  CustomSizedBoxed(
+                  customSizedBoxed(
                     width: 6,
                   ),
                   Icon(
@@ -337,9 +333,9 @@ class AdminDashBoard extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: CustomBoldText(text: name),
+          child: customBoldText(text: name),
         ),
-        CustomFixedDivider(),
+        customFixedDivider(),
         for (final data in list)
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -348,99 +344,6 @@ class AdminDashBoard extends StatelessWidget {
               style: TextStyle(fontSize: 12),
             ),
           ),
-      ],
-    );
-  }
-
-  Widget _SearchBar() {
-    return Row(
-      children: [
-        CustomSizedBoxed(
-          width: 16,
-        ),
-        Expanded(
-          flex: 30,
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-            elevation: 2,
-            child: Container(
-              height: getDeviceType() ? 30 : height * .05,
-              child: TextField(
-                textAlign: TextAlign.start,
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(top: 6),
-                    hintText: "Search....",
-                    prefixIcon: Icon(
-                      Icons.search,
-                      size: 19,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabled: true,
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(100),
-                        borderSide: BorderSide.none),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(100),
-                        borderSide: BorderSide.none)),
-              ),
-            ),
-          ),
-        ),
-        CustomSizedBoxed(
-          width: 13,
-        ),
-        Expanded(
-          flex: 8,
-          child: Card(
-            elevation: 2,
-            color: Colors.white,
-            child: Container(
-              height: getDeviceType() ? 30 : height * .05,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Advance Credit",
-                      style: TextStyle(
-                        fontSize: 13,
-                      ),
-                    ),
-                    Icon(Icons.keyboard_arrow_down),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        CustomSizedBoxed(
-          width: 13,
-          height: 0,
-        ),
-        Expanded(
-            flex: 4,
-            child: Container(
-              height: getDeviceType() ? 30 : height * .05,
-              child: FlatButton(
-                onPressed: () {},
-                child: Text(
-                  "Add",
-                  style: TextStyle(color: Colors.white, fontSize: 13),
-                ),
-                color: Color(0xff7FC66E),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            )),
-        CustomSizedBoxed(
-          width: 20,
-          height: 0,
-        ),
       ],
     );
   }
