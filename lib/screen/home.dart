@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/adminController.dart';
-import 'package:food/screen/adminDashboard.dart';
+import 'package:food/controller/homeController.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/eachDashboardMenu.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
+  HomeController controller;
   AdminController adminController;
   var realOrientation;
   double height;
@@ -59,13 +61,16 @@ class HomeScreen extends StatelessWidget {
 
   Widget _body(context) {
     print(realOrientation.toString() + " orientations");
-    return Row(
-      children: [
-        (getDeviceType() == false && getOpacityForOrientation(context) == 0)
-            ? _menuSideBar(context)
-            : SizedBox(),
-        AdminDashBoard(),
-      ],
+    return GetBuilder(
+      init: HomeController(),
+      builder: (controller) => Row(
+        children: [
+          (getDeviceType() == false && getOpacityForOrientation(context) == 0)
+              ? _menuSideBar(context)
+              : SizedBox(),
+          controller.screensList[controller.currentIndex],
+        ],
+      ),
     );
   }
 
@@ -81,29 +86,46 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _menuSideBar(context) {
-    return Container(
-      color: Colors.green,
-      width: _menuSidebarSizeMaintain(context),
-      child: Drawer(
-        elevation: 0,
-        child: ListView(
-          children: [
-            customSizedBoxed(height: 15),
-            EachDashboardMenu(icons: Icons.dashboard, text: "Dashboard"),
-            EachDashboardMenu(icons: Icons.local_dining, text: "Orders"),
-            EachDashboardMenu(icons: Icons.menu_book_rounded, text: "Product"),
-            EachDashboardMenu(icons: Icons.group_rounded, text: "Customer"),
-            EachDashboardMenu(
-              icons: Icons.star,
-              text: "Credit",
-              color: CustomColors.buttonGreenColor,
-              generalColor: Colors.white,
-            ),
-            EachDashboardMenu(icons: Icons.settings, text: "Settings"),
-          ],
-        ),
-      ),
-    );
+    return GetBuilder(
+        init: HomeController(),
+        builder: (controller) => Container(
+              width: _menuSidebarSizeMaintain(context),
+              child: Drawer(
+                elevation: 0,
+                child: Column(
+                  children: [
+                    customSizedBoxed(height: 15),
+                    EachDashboardMenu(
+                      icons: Icons.dashboard,
+                      text: "Dashboard",
+                      index: 0,
+                    ),
+                    EachDashboardMenu(
+                      icons: Icons.local_dining,
+                      text: "Orders",
+                      index: 1,
+                    ),
+                    EachDashboardMenu(
+                      icons: Icons.menu_book_rounded,
+                      text: "Product",
+                      index: 2,
+                    ),
+                    EachDashboardMenu(
+                      icons: Icons.group_rounded,
+                      text: "Customer",
+                      index: 3,
+                    ),
+                    EachDashboardMenu(
+                      icons: Icons.star,
+                      text: "Credit",
+                      index: 4,
+                    ),
+                    EachDashboardMenu(
+                        icons: Icons.settings, text: "Settings", index: 5),
+                  ],
+                ),
+              ),
+            ));
   }
 
   Widget _appBar() {

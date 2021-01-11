@@ -1,41 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:food/constants/customColors.dart';
+import 'package:food/controller/homeController.dart';
+import 'package:get/get.dart';
 
 class EachDashboardMenu extends StatelessWidget {
+  // HomeController homeController;
   final IconData icons;
   final String text;
-  final Color color;
-  final Color generalColor;
-  EachDashboardMenu({this.icons, this.text, this.color, this.generalColor});
+  final int index;
+
+  EachDashboardMenu({
+    this.icons,
+    this.text,
+    this.index,
+  });
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 2,
-      ),
-      color: color ?? Color(0xffFAFAFA),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Icon(
-              icons,
-              color: generalColor ?? Colors.black,
-              size: 16,
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              text,
-              style: TextStyle(color: generalColor ?? Colors.black),
-            )
-          ],
-        ),
-      ),
-    );
+    return GetBuilder(
+        init: HomeController(),
+        builder: (HomeController homeController) => Card(
+              elevation: 0,
+              color: homeController.currentIndex == index
+                  ? CustomColors.buttonGreenColor
+                  : CustomColors.sideMenuColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              margin: EdgeInsets.symmetric(
+                vertical: 2,
+                horizontal: 10,
+              ),
+              child: ListTile(
+                dense: true,
+                onTap: () {
+                  homeController.onSelect(index);
+                },
+                leading: Icon(
+                  icons,
+                  color: homeController.currentIndex == index
+                      ? Colors.white
+                      : Colors.black,
+                ),
+                title: Transform.translate(
+                  offset: Offset(-25, 0),
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      color: homeController.currentIndex == index
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+            ));
   }
 }
