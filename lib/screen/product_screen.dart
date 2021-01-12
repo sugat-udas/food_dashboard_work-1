@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/adminController.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
 import 'package:get/get.dart';
 
-class FoodItemsPage extends StatelessWidget {
+// ignore: must_be_immutable
+class ProductScreen extends StatelessWidget {
   double _commonHeight;
+
   @override
   Widget build(BuildContext context) {
     _commonHeight = getDeviceType()
@@ -17,7 +20,7 @@ class FoodItemsPage extends StatelessWidget {
             : (Get.height * .05);
     return Expanded(
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
         color: Color(0xffF4F4F4),
         child: Column(
           children: [
@@ -32,20 +35,64 @@ class FoodItemsPage extends StatelessWidget {
   Widget _foodDataTable() {
     return GetBuilder(
       init: AdminController(),
-      builder: (AdminController adminController) => Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        margin: EdgeInsets.symmetric(vertical: 15),
+      builder: (AdminController adminController) => Container(
+        //elevation: 1,
+
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [Constants.kGeneralBoxShadow]),
+
         child: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
           child: Table(
+            columnWidths: {
+              0: FlexColumnWidth(1.4),
+              1: FlexColumnWidth(1.8),
+              2: FlexColumnWidth(2.6),
+              3: FlexColumnWidth(1.9),
+              4: FlexColumnWidth(1.3),
+              5: FlexColumnWidth(1.5),
+              6: FlexColumnWidth(1.3),
+              7: FlexColumnWidth(1.2),
+            },
             border: TableBorder(
-                horizontalInside: BorderSide(width: 1, color: Colors.grey),
-                bottom: BorderSide(width: 1, color: Colors.red)),
+              horizontalInside: BorderSide(
+                  width: 0.5, color: CustomColors.borderDividerColor),
+              // bottom: BorderSide(width: 1, color: Colors.red)
+            ),
             children: [
+              TableRow(children: [
+                for (var head in adminController.infoHeadList)
+                  TableCell(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 7.0,
+                      bottom: 13.0,
+                    ),
+                    child: Text(
+                      head.toString(),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
+                  ))
+              ]),
               for (List eachList in adminController.infoList)
                 TableRow(children: [
                   for (var each in eachList)
-                    TableCell(child: Text(each.toString())),
+                    TableCell(
+                      child: each == false
+                          ? actionButtons()
+                          : Padding(
+                              padding: EdgeInsets.only(
+                                top: 17.0,
+                                bottom: 7.0,
+                              ),
+                              child: Text(
+                                each.toString(),
+                              ),
+                            ),
+                    ),
                 ]),
             ],
           ),

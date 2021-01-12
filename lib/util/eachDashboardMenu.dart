@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/homeController.dart';
@@ -18,38 +19,41 @@ class EachDashboardMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder(
         init: HomeController(),
-        builder: (HomeController homeController) => Card(
-              elevation: 0,
-              color: homeController.currentIndex == index
-                  ? CustomColors.buttonGreenColor
-                  : CustomColors.sideMenuColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              margin: EdgeInsets.symmetric(
-                vertical: 2,
-                horizontal: 10,
-              ),
-              child: ListTile(
-                dense: true,
-                onTap: () {
-                  homeController.onSelect(index);
-                },
-                leading: Icon(
-                  icons,
-                  color: homeController.currentIndex == index
-                      ? Colors.white
-                      : Colors.black,
-                ),
-                title: Transform.translate(
-                  offset: Offset(-25, 0),
-                  child: Text(
-                    text,
-                    style: TextStyle(
+        builder: (HomeController homeController) => GestureDetector(
+              onTap: () {
+                homeController.onSelect(index);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                decoration: BoxDecoration(
+                    color: homeController.currentIndex == index
+                        ? CustomColors.buttonGreenColor
+                        : CustomColors.sideMenuColor,
+                    borderRadius: BorderRadius.circular(10)),
+                margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
+                child: Row(
+                  children: [
+                    Icon(
+                      icons,
+                      size: 20,
                       color: homeController.currentIndex == index
                           ? Colors.white
                           : Colors.black,
                     ),
-                  ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Text(
+                      text,
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400,
+                        color: homeController.currentIndex == index
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ));

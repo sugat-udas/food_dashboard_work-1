@@ -23,3 +23,26 @@ bool getDeviceType() {
   print(data.size.shortestSide < 600 ? 'phone' : 'tablet');
   return data.size.shortestSide < 600 ? true : false;
 }
+
+Widget actionButtons() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 15.0),
+    child: (Row(
+      children: [
+        Icon(
+          Icons.edit,
+          color: Colors.blue,
+          size: 20,
+        ),
+        customSizedBoxed(
+          width: 10,
+        ),
+        Icon(
+          Icons.delete,
+          color: Colors.red,
+          size: 20,
+        ),
+      ],
+    )),
+  );
+}

@@ -15,7 +15,7 @@ class SearchBarItems extends StatelessWidget {
     return Row(
       children: [
         customSizedBoxed(
-          width: 16,
+          width: 19,
         ),
         Expanded(
           flex: 27,
@@ -94,37 +94,40 @@ class SearchBarItems extends StatelessWidget {
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
-      ),
-      elevation: 2,
-      child: Container(
-        height: getDeviceType()
-            ? 30
-            : context.isPortrait
-                ? (Get.height * .0345)
-                : (Get.height * .05),
-        child: TextField(
-          textAlign: TextAlign.start,
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 15),
-              hintText: "Search...",
-              hintStyle: TextStyle(color: Colors.grey),
-              suffixIcon: Icon(
-                Icons.search,
-                size: 19,
-                color: Colors.grey,
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              enabled: true,
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(100),
-                  borderSide: BorderSide.none),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(100),
-                  borderSide: BorderSide.none)),
+    return Transform.translate(
+      offset: Offset(-4, 0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+        elevation: 2,
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+          height: getDeviceType()
+              ? 30
+              : context.isPortrait
+                  ? (Get.height * .0345)
+                  : (Get.height * .05),
+          child: TextField(
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(left: 15),
+                hintText: "Search...",
+                hintStyle: TextStyle(color: Colors.grey),
+                suffixIcon: Icon(
+                  Icons.search,
+                  size: 19,
+                  color: Colors.grey,
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                enabled: true,
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    borderSide: BorderSide.none),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(100),
+                    borderSide: BorderSide.none)),
+          ),
         ),
       ),
     );

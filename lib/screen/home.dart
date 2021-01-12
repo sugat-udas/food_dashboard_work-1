@@ -8,7 +8,7 @@ import 'package:food/util/customWidgets.dart';
 import 'package:food/util/eachDashboardMenu.dart';
 import 'package:get/get.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomePage extends StatelessWidget {
   HomeController controller;
   AdminController adminController;
   var realOrientation;
@@ -92,37 +92,39 @@ class HomeScreen extends StatelessWidget {
               width: _menuSidebarSizeMaintain(context),
               child: Drawer(
                 elevation: 0,
-                child: Column(
-                  children: [
-                    customSizedBoxed(height: 15),
-                    EachDashboardMenu(
-                      icons: Icons.dashboard,
-                      text: "Dashboard",
-                      index: 0,
-                    ),
-                    EachDashboardMenu(
-                      icons: Icons.local_dining,
-                      text: "Orders",
-                      index: 1,
-                    ),
-                    EachDashboardMenu(
-                      icons: Icons.menu_book_rounded,
-                      text: "Product",
-                      index: 2,
-                    ),
-                    EachDashboardMenu(
-                      icons: Icons.group_rounded,
-                      text: "Customer",
-                      index: 3,
-                    ),
-                    EachDashboardMenu(
-                      icons: Icons.star,
-                      text: "Credit",
-                      index: 4,
-                    ),
-                    EachDashboardMenu(
-                        icons: Icons.settings, text: "Settings", index: 5),
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      customSizedBoxed(height: 15),
+                      EachDashboardMenu(
+                        icons: Icons.dashboard,
+                        text: "Dashboard",
+                        index: 0,
+                      ),
+                      EachDashboardMenu(
+                        icons: Icons.local_dining,
+                        text: "Orders",
+                        index: 1,
+                      ),
+                      EachDashboardMenu(
+                        icons: Icons.menu_book_rounded,
+                        text: "Product",
+                        index: 2,
+                      ),
+                      EachDashboardMenu(
+                        icons: Icons.group_rounded,
+                        text: "Customers",
+                        index: 3,
+                      ),
+                      EachDashboardMenu(
+                        icons: Icons.star,
+                        text: "Credit",
+                        index: 4,
+                      ),
+                      EachDashboardMenu(
+                          icons: Icons.settings, text: "Settings", index: 5),
+                    ],
+                  ),
                 ),
               ),
             ));

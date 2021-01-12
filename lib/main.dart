@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Food app',
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: HomePage(),
     );
   }
 }

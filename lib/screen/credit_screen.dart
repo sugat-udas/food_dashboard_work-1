@@ -315,7 +315,7 @@ class AdminDashBoard extends StatelessWidget {
                   for (var each in eachList)
                     TableCell(
                       child: each == false
-                          ? _actionButtons()
+                          ? actionButtons()
                           : Padding(
                               padding: EdgeInsets.only(
                                 top: 17.0,
@@ -331,29 +331,6 @@ class AdminDashBoard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _actionButtons() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0),
-      child: (Row(
-        children: [
-          Icon(
-            Icons.edit,
-            color: Colors.blue,
-            size: 20,
-          ),
-          customSizedBoxed(
-            width: 10,
-          ),
-          Icon(
-            Icons.delete,
-            color: Colors.red,
-            size: 20,
-          ),
-        ],
-      )),
     );
   }
 }
