@@ -28,6 +28,7 @@ Widget actionButtons() {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 15.0),
     child: (Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Icon(
           Icons.edit,

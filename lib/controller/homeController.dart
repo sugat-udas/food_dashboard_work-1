@@ -7,7 +7,7 @@ import 'package:food/screen/setting_screen.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
   List _screens = [
     DashboardScreen(),
     OrderScreen(),

@@ -199,7 +199,7 @@ class AdminDashBoard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 2, vertical: 19),
         child: Image.asset(
-          "icons/customer stat.jpg",
+          "assets/customer stat.jpg",
           scale: getDeviceType() ? 2.1 : 4.5,
         ),
       ),
