@@ -2,35 +2,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
+import 'package:food/controller/homeController.dart';
 import 'package:food/controller/productController.dart';
+import 'package:food/screen/addProductPage.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class ProductScreen extends StatelessWidget {
-  double _commonHeight;
+  // ProductController productController = ProductController();
+  double commonHeight;
 
   @override
   Widget build(BuildContext context) {
-    _commonHeight = getDeviceType()
-        ? 30
-        : context.isPortrait
-            ? (Get.height * .035)
-            : (Get.height * .05);
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-        color: Color(0xffF4F4F4),
-        child: Column(
-          children: [
-            _searchBarItems(),
-            SizedBox(
-              height: 20,
-            ),
-            Expanded(child: SingleChildScrollView(child: _foodDataTable())),
-          ],
-        ),
+    commonHeight = Constants.commonHeight;
+    return GetBuilder(
+      init: ProductController(),
+      builder: (ProductController productController) => Expanded(
+        child: productController.addProductFlag
+            ? AddProductPage()
+            : Container(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+                color: Color(0xffF4F4F4),
+                child: Column(
+                  children: [
+                    _searchBarItems(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Expanded(
+                        child: SingleChildScrollView(child: _foodDataTable())),
+                  ],
+                ),
+              ),
       ),
     );
   }
@@ -50,14 +55,15 @@ class ProductScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
           child: Table(
             columnWidths: {
-              0: FlexColumnWidth(1.0),
-              1: FlexColumnWidth(1.2),
-              2: FlexColumnWidth(2.3),
+              0: FlexColumnWidth(getDeviceType() ? 0.9 : 1.0),
+              1: FlexColumnWidth(getDeviceType() ? 0.9 : 1.2),
+              2: FlexColumnWidth(2.4),
               3: FlexColumnWidth(1.7),
               4: FlexColumnWidth(2.5),
-              5: FlexColumnWidth(1.5),
-              6: FlexColumnWidth(1.7),
-              7: FlexColumnWidth(2),
+              5: FlexColumnWidth(getDeviceType() ? 1.4 : 1.5),
+              6: FlexColumnWidth(1.8),
+              7: FlexColumnWidth(2.2),
+              8: FlexColumnWidth(1.2),
             },
             border: TableBorder(
               horizontalInside: BorderSide(
@@ -131,8 +137,10 @@ class ProductScreen extends StatelessWidget {
                                                                 .centerLeft,
                                                             child: Text(
                                                               each.toString(),
-                                                              style:
-                                                                  TextStyle(),
+                                                              style: TextStyle(
+                                                                  // fontFamily:
+                                                                  //     "Roboto",
+                                                                  ),
                                                             ),
                                                           ),
                                                         ),
@@ -171,7 +179,7 @@ class ProductScreen extends StatelessWidget {
 
   Widget _eachFoodType(String assets) {
     return Container(
-      padding: EdgeInsets.only(top: 20, right: 25),
+      padding: EdgeInsets.only(top: 20, right: getDeviceType() ? 13 : 25),
       color: Colors.white,
       child: Image.asset(
         assets,
@@ -183,79 +191,87 @@ class ProductScreen extends StatelessWidget {
   }
 
   Widget _searchBarItems() {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(flex: 4, child: SearchBar()),
-          SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            flex: 4,
-            child: Row(
-              children: [
-                Container(
-                  height: _commonHeight,
-                  child: RaisedButton.icon(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    icon: Icon(
-                      Icons.menu,
-                      size: 18,
-                    ),
-                    label: Text("Showing 6 entries"),
-                    onPressed: () {},
-                    color: Color(0xffDBDBDB),
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Container(
-                  width: _commonHeight,
-                  height: _commonHeight,
-                  child: Card(
-                    elevation: 0,
-                    child: Icon(
-                      Icons.add,
-                      size: 20,
-                    ),
-                    margin: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    color: Color(0xffDBDBDB),
-                  ),
-                ),
-              ],
+    return GetBuilder(
+      init: HomeController(),
+      builder: (HomeController controller) => Container(
+        child: Row(
+          children: [
+            Expanded(flex: 4, child: SearchBar()),
+            SizedBox(
+              width: 15,
             ),
-          ),
-          Container(
-            height: _commonHeight,
-            child: RaisedButton(
-              elevation: 1,
-              onPressed: () {},
+            Expanded(
+              flex: 4,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.add,
-                    size: 14,
-                    color: Colors.white,
+                  Container(
+                    height: commonHeight,
+                    child: RaisedButton.icon(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      icon: Icon(
+                        Icons.menu,
+                        size: 18,
+                      ),
+                      label: Text("Showing 6 entries"),
+                      onPressed: () {},
+                      color: Color(0xffDBDBDB),
+                    ),
                   ),
-                  Text(
-                    "Add New",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: commonHeight,
+                    height: commonHeight,
+                    child: Card(
+                      elevation: 0,
+                      child: Icon(
+                        Icons.add,
+                        size: 20,
+                      ),
+                      margin: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      color: Color(0xffDBDBDB),
+                    ),
                   ),
                 ],
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              color: CustomColors.buttonGreenColor,
             ),
-          ),
-        ],
+            GetBuilder(
+              init: ProductController(),
+              builder: (ProductController productController) => Container(
+                height: commonHeight,
+                child: RaisedButton(
+                  elevation: 1,
+                  onPressed: () {
+                    productController.onAddProductClick();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.add,
+                        size: 14,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        " Add New",
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ],
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  color: CustomColors.buttonGreenColor,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

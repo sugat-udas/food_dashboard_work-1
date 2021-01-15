@@ -9,6 +9,9 @@ import 'package:food/util/eachDashboardMenu.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
+  String url =
+      "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=K7SoRreE8DAAX_sx1qg&_nc_ht=scontent.fktm3-1.fna&oh=f00647a1eaff1045999abed17c74f31a&oe=60286AD1";
+
   HomeController controller;
   AdminController adminController;
   var realOrientation;
@@ -75,7 +78,7 @@ class HomePage extends StatelessWidget {
   }
 
   double _menuSidebarSizeMaintain(context) {
-    var value;
+    double value;
     if (getDeviceType() ||
         (!getDeviceType() && getOpacityForOrientation(context) == 1)) {
       value = 180;
@@ -86,48 +89,46 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _menuSideBar(context) {
-    return GetBuilder(
-        init: HomeController(),
-        builder: (controller) => Container(
-              width: _menuSidebarSizeMaintain(context),
-              child: Drawer(
-                elevation: 0,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      customSizedBoxed(height: 15),
-                      EachDashboardMenu(
-                        icons: Icons.dashboard,
-                        text: "Dashboard",
-                        index: 0,
-                      ),
-                      EachDashboardMenu(
-                        icons: Icons.local_dining,
-                        text: "Orders",
-                        index: 1,
-                      ),
-                      EachDashboardMenu(
-                        icons: Icons.menu_book_rounded,
-                        text: "Product",
-                        index: 2,
-                      ),
-                      EachDashboardMenu(
-                        icons: Icons.group_rounded,
-                        text: "Customers",
-                        index: 3,
-                      ),
-                      EachDashboardMenu(
-                        icons: Icons.star,
-                        text: "Credit",
-                        index: 4,
-                      ),
-                      EachDashboardMenu(
-                          icons: Icons.settings, text: "Settings", index: 5),
-                    ],
-                  ),
-                ),
+    return Container(
+      width: _menuSidebarSizeMaintain(context),
+      child: Drawer(
+        elevation: 0,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              customSizedBoxed(height: getDeviceType() ? 30 : 15),
+              EachDashboardMenu(
+                icons: Icons.dashboard,
+                text: "Dashboard",
+                index: 0,
               ),
-            ));
+              EachDashboardMenu(
+                icons: Icons.local_dining,
+                text: "Orders",
+                index: 1,
+              ),
+              EachDashboardMenu(
+                icons: Icons.menu_book_rounded,
+                text: "Product",
+                index: 2,
+              ),
+              EachDashboardMenu(
+                icons: Icons.group_rounded,
+                text: "Customers",
+                index: 3,
+              ),
+              EachDashboardMenu(
+                icons: Icons.star,
+                text: "Credit",
+                index: 4,
+              ),
+              EachDashboardMenu(
+                  icons: Icons.settings, text: "Settings", index: 5),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _appBar() {
@@ -145,7 +146,8 @@ class HomePage extends StatelessWidget {
             CircleAvatar(
               radius: 16,
               backgroundImage: NetworkImage(
-                  "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=0gu5vxX82-oAX-gc96F&_nc_ht=scontent.fktm3-1.fna&oh=35af3a76207cc2e56368dbde03f20eee&oe=6000DDD1"),
+                url,
+              ),
             ),
             SizedBox(
               width: 10,

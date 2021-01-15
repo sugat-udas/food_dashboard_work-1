@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {
+  bool addProductFlag = false;
+
   double checkIndex = 0;
   bool tickState = false;
   List _urlList = [
@@ -9,6 +11,10 @@ class ProductController extends GetxController {
     "http://www.pngall.com/wp-content/uploads/2016/05/Burger-PNG-Image.png",
     "http://www.pngall.com/wp-content/uploads/4/Fries-Transparent.png"
   ];
+  onAddProductClick() {
+    addProductFlag = !addProductFlag;
+    update();
+  }
 
   List get urlList => _urlList;
   List _infoHeadList = [
@@ -48,7 +54,7 @@ class ProductController extends GetxController {
     ],
     [
       "blackForestImg",
-      false,
+      true,
       "Black Forest",
       "Dessert",
       "Egg, Chocolate, Whipped cream, Cherries",
@@ -59,9 +65,9 @@ class ProductController extends GetxController {
     ],
     [
       "momoImg",
-      false,
+      true,
       "Chicken MoMo",
-      "Dessert",
+      "Momo",
       "Chicken",
       "Rs. 130",
       "Rs. 100",
@@ -70,9 +76,9 @@ class ProductController extends GetxController {
     ],
     [
       "momoImg",
-      true,
+      false,
       "Veg C.MoMo",
-      "MoMo",
+      "Momo",
       "Cabbage",
       "Rs. 255",
       "--",
@@ -81,9 +87,9 @@ class ProductController extends GetxController {
     ],
     [
       "frenchFriesImg",
-      true,
-      "Veg C.MoMo",
-      "MoMo",
+      false,
+      "French Fries",
+      "Fries",
       "Potato",
       "Rs. 129",
       "Rs. 90",

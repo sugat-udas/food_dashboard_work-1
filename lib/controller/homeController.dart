@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   int _currentIndex = 2;
+
+  int get currentIndex => _currentIndex;
   List _screens = [
     DashboardScreen(),
     OrderScreen(),
@@ -22,8 +24,6 @@ class HomeController extends GetxController {
   set currentIndex(int value) {
     _currentIndex = value;
   }
-
-  int get currentIndex => _currentIndex;
 
   void onSelect(int index) {
     currentIndex = index;

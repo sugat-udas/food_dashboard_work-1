@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
 class AdminController extends GetxController {
+  String url =
+      "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=K7SoRreE8DAAX_sx1qg&_nc_ht=scontent.fktm3-1.fna&oh=f00647a1eaff1045999abed17c74f31a&oe=60286AD1";
   List get infoList => _infoList;
 
   List _infoHeadList = [
