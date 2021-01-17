@@ -85,7 +85,9 @@ class HomePage extends StatelessWidget {
     } else if (!getDeviceType() && getOpacityForOrientation(context) == 0) {
       value = width * 0.17;
     }
+    
     return value;
+    
   }
 
   Widget _menuSideBar(context) {

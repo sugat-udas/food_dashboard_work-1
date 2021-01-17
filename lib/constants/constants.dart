@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 class Constants {
   static BoxShadow kGeneralBoxShadow = BoxShadow(
       color: Colors.grey.withOpacity(0.5),
-      spreadRadius: 1,
+      spreadRadius: 0,
       blurRadius: 3,
-      offset: Offset(1, 2));
+      offset: Offset(1, 1));
 
   static double commonHeight = getDeviceType()
       ? 30

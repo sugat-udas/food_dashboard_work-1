@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food/constants/constants.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 
 class AddProductPage extends StatelessWidget {
   OutlineInputBorder borderData;
+
   ProductController productController = ProductController();
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,11 @@ class AddProductPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        color: Color(0xffF4F4F4),
+        color: CustomColors.backgroundLightGrey,
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: [
             Row(
-              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(),
@@ -55,7 +57,7 @@ class AddProductPage extends StatelessWidget {
         SizedBox(
           width: 20,
         ),
-        Expanded(child: _itemInfo()),
+        Expanded(child: _itemThumbnail()),
       ],
     );
   }
@@ -63,6 +65,7 @@ class AddProductPage extends StatelessWidget {
   Widget _itemInfo() {
     return Container(
       decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(5),
         color: CustomColors.colorInfoThumbnailHeader,
       ),
@@ -82,9 +85,158 @@ class AddProductPage extends StatelessWidget {
     );
   }
 
+  Widget _itemThumbnail() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(5),
+        color: CustomColors.colorInfoThumbnailHeader,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            child: Text(
+              "Thumbnail",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          _itemThumbnailBody()
+        ],
+      ),
+    );
+  }
+
+  Widget _itemThumbnailBody() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(5),
+          bottomLeft: Radius.circular(5),
+        ),
+        color: Colors.white,
+      ),
+      height: getDeviceType() ? 370 : 390,
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 40,
+          ),
+          _uploadImgBtn(),
+          SizedBox(
+            height: 60,
+          ),
+          _imgPreview()
+        ],
+      ),
+    );
+  }
+
+  Widget _uploadImgBtn() {
+    return RaisedButton.icon(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        elevation: 0,
+        onPressed: () {},
+        icon: Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: Icon(
+            Icons.add_a_photo,
+            size: 20,
+          ),
+        ),
+        label: Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
+          child: Text("Upload Image"),
+        ));
+  }
+
+  Widget _imgPreview() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Image Preview",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: _largeImg()),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(child: _tileImg()),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _largeImg() {
+    return _eachBoxImg(
+      label: "Large Image",
+    );
+  }
+
+  Widget _tileImg() {
+    return _eachBoxImg(
+        circleRadiusVal: 100,
+        boxShape: BoxShape.circle,
+        borderType: BorderType.Circle,
+        label: "Tile Display");
+  }
+
+  Widget _eachBoxImg(
+      {BoxShape boxShape,
+      double circleRadiusVal,
+      BorderType borderType,
+      String label}) {
+    return GetBuilder(
+      init: AddProductController(),
+      builder: (AddProductController addProductController) =>
+          !addProductController.uploadedImg
+              ? Container(
+                  decoration: BoxDecoration(
+                    shape: boxShape ?? BoxShape.rectangle,
+                    color: CustomColors.backgroundLightGrey,
+                  ),
+                  height: 150,
+                  width: 150,
+                  child: DottedBorder(
+                    borderType: borderType ?? BorderType.Rect,
+                    child: Center(
+                        child: Text(
+                      label,
+                    )),
+                  ),
+                )
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(circleRadiusVal ?? 0),
+                  child: Image.network(
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWkGzjckufHk3zcbNGRS3Db5Rqlhk5MEXy9A&usqp=CAU",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+    );
+
+    ;
+  }
+
   Widget _itemInfoBody() {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(5),
+          bottomLeft: Radius.circular(5),
+        ),
+        color: Colors.white,
+      ),
+      height: getDeviceType() ? 370 : 390,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
         child: Column(
@@ -248,7 +400,7 @@ class AddProductPage extends StatelessWidget {
           height: 5,
         ),
         Container(
-          height: getDeviceType() ? 80 : 100,
+          height: 100,
           child: TextFormField(
             maxLines: 6,
             keyboardType: TextInputType.multiline,
@@ -335,10 +487,6 @@ class AddProductPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget _itemThumbnail() {
-    return Text("Item thumbnaiisBlank");
   }
 
   Widget _backBtn() {

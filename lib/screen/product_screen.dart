@@ -13,6 +13,11 @@ import 'package:get/get.dart';
 class ProductScreen extends StatelessWidget {
   // ProductController productController = ProductController();
   double commonHeight;
+  BoxShadow boxShad = BoxShadow(
+      color: Colors.grey.withOpacity(0.5),
+      spreadRadius: 2,
+      blurRadius: 4,
+      offset: Offset(2, 2));
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +54,7 @@ class ProductScreen extends StatelessWidget {
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [Constants.kGeneralBoxShadow]),
+            boxShadow: [boxShad]),
 
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
