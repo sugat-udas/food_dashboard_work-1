@@ -124,7 +124,7 @@ class ProductScreen extends StatelessWidget {
                                                                       .shade400),
                                                           child: Checkbox(
                                                             tristate: false,
-                                                            value: false,
+                                                            value: productController.tickState,
                                                             onChanged: (value) {
                                                               productController
                                                                   .changeTickState();

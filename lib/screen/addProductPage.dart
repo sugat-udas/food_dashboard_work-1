@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/addProductController.dart';
@@ -42,22 +43,41 @@ class AddProductPage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            _itemInfoThumbnail(),
+            _allItemInfo(),
           ],
         ),
       ),
     );
   }
 
-  _itemInfoThumbnail() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  _allItemInfo() {
+    return Column(
       children: [
-        Expanded(child: _itemInfo()),
-        SizedBox(
-          width: 20,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: _itemInfo()),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(child: _itemThumbnail()),
+          ],
         ),
-        Expanded(child: _itemThumbnail()),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: _category()),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(child: _addOns()),
+          ],
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        _extra(),
       ],
     );
   }
@@ -205,9 +225,10 @@ class AddProductPage extends StatelessWidget {
                     shape: boxShape ?? BoxShape.rectangle,
                     color: CustomColors.backgroundLightGrey,
                   ),
-                  height: 150,
-                  width: 150,
+                  height: getDeviceType() ? 135 : 150,
+                  width: getDeviceType() ? 135 : 150,
                   child: DottedBorder(
+                    dashPattern: [8, 8],
                     borderType: borderType ?? BorderType.Rect,
                     child: Center(
                         child: Text(
@@ -270,12 +291,219 @@ class AddProductPage extends StatelessWidget {
     );
   }
 
+  Widget _category() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(5),
+        color: CustomColors.colorInfoThumbnailHeader,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            child: Text(
+              "Category",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          _categoryBody()
+        ],
+      ),
+    );
+  }
+
+  Widget _extra() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(5),
+        color: CustomColors.colorInfoThumbnailHeader,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Extra",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Icon(Icons.keyboard_arrow_down)
+              ],
+            ),
+          ),
+          _extraBody()
+        ],
+      ),
+    );
+  }
+
+  Widget _extraBody() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(5),
+          bottomLeft: Radius.circular(5),
+        ),
+        color: Colors.white,
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+      height: 150,
+    );
+  }
+
+  Widget _categoryBody() {
+    return GetBuilder(
+      init: AddProductController(),
+      builder: (AddProductController addProductController) => Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(5),
+            bottomLeft: Radius.circular(5),
+          ),
+          color: Colors.white,
+        ),
+        padding: EdgeInsets.only(
+            top: 8,
+            bottom: 8,
+            right: getDeviceType() ? 8 : 20,
+            left: getDeviceType() ? 0 : 20),
+        child: Wrap(
+          direction: Axis.horizontal,
+          children: addProductController.categoryList.keys.map((String key) {
+            return key == "add"
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 15.0, left: 16.0),
+                    child: Icon(
+                      Icons.add_circle,
+                      size: 16,
+                      color: Colors.grey.shade500,
+                    ),
+                  )
+                : Container(
+                    width: getDeviceType() ? 108 : 110.0,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Transform.scale(
+                          scale: 0.7,
+                          child: Checkbox(
+                            focusColor: Colors.blue,
+                            value: addProductController.categoryList[key],
+                            activeColor: Colors.indigoAccent,
+                            checkColor: Colors.white,
+                            onChanged: (bool value) {
+                              addProductController.onChangeCategoryState(
+                                  newVal: value, currentKey: key);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(key),
+                        ),
+                      ],
+                    ),
+                  );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget _addOns() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(5),
+        color: CustomColors.colorInfoThumbnailHeader,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            child: Text(
+              "AddOns",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          _addOnsBody()
+        ],
+      ),
+    );
+  }
+
+  Widget _addOnsBody() {
+    return GetBuilder(
+      init: AddProductController(),
+      builder: (AddProductController addProductController) => Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(5),
+            bottomLeft: Radius.circular(5),
+          ),
+          color: Colors.white,
+        ),
+        padding: EdgeInsets.only(
+            top: 8,
+            bottom: 8,
+            right: getDeviceType() ? 8 : 20,
+            left: getDeviceType() ? 0 : 20),
+        child: Wrap(
+          direction: Axis.horizontal,
+          children: addProductController.addonsList.keys.map((String key) {
+            return key == "add"
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 15.0, left: 16.0),
+                    child: Icon(
+                      Icons.add_circle,
+                      size: 16,
+                      color: Colors.grey.shade500,
+                    ),
+                  )
+                : Container(
+                    width: getDeviceType() ? 108 : 110.0,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Transform.scale(
+                          scale: 0.7,
+                          child: Checkbox(
+                            value: addProductController.addonsList[key],
+                            activeColor: Colors.pink,
+                            checkColor: Colors.white,
+                            onChanged: (bool value) {
+                              addProductController.onChangeCategoryState(
+                                  newVal: value, currentKey: key);
+                            },
+                          ),
+                        ),
+                        Expanded(child: Text(key)),
+                      ],
+                    ),
+                  );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
   Widget _actualPrice() {
-    return _eachItem(name: "Actual Price", hint: "Enter actual price");
+    return _eachItem(name: "Actual Price", hint: "Enter actual price",isNum: true);
   }
 
   Widget _offerPrice() {
-    return _eachItem(name: "Offer price", hint: "Enter offer price");
+    return _eachItem(name: "Offer price", hint: "Enter offer price",isNum: true);
   }
 
   Widget _type() {
@@ -315,9 +543,9 @@ class AddProductPage extends StatelessWidget {
                 width: 0,
               ),
               onChanged: (String newValue) {
-                addProductController.setDropDown(newValue);
+                addProductController.setDropDownType(newValue);
               },
-              value: addProductController.dropdownValue,
+              value: addProductController.dropdownTypeValue,
               elevation: 16,
               items: <String>["---select---", "Veg", "Non-Veg"]
                   .map<DropdownMenuItem<String>>((String value) {
@@ -348,7 +576,7 @@ class AddProductPage extends StatelessWidget {
     );
   }
 
-  Widget _eachItem({String name, String hint}) {
+  Widget _eachItem({String name, String hint,bool isNum=false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -367,7 +595,11 @@ class AddProductPage extends StatelessWidget {
               : Get.context.isPortrait
                   ? (Get.height * .0345)
                   : (Get.height * .05),
-          child: TextField(
+          child: TextFormField(
+            keyboardType: isNum?TextInputType.number:TextInputType.name,
+            inputFormatters:isNum? <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            ]:null,
             decoration: InputDecoration(
                 focusedBorder: borderData,
                 enabledBorder: borderData,
@@ -452,9 +684,9 @@ class AddProductPage extends StatelessWidget {
                 width: 0,
               ),
               onChanged: (String newValue) {
-                addProductController.setDropDown(newValue);
+                addProductController.setDropDownQuality(newValue);
               },
-              value: addProductController.dropdownValue,
+              value: addProductController.dropdownQualityValue,
               elevation: 16,
               items: <String>[
                 "---select---",

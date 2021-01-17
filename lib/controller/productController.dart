@@ -4,7 +4,7 @@ class ProductController extends GetxController {
   bool addProductFlag = false;
 
   double checkIndex = 0;
-  bool tickState = false;
+  bool tickState=false;
   List _urlList = [
     "http://www.pngall.com/wp-content/uploads/5/Chocolate-Cake-PNG-Clipart.png",
     "https://s.clipartkey.com/mpngs/s/84-849910_los-angeles-nepal-food-momos-png.png",
