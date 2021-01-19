@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class ProductController extends GetxController {
+class RoughController extends GetxController {
   bool addProductFlag = false;
 
   double checkIndex = 0;
@@ -32,7 +32,7 @@ class ProductController extends GetxController {
   List _infoList = [
     [
       "burgerImg",
-      true,
+      "assets/nonVeg.png",
       "Chicken Burger",
       "Appetizer, Snack",
       "Lettuce, Cheese, Onions, Sauce",
@@ -43,7 +43,7 @@ class ProductController extends GetxController {
     ],
     [
       "burgerImg",
-      false,
+      "assets/veg.png",
       "Veg Burger",
       "Appetizer",
       "Lettuce, Cheese, Onions, Sauce",
@@ -97,7 +97,6 @@ class ProductController extends GetxController {
       "Actions"
     ],
   ];
-
   
   List get infoList => _infoList;
 

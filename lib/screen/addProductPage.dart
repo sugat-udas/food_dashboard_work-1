@@ -155,21 +155,26 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _uploadImgBtn() {
-    return RaisedButton.icon(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        elevation: 0,
-        onPressed: () {},
-        icon: Padding(
-          padding: const EdgeInsets.only(left: 5),
-          child: Icon(
-            Icons.add_a_photo,
-            size: 20,
+    return GetBuilder(
+      init: AddProductController(),
+      builder: (AddProductController controller) => RaisedButton.icon(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          elevation: 0,
+          onPressed: () {
+            controller.getImage();
+          },
+          icon: Padding(
+            padding: const EdgeInsets.only(left: 5),
+            child: Icon(
+              Icons.add_a_photo,
+              size: 20,
+            ),
           ),
-        ),
-        label: Padding(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
-          child: Text("Upload Image"),
-        ));
+          label: Padding(
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
+            child: Text("Upload Image"),
+          )),
+    );
   }
 
   Widget _imgPreview() {
@@ -219,7 +224,7 @@ class AddProductPage extends StatelessWidget {
     return GetBuilder(
       init: AddProductController(),
       builder: (AddProductController addProductController) =>
-          !addProductController.uploadedImg
+          addProductController.image == null
               ? Container(
                   decoration: BoxDecoration(
                     shape: boxShape ?? BoxShape.rectangle,
@@ -238,9 +243,8 @@ class AddProductPage extends StatelessWidget {
                 )
               : ClipRRect(
                   borderRadius: BorderRadius.circular(circleRadiusVal ?? 0),
-                  child: Image.network(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWkGzjckufHk3zcbNGRS3Db5Rqlhk5MEXy9A&usqp=CAU",
-                    fit: BoxFit.cover,
+                  child: Image.file(
+                    addProductController.image,
                   ),
                 ),
     );
@@ -499,11 +503,27 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _actualPrice() {
-    return _eachItem(name: "Actual Price", hint: "Enter actual price",isNum: true);
+    return GetBuilder(
+      init: AddProductController(),
+      builder: (AddProductController controller) => _eachItem(
+        name: "Actual Price",
+        hint: "Enter actual price",
+        isNum: true,
+        onChange: (newVal) => controller.setActualPrice(newVal),
+      ),
+    );
   }
 
   Widget _offerPrice() {
-    return _eachItem(name: "Offer price", hint: "Enter offer price",isNum: true);
+    return GetBuilder(
+      init: AddProductController(),
+      builder: (AddProductController controller) => _eachItem(
+        name: "Offer price",
+        hint: "Enter offer price",
+        isNum: true,
+        onChange: (newVal) => controller.setActualPrice(newVal),
+      ),
+    );
   }
 
   Widget _type() {
@@ -570,13 +590,21 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _itemName() {
-    return _eachItem(
-      name: "Item Name",
-      hint: "Enter item Name",
+    return GetBuilder(
+      init: AddProductController(),
+      builder: (AddProductController controller) => _eachItem(
+        name: "Item Name",
+        hint: "Enter item Name",
+        onChange: (newVal) => controller.setName(newVal),
+      ),
     );
   }
 
-  Widget _eachItem({String name, String hint,bool isNum=false}) {
+  Widget _eachItem(
+      {String name,
+      String hint,
+      bool isNum = false,
+      Function onChange(newVal)}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -596,10 +624,15 @@ class AddProductPage extends StatelessWidget {
                   ? (Get.height * .0345)
                   : (Get.height * .05),
           child: TextFormField(
-            keyboardType: isNum?TextInputType.number:TextInputType.name,
-            inputFormatters:isNum? <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-            ]:null,
+            onChanged: (String newVal) {
+              onChange(newVal);
+            },
+            keyboardType: isNum ? TextInputType.number : TextInputType.name,
+            inputFormatters: isNum
+                ? <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ]
+                : null,
             decoration: InputDecoration(
                 focusedBorder: borderData,
                 enabledBorder: borderData,

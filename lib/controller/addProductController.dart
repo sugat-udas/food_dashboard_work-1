@@ -1,6 +1,43 @@
+import 'dart:io';
+
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddProductController extends GetxController {
+  File image;
+String name;
+String actualPrice;
+String offeredPrice;
+
+
+  final picker = ImagePicker();
+
+setName(String val){
+  name=val;
+  update();
+  print(name);
+}
+setActualPrice(String val){
+  actualPrice=val;
+  update();
+  print(actualPrice);
+}
+setOfferedPrice(String val){
+  offeredPrice=val;
+  update();
+  print(offeredPrice);
+}
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      image = File(pickedFile.path);
+      update();
+    } else {
+      print("Images");
+    }
+  }
+
   Map<String, bool> categoryList = {
     'Snack': false,
     'Dessert': false,
@@ -10,10 +47,10 @@ class AddProductController extends GetxController {
     'Chilly': false,
     'Sweet': false,
     'Salad': false,
-    'breakfast':false,
-    'dinner':false,
+    'breakfast': false,
+    'dinner': false,
     'Salty': false,
-    'add':false,
+    'add': false,
   };
   Map<String, bool> addonsList = {
     'Bread': false,
@@ -27,7 +64,7 @@ class AddProductController extends GetxController {
     'Sugar': false,
     'Colcolate': false,
     'Potato': false,
-    'add':false,
+    'add': false,
   };
 
   var _tmpArray = [];
@@ -45,6 +82,7 @@ class AddProductController extends GetxController {
     dropdownQualityValue = val;
     update();
   }
+
   setDropDownType(val) {
     dropdownTypeValue = val;
     update();
