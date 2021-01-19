@@ -62,7 +62,7 @@ setOfferedPrice(String val){
     'Cake': false,
     'Breed': false,
     'Sugar': false,
-    'Colcolate': false,
+    'Chocolate': false,
     'Potato': false,
     'add': false,
   };
@@ -73,14 +73,19 @@ setOfferedPrice(String val){
     categoryList[currentKey] = newVal;
     update();
   }
+  onChangeAddOnsState({bool newVal, String currentKey}) {
+    addonsList[currentKey] = newVal;
+    update();
+  }
 
   String dropdownQualityValue = "---select---";
   String dropdownTypeValue = "---select---";
-  bool uploadedImg = false;
+ 
 
   setDropDownQuality(val) {
     dropdownQualityValue = val;
     update();
+    print(dropdownQualityValue);
   }
 
   setDropDownType(val) {

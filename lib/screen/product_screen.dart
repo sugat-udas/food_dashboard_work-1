@@ -124,7 +124,9 @@ class ProductScreen extends StatelessWidget {
                                                                       .shade400),
                                                           child: Checkbox(
                                                             tristate: false,
-                                                            value: productController.tickState,
+                                                            value:
+                                                                productController
+                                                                    .tickState,
                                                             onChanged: (value) {
                                                               productController
                                                                   .changeTickState();
@@ -196,87 +198,84 @@ class ProductScreen extends StatelessWidget {
   }
 
   Widget _searchBarItems() {
-    return GetBuilder(
-      init: HomeController(),
-      builder: (HomeController controller) => Container(
-        child: Row(
-          children: [
-            Expanded(flex: 4, child: SearchBar()),
-            SizedBox(
-              width: 15,
-            ),
-            Expanded(
-              flex: 4,
-              child: Row(
-                children: [
-                  Container(
-                    height: commonHeight,
-                    child: RaisedButton.icon(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      icon: Icon(
-                        Icons.menu,
-                        size: 18,
-                      ),
-                      label: Text("Showing 6 entries"),
-                      onPressed: () {},
-                      color: Color(0xffDBDBDB),
+    return Container(
+      child: Row(
+        children: [
+          Expanded(flex: 4, child: SearchBar()),
+          SizedBox(
+            width: 15,
+          ),
+          Expanded(
+            flex: 4,
+            child: Row(
+              children: [
+                Container(
+                  height: commonHeight,
+                  child: RaisedButton.icon(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    icon: Icon(
+                      Icons.menu,
+                      size: 18,
                     ),
+                    label: Text("Showing 6 entries"),
+                    onPressed: () {},
+                    color: Color(0xffDBDBDB),
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: commonHeight,
-                    height: commonHeight,
-                    child: Card(
-                      elevation: 0,
-                      child: Icon(
-                        Icons.add,
-                        size: 20,
-                      ),
-                      margin: EdgeInsets.zero,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      color: Color(0xffDBDBDB),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            GetBuilder(
-              init: ProductController(),
-              builder: (ProductController productController) => Container(
-                height: commonHeight,
-                child: RaisedButton(
-                  elevation: 1,
-                  onPressed: () {
-                    productController.onAddProductClick();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.add,
-                        size: 14,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        " Add New",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ],
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  color: CustomColors.buttonGreenColor,
                 ),
+                SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  width: commonHeight,
+                  height: commonHeight,
+                  child: Card(
+                    elevation: 0,
+                    child: Icon(
+                      Icons.add,
+                      size: 20,
+                    ),
+                    margin: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    color: Color(0xffDBDBDB),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GetBuilder(
+            init: ProductController(),
+            builder: (ProductController productController) => Container(
+              height: commonHeight,
+              child: RaisedButton(
+                elevation: 1,
+                onPressed: () {
+                  productController.onAddProductClick();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.add,
+                      size: 14,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      " Add New",
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                  ],
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                color: CustomColors.buttonGreenColor,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

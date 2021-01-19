@@ -2,18 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food/constants/customColors.dart';
-import 'package:food/controller/adminController.dart';
+import 'package:food/controller/creditController.dart';
 import 'package:food/controller/homeController.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/eachDashboardMenu.dart';
 import 'package:get/get.dart';
+
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   String url =
       "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=K7SoRreE8DAAX_sx1qg&_nc_ht=scontent.fktm3-1.fna&oh=f00647a1eaff1045999abed17c74f31a&oe=60286AD1";
 
   HomeController controller;
-  AdminController adminController;
+  CreditController adminController;
   var realOrientation;
   double height;
   double width;
@@ -64,17 +66,17 @@ class HomePage extends StatelessWidget {
 
   Widget _body(context) {
     print(realOrientation.toString() + " orientations");
-    return GetBuilder(
-      init: HomeController(),
-      builder: (controller) => Row(
+    return Consumer<HomeController>(builder: (context, homeController, child) {
+      return Row(
         children: [
           (getDeviceType() == false && getOpacityForOrientation(context) == 0)
               ? _menuSideBar(context)
               : SizedBox(),
-          controller.screensList[controller.currentIndex],
+          homeController
+              .screensList[homeController.currentIndex],
         ],
-      ),
-    );
+      );
+    });
   }
 
   double _menuSidebarSizeMaintain(context) {
@@ -85,9 +87,8 @@ class HomePage extends StatelessWidget {
     } else if (!getDeviceType() && getOpacityForOrientation(context) == 0) {
       value = width * 0.17;
     }
-    
+
     return value;
-    
   }
 
   Widget _menuSideBar(context) {
@@ -98,7 +99,8 @@ class HomePage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              customSizedBoxed(height: getDeviceType() ? 30 : 15),
+           (getDeviceType() || getOpacityForOrientation(context) == 1)?   SizedBox(height: 75, child: DrawerHeader(child: Text("Menu",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),),margin: EdgeInsets.zero,)):SizedBox(height:15),
+             SizedBox(height: 10,),
               EachDashboardMenu(
                 icons: Icons.dashboard,
                 text: "Dashboard",

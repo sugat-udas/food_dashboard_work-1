@@ -230,8 +230,8 @@ class AddProductPage extends StatelessWidget {
                     shape: boxShape ?? BoxShape.rectangle,
                     color: CustomColors.backgroundLightGrey,
                   ),
-                  height: getDeviceType() ? 135 : 150,
-                  width: getDeviceType() ? 135 : 150,
+                  height: getDeviceType() ? 135 : 140,
+                  width: getDeviceType() ? 135 : 140,
                   child: DottedBorder(
                     dashPattern: [8, 8],
                     borderType: borderType ?? BorderType.Rect,
@@ -484,10 +484,10 @@ class AddProductPage extends StatelessWidget {
                           scale: 0.7,
                           child: Checkbox(
                             value: addProductController.addonsList[key],
-                            activeColor: Colors.pink,
+                            activeColor: Colors.pinkAccent,
                             checkColor: Colors.white,
                             onChanged: (bool value) {
-                              addProductController.onChangeCategoryState(
+                              addProductController.onChangeAddOnsState(
                                   newVal: value, currentKey: key);
                             },
                           ),

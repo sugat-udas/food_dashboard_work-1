@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
-import 'package:food/controller/adminController.dart';
+import 'package:food/controller/creditController.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class AdminDashBoard extends StatelessWidget {
   String url =
       "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=K7SoRreE8DAAX_sx1qg&_nc_ht=scontent.fktm3-1.fna&oh=f00647a1eaff1045999abed17c74f31a&oe=60286AD1";
-  AdminController adminController;
+  CreditController adminController;
   double height;
   double width;
   bool isMenuFixed(BuildContext context) {
@@ -268,8 +268,8 @@ class AdminDashBoard extends StatelessWidget {
 
   Widget _financeDataCard() {
     return GetBuilder(
-      init: AdminController(),
-      builder: (AdminController adminController) => Container(
+      init: CreditController(),
+      builder: (CreditController adminController) => Container(
         //elevation: 1,
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
