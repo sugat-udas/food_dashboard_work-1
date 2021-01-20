@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:get/get.dart';
 
+
+
+ 
 class SearchBarItems extends StatelessWidget {
+  
   double _commonHeight;
   @override
   Widget build(BuildContext context) {
+   
     _commonHeight = getDeviceType()
         ? 30
         : context.isPortrait
@@ -25,15 +32,16 @@ class SearchBarItems extends StatelessWidget {
           width: 13,
         ),
         Expanded(
-          flex: getDeviceType() ? 9 : 8,
+          flex:  9 ,
           child: Card(
             elevation: 2,
             color: Colors.white,
             child: Container(
               height: _commonHeight,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 4
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,11 @@
 import 'dart:io';
 
-import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:image_picker/image_picker.dart';
 
-class AddProductController extends GetxController {
+class AddProductController extends ChangeNotifier {
   File image;
 String name;
 String actualPrice;
@@ -14,17 +16,17 @@ String offeredPrice;
 
 setName(String val){
   name=val;
-  update();
+  notifyListeners();
   print(name);
 }
 setActualPrice(String val){
   actualPrice=val;
-  update();
+  notifyListeners();
   print(actualPrice);
 }
 setOfferedPrice(String val){
   offeredPrice=val;
-  update();
+  notifyListeners();
   print(offeredPrice);
 }
 
@@ -32,11 +34,14 @@ setOfferedPrice(String val){
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       image = File(pickedFile.path);
-      update();
+      notifyListeners();
     } else {
       print("Images");
     }
   }
+
+
+
 
   Map<String, bool> categoryList = {
     'Snack': false,
@@ -71,11 +76,11 @@ setOfferedPrice(String val){
 
   onChangeCategoryState({bool newVal, String currentKey}) {
     categoryList[currentKey] = newVal;
-    update();
+    notifyListeners();
   }
   onChangeAddOnsState({bool newVal, String currentKey}) {
     addonsList[currentKey] = newVal;
-    update();
+    notifyListeners();
   }
 
   String dropdownQualityValue = "---select---";
@@ -84,12 +89,12 @@ setOfferedPrice(String val){
 
   setDropDownQuality(val) {
     dropdownQualityValue = val;
-    update();
+    notifyListeners();
     print(dropdownQualityValue);
   }
 
   setDropDownType(val) {
     dropdownTypeValue = val;
-    update();
+    notifyListeners();
   }
 }

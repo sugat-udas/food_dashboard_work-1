@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:food/constants/constants.dart';
 import 'package:food/constants/customColors.dart';
+
 import 'package:food/controller/creditController.dart';
+
+import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
-class AdminDashBoard extends StatelessWidget {
+// ignore: must_be_immutable
+class CreditDashboard extends StatelessWidget {
+  var _adminControllerState;
   String url =
       "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=K7SoRreE8DAAX_sx1qg&_nc_ht=scontent.fktm3-1.fna&oh=f00647a1eaff1045999abed17c74f31a&oe=60286AD1";
   CreditController adminController;
@@ -18,6 +24,7 @@ class AdminDashBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _adminControllerState = Provider.of<CreditController>(context);
     height = Get.height;
     width = Get.width;
     return _contentBody();
@@ -267,69 +274,65 @@ class AdminDashBoard extends StatelessWidget {
   }
 
   Widget _financeDataCard() {
-    return GetBuilder(
-      init: CreditController(),
-      builder: (CreditController adminController) => Container(
-        //elevation: 1,
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [Constants.kGeneralBoxShadow]),
+    return Container(
+      //elevation: 1,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [Constants.kGeneralBoxShadow]),
 
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-          child: Table(
-            columnWidths: {
-              0: FlexColumnWidth(1.4),
-              1: FlexColumnWidth(1.8),
-              2: FlexColumnWidth(2.6),
-              3: FlexColumnWidth(1.9),
-              4: FlexColumnWidth(1.3),
-              5: FlexColumnWidth(1.5),
-              6: FlexColumnWidth(1.3),
-              7: FlexColumnWidth(1.2),
-            },
-            border: TableBorder(
-              horizontalInside: BorderSide(
-                  width: 0.5, color: CustomColors.borderDividerColor),
-              // bottom: BorderSide(width: 1, color: Colors.red)
-            ),
-            children: [
-              TableRow(children: [
-                for (var head in adminController.infoHeadList)
-                  TableCell(
-                      child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 7.0,
-                      bottom: 13.0,
-                    ),
-                    child: Text(
-                      head.toString(),
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                  ))
-              ]),
-              for (List eachList in adminController.infoList)
-                TableRow(children: [
-                  for (var each in eachList)
-                    TableCell(
-                      child: each == false
-                          ? actionButtons()
-                          : Padding(
-                              padding: EdgeInsets.only(
-                                top: 17.0,
-                                bottom: 7.0,
-                              ),
-                              child: Text(
-                                each.toString(),
-                              ),
-                            ),
-                    ),
-                ]),
-            ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+        child: Table(
+          columnWidths: {
+            0: FlexColumnWidth(1.4),
+            1: FlexColumnWidth(1.8),
+            2: FlexColumnWidth(2.6),
+            3: FlexColumnWidth(1.9),
+            4: FlexColumnWidth(1.3),
+            5: FlexColumnWidth(1.5),
+            6: FlexColumnWidth(1.3),
+            7: FlexColumnWidth(1.2),
+          },
+          border: TableBorder(
+            horizontalInside:
+                BorderSide(width: 0.5, color: CustomColors.borderDividerColor),
+            // bottom: BorderSide(width: 1, color: Colors.red)
           ),
+          children: [
+            TableRow(children: [
+              for (var head in _adminControllerState.infoHeadList)
+                TableCell(
+                    child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 7.0,
+                    bottom: 13.0,
+                  ),
+                  child: Text(
+                    head.toString(),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                ))
+            ]),
+            for (List eachList in _adminControllerState.infoList)
+              TableRow(children: [
+                for (var each in eachList)
+                  TableCell(
+                    child: each == false
+                        ? actionButtons()
+                        : Padding(
+                            padding: EdgeInsets.only(
+                              top: 17.0,
+                              bottom: 7.0,
+                            ),
+                            child: Text(
+                              each.toString(),
+                            ),
+                          ),
+                  ),
+              ]),
+          ],
         ),
       ),
     );

@@ -2,19 +2,38 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:food/constants/constants.dart';
+
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/addProductController.dart';
-import 'package:food/controller/productController.dart';
-import 'package:food/util/customWidgets.dart';
+
+import 'package:food/util/commonMethods.dart';
+
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class AddProductPage extends StatelessWidget {
+  var _addItemControllerState;
+  List<Widget> _categoryList;
+  
   OutlineInputBorder borderData;
-
-  ProductController productController = ProductController();
+ 
+  
+var commonHeight;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+
+
+
+
+    commonHeight= getDeviceType()
+      ? 30
+      : Get.context.isPortrait
+          ? (Get.height * .035)
+          : (Get.height * .05);
+    
+    _addItemControllerState = Provider.of<AddProductController>(context);
+   
     borderData = OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(color: Color(0xffD9D9D9)));
@@ -155,25 +174,23 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _uploadImgBtn() {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController controller) => RaisedButton.icon(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          elevation: 0,
-          onPressed: () {
-            controller.getImage();
-          },
-          icon: Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: Icon(
-              Icons.add_a_photo,
-              size: 20,
-            ),
-          ),
-          label: Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
-            child: Text("Upload Image"),
-          )),
+    return RaisedButton.icon(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      elevation: 0,
+      onPressed: () {
+        _addItemControllerState.getImage();
+      },
+      icon: Padding(
+        padding: const EdgeInsets.only(left: 5),
+        child: Icon(
+          Icons.add_a_photo,
+          size: 20,
+        ),
+      ),
+      label: Padding(
+        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
+        child: Text("Upload Image"),
+      ),
     );
   }
 
@@ -189,15 +206,15 @@ class AddProductPage extends StatelessWidget {
           height: 20,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child: _largeImg()),
-            SizedBox(
-              width: 20,
-            ),
-            Expanded(child: _tileImg()),
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(child: _largeImg()),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(child: _tileImg()),
+            ],
+          ),
       ],
     );
   }
@@ -221,33 +238,31 @@ class AddProductPage extends StatelessWidget {
       double circleRadiusVal,
       BorderType borderType,
       String label}) {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController addProductController) =>
-          addProductController.image == null
-              ? Container(
-                  decoration: BoxDecoration(
-                    shape: boxShape ?? BoxShape.rectangle,
-                    color: CustomColors.backgroundLightGrey,
-                  ),
-                  height: getDeviceType() ? 135 : 140,
-                  width: getDeviceType() ? 135 : 140,
-                  child: DottedBorder(
-                    dashPattern: [8, 8],
-                    borderType: borderType ?? BorderType.Rect,
-                    child: Center(
-                        child: Text(
-                      label,
-                    )),
-                  ),
-                )
-              : ClipRRect(
-                  borderRadius: BorderRadius.circular(circleRadiusVal ?? 0),
-                  child: Image.file(
-                    addProductController.image,
-                  ),
-                ),
-    );
+    return _addItemControllerState.image == null
+        ? Container(
+          
+            decoration: BoxDecoration(
+              shape: boxShape ?? BoxShape.rectangle,
+              color: CustomColors.backgroundLightGrey,
+            ),
+            height:getDeviceType() ? 135 : 140,
+            width:getDeviceType() ? 135 : 140,
+            child: DottedBorder(
+              
+              dashPattern: [8, 8],
+              borderType: borderType ?? BorderType.RRect,
+              child: Center(
+                  child: Text(
+                label,
+              )),
+            ),
+          )
+        : ClipRRect(
+            borderRadius: BorderRadius.circular(circleRadiusVal ?? 0),
+            child: Image.file(
+              _addItemControllerState.image,
+            ),
+          );
 
     ;
   }
@@ -363,9 +378,7 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _categoryBody() {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController addProductController) => Container(
+    return Container(
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -381,7 +394,7 @@ class AddProductPage extends StatelessWidget {
             left: getDeviceType() ? 0 : 20),
         child: Wrap(
           direction: Axis.horizontal,
-          children: addProductController.categoryList.keys.map((String key) {
+          children: [..._addItemControllerState.categoryList.keys.map((String key) {
             return key == "add"
                 ? Padding(
                     padding: const EdgeInsets.only(top: 15.0, left: 16.0),
@@ -401,11 +414,11 @@ class AddProductPage extends StatelessWidget {
                           scale: 0.7,
                           child: Checkbox(
                             focusColor: Colors.blue,
-                            value: addProductController.categoryList[key],
+                            value: _addItemControllerState.categoryList[key],
                             activeColor: Colors.indigoAccent,
                             checkColor: Colors.white,
                             onChanged: (bool value) {
-                              addProductController.onChangeCategoryState(
+                              _addItemControllerState.onChangeCategoryState(
                                   newVal: value, currentKey: key);
                             },
                           ),
@@ -416,9 +429,9 @@ class AddProductPage extends StatelessWidget {
                       ],
                     ),
                   );
-          }).toList(),
+          }).toList()]
         ),
-      ),
+      
     );
   }
 
@@ -446,157 +459,142 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _addOnsBody() {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController addProductController) => Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(5),
-            bottomLeft: Radius.circular(5),
-          ),
-          color: Colors.white,
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(5),
+          bottomLeft: Radius.circular(5),
         ),
-        padding: EdgeInsets.only(
-            top: 8,
-            bottom: 8,
-            right: getDeviceType() ? 8 : 20,
-            left: getDeviceType() ? 0 : 20),
-        child: Wrap(
-          direction: Axis.horizontal,
-          children: addProductController.addonsList.keys.map((String key) {
-            return key == "add"
-                ? Padding(
-                    padding: const EdgeInsets.only(top: 15.0, left: 16.0),
-                    child: Icon(
-                      Icons.add_circle,
-                      size: 16,
-                      color: Colors.grey.shade500,
-                    ),
-                  )
-                : Container(
-                    width: getDeviceType() ? 108 : 110.0,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Transform.scale(
-                          scale: 0.7,
-                          child: Checkbox(
-                            value: addProductController.addonsList[key],
-                            activeColor: Colors.pinkAccent,
-                            checkColor: Colors.white,
-                            onChanged: (bool value) {
-                              addProductController.onChangeAddOnsState(
-                                  newVal: value, currentKey: key);
-                            },
-                          ),
+        color: Colors.white,
+      ),
+      padding: EdgeInsets.only(
+          top: 8,
+          bottom: 8,
+          right: getDeviceType() ? 8 : 20,
+          left: getDeviceType() ? 0 : 20),
+      child: Wrap(
+        direction: Axis.horizontal,
+        children: [..._addItemControllerState.addonsList.keys.map((String key) {
+          return key == "add"
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 15.0, left: 16.0),
+                  child: Icon(
+                    Icons.add_circle,
+                    size: 16,
+                    color: Colors.grey.shade500,
+                  ),
+                )
+              : Container(
+                  width: getDeviceType() ? 108 : 110.0,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Transform.scale(
+                        scale: 0.7,
+                        child: Checkbox(
+                          value: _addItemControllerState.addonsList[key],
+                          activeColor: Colors.pinkAccent,
+                          checkColor: Colors.white,
+                          onChanged: (bool value) {
+                            _addItemControllerState.onChangeAddOnsState(
+                                newVal: value, currentKey: key);
+                          },
                         ),
-                        Expanded(child: Text(key)),
-                      ],
-                    ),
-                  );
-          }).toList(),
-        ),
+                      ),
+                      Expanded(child: Text(key)),
+                    ],
+                  ),
+                );
+        }).toList(),]
       ),
     );
   }
 
   Widget _actualPrice() {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController controller) => _eachItem(
-        name: "Actual Price",
-        hint: "Enter actual price",
-        isNum: true,
-        onChange: (newVal) => controller.setActualPrice(newVal),
-      ),
+    return _eachItem(
+      name: "Actual Price",
+      hint: "Enter actual price",
+      isNum: true,
+      onChange: (newVal) => _addItemControllerState.setActualPrice(newVal),
     );
   }
 
   Widget _offerPrice() {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController controller) => _eachItem(
-        name: "Offer price",
-        hint: "Enter offer price",
-        isNum: true,
-        onChange: (newVal) => controller.setActualPrice(newVal),
-      ),
+    return _eachItem(
+      name: "Offer price",
+      hint: "Enter offer price",
+      isNum: true,
+      onChange: (newVal) => _addItemControllerState.setActualPrice(newVal),
     );
   }
 
   Widget _type() {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController addProductController) => Column(
-        children: [
-          Container(
-            width: double.infinity,
-            child: Text(
-              "Type",
-              textAlign: TextAlign.start,
-              style: TextStyle(fontWeight: FontWeight.bold),
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          child: Text(
+            "Type",
+            textAlign: TextAlign.start,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Color(0xffD9D9D9))),
+          height: getDeviceType()
+              ? 30
+              : Get.context.isPortrait
+                  ? (Get.height * .0345)
+                  : (Get.height * .05),
+          child: DropdownButton(
+            isExpanded: true,
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.black54,
+              size: 20,
             ),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Color(0xffD9D9D9))),
-            height: getDeviceType()
-                ? 30
-                : Get.context.isPortrait
-                    ? (Get.height * .0345)
-                    : (Get.height * .05),
-            child: DropdownButton(
-              isExpanded: true,
-              icon: Icon(
-                Icons.keyboard_arrow_down,
-                color: Colors.black54,
-                size: 20,
-              ),
-              underline: Container(
-                width: 0,
-              ),
-              onChanged: (String newValue) {
-                addProductController.setDropDownType(newValue);
-              },
-              value: addProductController.dropdownTypeValue,
-              elevation: 16,
-              items: <String>["---select---", "Veg", "Non-Veg"]
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem(
-                    value: value,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        value,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black54,
-                        ),
+            underline: Container(
+              width: 0,
+            ),
+            onChanged: (newValue) {
+              _addItemControllerState.setDropDownType(newValue);
+            },
+            value: _addItemControllerState.dropdownTypeValue,
+            elevation: 16,
+            items: <String>["---select---", "Veg", "Non-Veg"]
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem(
+                  value: value,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      value,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
                       ),
-                    ));
-              }).toList(),
-            ),
-          )
-        ],
-      ),
+                    ),
+                  ));
+            }).toList(),
+          ),
+        )
+      ],
     );
   }
 
   Widget _itemName() {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController controller) => _eachItem(
-        name: "Item Name",
-        hint: "Enter item Name",
-        onChange: (newVal) => controller.setName(newVal),
-      ),
+    return _eachItem(
+      name: "Item Name",
+      hint: "Enter item Name",
+      onChange: (newVal) => _addItemControllerState.setName(newVal),
     );
   }
 
@@ -688,125 +686,116 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _itemQuantity() {
-    return GetBuilder(
-      init: AddProductController(),
-      builder: (AddProductController addProductController) => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            "Quantity",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Color(0xffD9D9D9))),
-            height: getDeviceType()
-                ? 30
-                : Get.context.isPortrait
-                    ? (Get.height * .0345)
-                    : (Get.height * .05),
-            child: DropdownButton(
-              isExpanded: true,
-              icon: Icon(Icons.keyboard_arrow_down,
-                  color: Colors.black54, size: 20),
-              underline: Container(
-                width: 0,
-              ),
-              onChanged: (String newValue) {
-                addProductController.setDropDownQuality(newValue);
-              },
-              value: addProductController.dropdownQualityValue,
-              elevation: 16,
-              items: <String>[
-                "---select---",
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10"
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem(
-                    value: value,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        value,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ));
-              }).toList(),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          "Quantity",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Color(0xffD9D9D9))),
+          height: getDeviceType()
+              ? 30
+              : Get.context.isPortrait
+                  ? (Get.height * .0345)
+                  : (Get.height * .05),
+          child: DropdownButton(
+            isExpanded: true,
+            icon: Icon(Icons.keyboard_arrow_down,
+                color: Colors.black54, size: 20),
+            underline: Container(
+              width: 0,
             ),
-          )
-        ],
-      ),
+            onChanged: ( newValue) {
+              _addItemControllerState.setDropDownQuality(newValue);
+            },
+            value: _addItemControllerState.dropdownQualityValue,
+            elevation: 16,
+            items: <String>[
+              "---select---",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10"
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem(
+                  value: value,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      value,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ));
+            }).toList(),
+          ),
+        )
+      ],
     );
   }
 
   Widget _backBtn() {
-    return GetBuilder(
-      init: productController,
-      builder: (productController) => GestureDetector(
-        onTap: () {
-          print("back");
-          productController.onAddProductClick();
-        },
-        child: Container(
-          child: Row(
-            children: [
-              Icon(
-                Icons.arrow_back_ios_rounded,
-                size: 18,
+    return GestureDetector(
+      onTap: () {
+        print("back");
+        _addItemControllerState.onAddProductClick();
+      },
+      child: Container(
+        child: Row(
+          children: [
+            Icon(
+              Icons.arrow_back_ios_rounded,
+              size: 18,
+              color: Colors.black87,
+            ),
+            SizedBox(
+              width: 4,
+            ),
+            Text(
+              "Back",
+              style: TextStyle(
                 color: Colors.black87,
               ),
-              SizedBox(
-                width: 4,
-              ),
-              Text(
-                "Back",
-                style: TextStyle(
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   Widget _saveItemBtn() {
-    return GetBuilder(
-      init: productController,
-      builder: (productController) => Container(
-        height: Constants.commonHeight,
-        child: RaisedButton(
-          onPressed: () {
-            print("Item Added");
-            productController.onAddProductClick();
-          },
-          elevation: 1,
-          child: Text(
-            "Save Item",
-            style: TextStyle(
-                color: Colors.white, fontSize: 15, fontFamily: "Roboto"),
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          color: CustomColors.buttonGreenColor,
+    return Container(
+      height: commonHeight,
+      child: RaisedButton(
+        onPressed: () {
+          print("Item Added");
+          _addItemControllerState.onAddProductClick();
+        },
+        elevation: 1,
+        child: Text(
+          "Save Item",
+          style: TextStyle(
+              color: Colors.white, fontSize: 15, fontFamily: "Roboto"),
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        color: CustomColors.buttonGreenColor,
       ),
     );
   }

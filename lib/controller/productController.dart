@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 
-class ProductController extends GetxController {
+
+
+class ProductController extends ChangeNotifier {
+
   bool addProductFlag = false;
+  
 
   double checkIndex = 0;
   bool tickState=false;
@@ -15,7 +18,7 @@ class ProductController extends GetxController {
   ];
   onAddProductClick() {
     addProductFlag = !addProductFlag;
-    update();
+    notifyListeners();
   }
 
   List get urlList => _urlList;
@@ -107,6 +110,6 @@ class ProductController extends GetxController {
 
   changeTickState() {
     tickState = !tickState;
-    update();
+    notifyListeners();
   }
 }

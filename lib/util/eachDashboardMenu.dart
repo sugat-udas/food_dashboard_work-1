@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/homeController.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class EachDashboardMenu extends StatelessWidget {
-  // HomeController homeController;
+    var _commomControllerState;
+var _homeControllerState;
   final IconData icons;
   final String text;
   final int index;
@@ -18,6 +18,7 @@ class EachDashboardMenu extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    _homeControllerState=Provider.of<HomeController>(context);
     return GestureDetector(
       onTap: () {
         Provider.of<HomeController>(context,listen: false).onSelect(index);
@@ -25,7 +26,7 @@ class EachDashboardMenu extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(
-            color: Provider.of<HomeController>(context).currentIndex == index
+            color: _homeControllerState.currentIndex == index
                 ? CustomColors.buttonGreenColor
                 : CustomColors.sideMenuColor,
             borderRadius: BorderRadius.circular(10)),
@@ -35,7 +36,7 @@ class EachDashboardMenu extends StatelessWidget {
             Icon(
               icons,
               size: 20,
-              color: Provider.of<HomeController>(context).currentIndex == index
+              color: _homeControllerState.currentIndex == index
                   ? Colors.white
                   : Colors.black,
             ),
@@ -48,7 +49,7 @@ class EachDashboardMenu extends StatelessWidget {
                 fontSize: 17,
                 fontWeight: FontWeight.w400,
                 color:
-                    Provider.of<HomeController>(context).currentIndex == index
+                    _homeControllerState.currentIndex == index
                         ? Colors.white
                         : Colors.black,
               ),

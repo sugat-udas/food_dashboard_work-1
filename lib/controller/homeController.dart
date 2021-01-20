@@ -5,18 +5,27 @@ import 'package:food/screen/dashboard_screen.dart';
 import 'package:food/screen/order_screen.dart';
 import 'package:food/screen/product_screen.dart';
 import 'package:food/screen/setting_screen.dart';
+import 'package:get/get.dart';
 
 
 class HomeController extends ChangeNotifier {
-  int _currentIndex = 2;
+  int _currentIndex = 3;
   int get currentIndex => _currentIndex;
+
+ int getOpacityForOrientation(context) {
+    if (MediaQuery.of(context).orientation == Orientation.landscape) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
 
   List _screens = [
     DashboardScreen(),
     OrderScreen(),
     ProductScreen(),
     CustomerScreen(),
-    AdminDashBoard(),
+    CreditDashboard(),
     SettingScreen(),
   ];
 
