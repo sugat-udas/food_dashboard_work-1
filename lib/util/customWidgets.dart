@@ -18,9 +18,7 @@ Widget customSizedBoxed({double height, double width}) {
   return SizedBox(height: height, width: width);
 }
 
-
-
-Widget actionButtons() {
+Widget actionButtons({Function onPressed}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 15.0),
     child: (Row(
@@ -34,10 +32,13 @@ Widget actionButtons() {
         customSizedBoxed(
           width: 10,
         ),
-        Icon(
-          Icons.delete,
-          color: Colors.red,
-          size: 20,
+        GestureDetector(
+          onTap: onPressed,
+          child: Icon(
+            Icons.delete,
+            color: Colors.red,
+            size: 20,
+          ),
         ),
       ],
     )),

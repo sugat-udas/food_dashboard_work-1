@@ -5,11 +5,11 @@ import 'package:food/screen/dashboard_screen.dart';
 import 'package:food/screen/order_screen.dart';
 import 'package:food/screen/product_screen.dart';
 import 'package:food/screen/setting_screen.dart';
-import 'package:get/get.dart';
+
 
 
 class HomeController extends ChangeNotifier {
-  int _currentIndex = 3;
+  int _currentIndex = 2;
   int get currentIndex => _currentIndex;
 
  int getOpacityForOrientation(context) {

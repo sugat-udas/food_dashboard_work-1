@@ -15,28 +15,27 @@ import 'package:provider/provider.dart';
 class AddProductPage extends StatelessWidget {
   var _addItemControllerState;
   List<Widget> _categoryList;
-  
+
   OutlineInputBorder borderData;
- 
-  
-var commonHeight;
+
+  var commonHeight;
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
+    commonHeight = getDeviceType()
+        ? 30
+        : Get.context.isPortrait
+            ? (Get.height * .035)
+            : (Get.height * .05);
 
-
-
-
-    commonHeight= getDeviceType()
-      ? 30
-      : Get.context.isPortrait
-          ? (Get.height * .035)
-          : (Get.height * .05);
-    
     _addItemControllerState = Provider.of<AddProductController>(context);
-   
+
     borderData = OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(color: Color(0xffD9D9D9)));
+    return _body(context);
+  }
+
+  Widget _body(context) {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -48,14 +47,14 @@ var commonHeight;
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(),
-                _saveItemBtn(),
+                _saveItemBtn(context),
               ],
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _backBtn(),
+                _backBtn(context),
                 SizedBox(),
               ],
             ),
@@ -206,15 +205,15 @@ var commonHeight;
           height: 20,
         ),
         Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child: _largeImg()),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(child: _tileImg()),
-            ],
-          ),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: _largeImg()),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(child: _tileImg()),
+          ],
+        ),
       ],
     );
   }
@@ -240,15 +239,13 @@ var commonHeight;
       String label}) {
     return _addItemControllerState.image == null
         ? Container(
-          
             decoration: BoxDecoration(
               shape: boxShape ?? BoxShape.rectangle,
               color: CustomColors.backgroundLightGrey,
             ),
-            height:getDeviceType() ? 135 : 140,
-            width:getDeviceType() ? 135 : 140,
+            height: getDeviceType() ? 135 : 140,
+            width: getDeviceType() ? 135 : 140,
             child: DottedBorder(
-              
               dashPattern: [8, 8],
               borderType: borderType ?? BorderType.RRect,
               child: Center(
@@ -379,59 +376,57 @@ var commonHeight;
 
   Widget _categoryBody() {
     return Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(5),
-            bottomLeft: Radius.circular(5),
-          ),
-          color: Colors.white,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(5),
+          bottomLeft: Radius.circular(5),
         ),
-        padding: EdgeInsets.only(
-            top: 8,
-            bottom: 8,
-            right: getDeviceType() ? 8 : 20,
-            left: getDeviceType() ? 0 : 20),
-        child: Wrap(
-          direction: Axis.horizontal,
-          children: [..._addItemControllerState.categoryList.keys.map((String key) {
-            return key == "add"
-                ? Padding(
-                    padding: const EdgeInsets.only(top: 15.0, left: 16.0),
-                    child: Icon(
-                      Icons.add_circle,
-                      size: 16,
-                      color: Colors.grey.shade500,
-                    ),
-                  )
-                : Container(
-                    width: getDeviceType() ? 108 : 110.0,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Transform.scale(
-                          scale: 0.7,
-                          child: Checkbox(
-                            focusColor: Colors.blue,
-                            value: _addItemControllerState.categoryList[key],
-                            activeColor: Colors.indigoAccent,
-                            checkColor: Colors.white,
-                            onChanged: (bool value) {
-                              _addItemControllerState.onChangeCategoryState(
-                                  newVal: value, currentKey: key);
-                            },
-                          ),
+        color: Colors.white,
+      ),
+      padding: EdgeInsets.only(
+          top: 8,
+          bottom: 8,
+          right: getDeviceType() ? 8 : 20,
+          left: getDeviceType() ? 0 : 20),
+      child: Wrap(direction: Axis.horizontal, children: [
+        ..._addItemControllerState.categoryList.keys.map((String key) {
+          return key == "add"
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 15.0, left: 16.0),
+                  child: Icon(
+                    Icons.add_circle,
+                    size: 16,
+                    color: Colors.grey.shade500,
+                  ),
+                )
+              : Container(
+                  width: getDeviceType() ? 108 : 110.0,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Transform.scale(
+                        scale: 0.7,
+                        child: Checkbox(
+                          focusColor: Colors.blue,
+                          value: _addItemControllerState.categoryList[key],
+                          activeColor: Colors.indigoAccent,
+                          checkColor: Colors.white,
+                          onChanged: (bool value) {
+                            _addItemControllerState.onChangeCategoryState(
+                                newVal: value, currentKey: key);
+                          },
                         ),
-                        Expanded(
-                          child: Text(key),
-                        ),
-                      ],
-                    ),
-                  );
-          }).toList()]
-        ),
-      
+                      ),
+                      Expanded(
+                        child: Text(key),
+                      ),
+                    ],
+                  ),
+                );
+        }).toList()
+      ]),
     );
   }
 
@@ -473,9 +468,8 @@ var commonHeight;
           bottom: 8,
           right: getDeviceType() ? 8 : 20,
           left: getDeviceType() ? 0 : 20),
-      child: Wrap(
-        direction: Axis.horizontal,
-        children: [..._addItemControllerState.addonsList.keys.map((String key) {
+      child: Wrap(direction: Axis.horizontal, children: [
+        ..._addItemControllerState.addonsList.keys.map((String key) {
           return key == "add"
               ? Padding(
                   padding: const EdgeInsets.only(top: 15.0, left: 16.0),
@@ -507,8 +501,8 @@ var commonHeight;
                     ],
                   ),
                 );
-        }).toList(),]
-      ),
+        }).toList(),
+      ]),
     );
   }
 
@@ -712,7 +706,7 @@ var commonHeight;
             underline: Container(
               width: 0,
             ),
-            onChanged: ( newValue) {
+            onChanged: (newValue) {
               _addItemControllerState.setDropDownQuality(newValue);
             },
             value: _addItemControllerState.dropdownQualityValue,
@@ -749,11 +743,10 @@ var commonHeight;
     );
   }
 
-  Widget _backBtn() {
+  Widget _backBtn(context) {
     return GestureDetector(
       onTap: () {
-        print("back");
-        _addItemControllerState.onAddProductClick();
+        Navigator.pop(context);
       },
       child: Container(
         child: Row(
@@ -778,7 +771,7 @@ var commonHeight;
     );
   }
 
-  Widget _saveItemBtn() {
+  Widget _saveItemBtn(context) {
     return Container(
       height: commonHeight,
       child: RaisedButton(

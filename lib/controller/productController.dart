@@ -1,15 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
-
-
-
 class ProductController extends ChangeNotifier {
-
   bool addProductFlag = false;
-  
 
-  double checkIndex = 0;
-  bool tickState=false;
+  double _checkIndex = 2;
+  bool tickState = false;
   List _urlList = [
     "http://www.pngall.com/wp-content/uploads/5/Chocolate-Cake-PNG-Clipart.png",
     "https://s.clipartkey.com/mpngs/s/84-849910_los-angeles-nepal-food-momos-png.png",
@@ -41,8 +36,8 @@ class ProductController extends ChangeNotifier {
       "Chicken Burger",
       "Appetizer, Snack",
       "Lettuce, Cheese, Onions, Sauce",
-      "Rs. 257",
-      "Rs. 240",
+      257,
+      240,
       "check",
       "Actions"
     ],
@@ -52,8 +47,8 @@ class ProductController extends ChangeNotifier {
       "Veg Burger",
       "Appetizer",
       "Lettuce, Cheese, Onions, Sauce",
-      "Rs. 150",
-      "--",
+      150,
+      0,
       "check",
       "Actions"
     ],
@@ -63,8 +58,8 @@ class ProductController extends ChangeNotifier {
       "Black Forest",
       "Dessert",
       "Egg, Chocolate, Whipped cream, Cherries",
-      "Rs. 190",
-      "Rs. 100",
+      190,
+      100,
       "check",
       "Actions"
     ],
@@ -74,8 +69,8 @@ class ProductController extends ChangeNotifier {
       "Chicken MoMo",
       "Momo",
       "Chicken",
-      "Rs. 130",
-      "Rs. 100",
+      130,
+      100,
       "check",
       "Actions"
     ],
@@ -85,8 +80,8 @@ class ProductController extends ChangeNotifier {
       "Veg C.MoMo",
       "Momo",
       "Cabbage",
-      "Rs. 255",
-      "--",
+      255,
+      0,
       "check",
       "Actions"
     ],
@@ -96,20 +91,24 @@ class ProductController extends ChangeNotifier {
       "French Fries",
       "Fries",
       "Potato",
-      "Rs. 129",
-      "Rs. 90",
+      129,
+      90,
       "check",
       "Actions"
     ],
   ];
 
-  
   List get infoList => _infoList;
 
   List get infoHeadList => _infoHeadList;
 
   changeTickState() {
     tickState = !tickState;
+    notifyListeners();
+  }
+
+  deleteProduct(index) {
+    _infoList.removeAt(index);
     notifyListeners();
   }
 }

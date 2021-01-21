@@ -12,7 +12,10 @@ class DashboardScreen extends StatelessWidget {
         Center(
           child: Text(
             "Welcome to Dashboard Page",
-            style: TextStyle(color: Colors.blueGrey, fontSize: 20),
+            style: TextStyle(
+              color: Colors.blueGrey,
+              fontSize: 20,
+            ),
           ),
         ),
       ],

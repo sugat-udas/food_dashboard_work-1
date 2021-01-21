@@ -100,68 +100,71 @@ class ProductScreen extends StatelessWidget {
             ]),
             for (List eachList in _productControllerState.infoList)
               TableRow(children: [
-                for (var each in eachList)
-                  TableCell(
-                    child: each == "frenchFriesImg"
-                        ? _foodImage(
-                            url: _productControllerState.urlList[3],
-                            bottomPadding: 5.0)
-                        : each == "burgerImg"
-                            ? _foodImage(
-                                url: _productControllerState.urlList[2])
-                            : each == "momoImg"
-                                ? _foodImage(
-                                    url: _productControllerState.urlList[1],
-                                    shape: BoxShape.circle,
-                                    height: 34)
-                                : each == "blackForestImg"
-                                    ? _foodImage(
-                                        url: _productControllerState.urlList[0],
-                                        height: 30)
-                                    : each == false
-                                        ? _foodType(each)
-                                        : each == true
-                                            ? _foodType(each)
-                                            : each == "Actions"
-                                                ? actionButtons()
-                                                : each == "check"
-                                                    ? Theme(
-                                                        data: ThemeData(
-                                                            unselectedWidgetColor:
-                                                                Colors.grey
-                                                                    .shade400),
-                                                        child: Checkbox(
-                                                          tristate: false,
-                                                          value:
-                                                              _productControllerState
-                                                                  .tickState,
-                                                          onChanged: (value) {
-                                                            _productControllerState
-                                                                .changeTickState();
-                                                          },
-                                                        ),
-                                                      )
-                                                    : Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                          top: 15.0,
-                                                          bottom: 15.0,
-                                                        ),
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: Text(
-                                                            each.toString(),
-                                                            style: TextStyle(
-                                                                // fontFamily:
-                                                                //     "Roboto",
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                  ),
+                TableCell(
+                    child: _foodImage(
+                        url: _productControllerState.urlList[
+                            eachList[0] == "burgerImg"
+                                ? 2
+                                : eachList[0] == "blackForestImg"
+                                    ? 0
+                                    : eachList[0] == "momoImg"
+                                        ? 1
+                                        : 3])),
+                TableCell(child: _foodType(eachList[1])),
+                TableCell(child: _productName(text: eachList[2])),
+                TableCell(child: _productName(text: eachList[3])),
+                TableCell(child: _productName(text: eachList[4])),
+                TableCell(
+                    child: _productName(
+                        text: eachList[5] == 0
+                            ? "--"
+                            : "Rs. ${eachList[5].toString()}")),
+                TableCell(
+                    child: _productName(
+                        text: eachList[6] == 0
+                            ? "--"
+                            : "Rs. ${eachList[6].toString()}")),
+                TableCell(child: _productNotAvail()),
+                TableCell(
+                  child: actionButtons(onPressed: () {
+                    _productControllerState.deleteProduct(
+                        _productControllerState.infoList.indexOf(eachList));
+                  }),
+                )
               ]),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _productNotAvail() {
+    return Theme(
+      data: ThemeData(unselectedWidgetColor: Colors.grey.shade400),
+      child: Checkbox(
+        tristate: false,
+        value: _productControllerState.tickState,
+        onChanged: (value) {
+          _productControllerState.changeTickState();
+        },
+      ),
+    );
+  }
+
+  Widget _productName({String text}) {
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 15.0,
+        bottom: 15.0,
+      ),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          text,
+          style: TextStyle(
+              // fontFamily:
+              //     "Roboto",
+              ),
         ),
       ),
     );
