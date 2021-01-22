@@ -5,7 +5,7 @@ import 'package:food/controller/homeController.dart';
 import 'package:provider/provider.dart';
 
 class EachDashboardMenu extends StatelessWidget {
-    var _commomControllerState;
+
 var _homeControllerState;
   final IconData icons;
   final String text;

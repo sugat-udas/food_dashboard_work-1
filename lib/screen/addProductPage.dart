@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/addProductController.dart';
+import 'package:food/controller/productController.dart';
 
 import 'package:food/util/commonMethods.dart';
 
@@ -14,6 +15,8 @@ import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 class AddProductPage extends StatelessWidget {
   var _addItemControllerState;
+  var _productControllerState;
+
   List<Widget> _categoryList;
 
   OutlineInputBorder borderData;
@@ -28,7 +31,7 @@ class AddProductPage extends StatelessWidget {
             : (Get.height * .05);
 
     _addItemControllerState = Provider.of<AddProductController>(context);
-
+    _productControllerState = Provider.of<ProductController>(context);
     borderData = OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
         borderSide: BorderSide(color: Color(0xffD9D9D9)));
@@ -746,7 +749,7 @@ class AddProductPage extends StatelessWidget {
   Widget _backBtn(context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
+        _productControllerState.onAddProductClick();
       },
       child: Container(
         child: Row(
@@ -777,7 +780,7 @@ class AddProductPage extends StatelessWidget {
       child: RaisedButton(
         onPressed: () {
           print("Item Added");
-          _addItemControllerState.onAddProductClick();
+          _productControllerState.onAddProductClick();
         },
         elevation: 1,
         child: Text(

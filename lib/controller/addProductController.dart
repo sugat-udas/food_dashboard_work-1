@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductController extends ChangeNotifier {
@@ -70,11 +69,6 @@ class AddProductController extends ChangeNotifier {
 
   var _tmpArray = [];
 
-  onAddProductClick() {
-    Get.back();
-    notifyListeners();
-  }
-
   onChangeCategoryState({bool newVal, String currentKey}) {
     categoryList[currentKey] = newVal;
     notifyListeners();
@@ -91,11 +85,12 @@ class AddProductController extends ChangeNotifier {
   setDropDownQuality(val) {
     dropdownQualityValue = val;
     notifyListeners();
-    print(dropdownQualityValue);
+    print(dropdownQualityValue.toString());
   }
 
   setDropDownType(val) {
     dropdownTypeValue = val;
     notifyListeners();
+    print(dropdownQualityValue);
   }
 }

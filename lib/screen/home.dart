@@ -5,6 +5,7 @@ import 'package:food/constants/customColors.dart';
 import 'package:food/util/commonMethods.dart';
 import 'package:food/controller/homeController.dart';
 import 'package:food/util/eachDashboardMenu.dart';
+import 'package:get/get.dart';
 
 import 'package:provider/provider.dart';
 
@@ -27,9 +28,9 @@ class HomePage extends StatelessWidget {
     _homeControllerState = Provider.of<HomeController>(context);
 
     realOrientation = MediaQuery.of(context).orientation;
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
-    print(realOrientation.toString() + " realOrientation");
+    height = Get.height;
+    width = Get.width;
+    // print(realOrientation.toString() + " realOrientation");
 
     if (getDeviceType()) {
       SystemChrome.setPreferredOrientations([
@@ -51,7 +52,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _body(context) {
-    print(realOrientation.toString() + " orientations");
+    // print(realOrientation.toString() + " orientations");
     return Consumer<HomeController>(builder: (context, homeController, child) {
       return Row(
         children: [
@@ -76,7 +77,7 @@ class HomePage extends StatelessWidget {
     } else if (!getDeviceType() &&
         _homeControllerState.getOpacityForOrientation(context) == 1) {
       value = width * 0.22;
-      print("yess it is potrait and tablet");
+      // print("yess it is potrait and tablet");
     }
 
     return value;

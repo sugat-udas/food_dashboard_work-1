@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:food/constants/customColors.dart';
-
-import 'package:food/controller/homeController.dart';
-
 import 'package:food/controller/productController.dart';
 import 'package:food/screen/addProductPage.dart';
 import 'package:food/util/commonMethods.dart';
@@ -35,6 +31,10 @@ class ProductScreen extends StatelessWidget {
             ? (Get.height * .035)
             : (Get.height * .05);
 
+    return _body();
+  }
+
+  Widget _body() {
     return Expanded(
       child: _productControllerState.addProductFlag
           ? AddProductPage()
