@@ -11,10 +11,6 @@ class ProductController extends ChangeNotifier {
     "http://www.pngall.com/wp-content/uploads/2016/05/Burger-PNG-Image.png",
     "http://www.pngall.com/wp-content/uploads/4/Fries-Transparent.png"
   ];
-  onAddProductClick() {
-    addProductFlag = !addProductFlag;
-    notifyListeners();
-  }
 
   List get urlList => _urlList;
   List _infoHeadList = [
@@ -104,6 +100,11 @@ class ProductController extends ChangeNotifier {
 
   changeTickState() {
     tickState = !tickState;
+    notifyListeners();
+  }
+
+  onAddProductClick() {
+    addProductFlag = !addProductFlag;
     notifyListeners();
   }
 

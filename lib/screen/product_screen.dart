@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food/constants/customColors.dart';
+import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
 import 'package:food/screen/addProductPage.dart';
 import 'package:food/util/commonMethods.dart';
@@ -13,6 +14,7 @@ import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 class ProductScreen extends StatelessWidget {
   var _productControllerState;
+  var _addProductControllerState;
 
   double commonHeight;
 
@@ -25,6 +27,7 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _productControllerState = Provider.of<ProductController>(context);
+    _addProductControllerState = Provider.of<AddProductController>(context);
     commonHeight = getDeviceType()
         ? 30
         : Get.context.isPortrait

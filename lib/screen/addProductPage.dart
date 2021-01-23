@@ -780,6 +780,9 @@ class AddProductPage extends StatelessWidget {
       child: RaisedButton(
         onPressed: () {
           print("Item Added");
+          // _addItemControllerState.onSave();
+          _addItemControllerState.getCategoryCheckItems();
+          _addItemControllerState.getAddonCheckItems();
           _productControllerState.onAddProductClick();
         },
         elevation: 1,

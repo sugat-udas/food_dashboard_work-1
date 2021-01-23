@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 class AddProductController extends ChangeNotifier {
@@ -67,7 +68,37 @@ class AddProductController extends ChangeNotifier {
     'add': false,
   };
 
-  var _tmpArray = [];
+  var _tmpCategoryArray = [];
+  var _categoryStringList;
+
+  getCategoryCheckItems() {
+    categoryList.forEach((key, value) {
+      if (value == true) {
+        _tmpCategoryArray.add(key);
+        notifyListeners();
+      }
+    });
+    _categoryStringList = _tmpCategoryArray.join(", ");
+    print(_categoryStringList);
+    _tmpCategoryArray.clear();
+    notifyListeners();
+  }
+
+  var _tmpAddonArray = [];
+  var _addonStringList;
+
+  getAddonCheckItems() {
+    addonsList.forEach((key, value) {
+      if (value == true) {
+        _tmpAddonArray.add(key);
+        notifyListeners();
+      }
+    });
+    _addonStringList = _tmpAddonArray.join(", ");
+    print(_addonStringList);
+    _tmpAddonArray.clear();
+    notifyListeners();
+  }
 
   onChangeCategoryState({bool newVal, String currentKey}) {
     categoryList[currentKey] = newVal;
@@ -79,18 +110,45 @@ class AddProductController extends ChangeNotifier {
     notifyListeners();
   }
 
-  String dropdownQualityValue = "---select---";
-  String dropdownTypeValue = "---select---";
+  String _dropdownQualityValue = "---select---";
+  String get dropdownQualityValue => _dropdownQualityValue;
+
+  set dropdownQualityValue(String value) => _dropdownQualityValue = value;
+
+  String _dropdownTypeValue = "---select---";
+  String get dropdownTypeValue => _dropdownTypeValue;
+
+  set dropdownTypeValue(String value) => _dropdownTypeValue = value;
 
   setDropDownQuality(val) {
     dropdownQualityValue = val;
     notifyListeners();
-    print(dropdownQualityValue.toString());
+    print(dropdownQualityValue);
   }
 
   setDropDownType(val) {
     dropdownTypeValue = val;
     notifyListeners();
-    print(dropdownQualityValue);
+    print(dropdownTypeValue);
   }
+
+  List list;
+
+  // onSave() async {
+  //   getCategoryCheckItems();
+  //   getAddonCheckItems();
+  //   list.add([
+  //     "momoImg",
+  //     true,
+  //     name??"name",
+  //     _categoryStringList??"category",
+  //     _addonStringList??"addons",
+  //     actualPrice??"no money",
+  //     offeredPrice??"no money",
+  //     "check",
+  //     "Actions"
+  //   ]);
+  //   print(list);
+  //   notifyListeners();
+  // }
 }
