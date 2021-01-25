@@ -316,22 +316,24 @@ class CreditDashboard extends StatelessWidget {
                 ))
             ]),
             for (List eachList in _adminControllerState.infoList)
-              TableRow(children: [
-                for (var each in eachList)
-                  TableCell(
-                    child: each == false
-                        ? actionButtons()
-                        : Padding(
-                            padding: EdgeInsets.only(
-                              top: 17.0,
-                              bottom: 7.0,
+              TableRow(
+                children: [
+                  for (var each in eachList)
+                    TableCell(
+                      child: each == false
+                          ? actionButtons()
+                          : Padding(
+                              padding: EdgeInsets.only(
+                                top: 17.0,
+                                bottom: 7.0,
+                              ),
+                              child: Text(
+                                each.toString(),
+                              ),
                             ),
-                            child: Text(
-                              each.toString(),
-                            ),
-                          ),
-                  ),
-              ]),
+                    ),
+                ],
+              ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food/Responsive.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
@@ -104,31 +105,60 @@ class ProductScreen extends StatelessWidget {
             for (List eachList in _productControllerState.infoList)
               TableRow(children: [
                 TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
                     child: _foodImage(
                         url: _productControllerState.urlList[
                             eachList[0] == "burgerImg"
-                                ? 2
+                                ? 0
                                 : eachList[0] == "blackForestImg"
-                                    ? 0
+                                    ? 1
                                     : eachList[0] == "momoImg"
-                                        ? 1
+                                        ? 2
                                         : 3])),
-                TableCell(child: _foodType(eachList[1])),
-                TableCell(child: _productName(text: eachList[2])),
-                TableCell(child: _productName(text: eachList[3])),
-                TableCell(child: _productName(text: eachList[4])),
                 TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        _foodType(eachList[1]),
+                      ],
+                    )),
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: _productName(text: eachList[2])),
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: _productName(text: eachList[3])),
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: _productName(text: eachList[4])),
+                TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
                     child: _productName(
                         text: eachList[5] == 0
                             ? "--"
                             : "Rs. ${eachList[5].toString()}")),
                 TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
                     child: _productName(
                         text: eachList[6] == 0
                             ? "--"
                             : "Rs. ${eachList[6].toString()}")),
-                TableCell(child: _productNotAvail()),
                 TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.middle,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      _productNotAvail()
+                    ],
+                  ),
+                ),
+                TableCell(
+                  verticalAlignment: TableCellVerticalAlignment.middle,
                   child: actionButtons(onPressed: () {
                     _productControllerState.deleteProduct(
                         _productControllerState.infoList.indexOf(eachList));
@@ -183,7 +213,7 @@ class ProductScreen extends StatelessWidget {
         shape: shape ?? BoxShape.rectangle,
         image: DecorationImage(
           fit: BoxFit.contain,
-          image: NetworkImage(
+          image: AssetImage(
             url,
           ),
         ),
@@ -193,13 +223,13 @@ class ProductScreen extends StatelessWidget {
 
   Widget _foodType(bool val) {
     return val
-        ? _eachFoodType("assets/nonVeg.png")
-        : _eachFoodType("assets/Veg.png");
+        ? _eachFoodType("assets/veg&nonVeg/nonVeg.png")
+        : _eachFoodType("assets/veg&nonVeg/Veg.png");
   }
 
   Widget _eachFoodType(String assets) {
     return Container(
-      padding: EdgeInsets.only(top: 20, right: getDeviceType() ? 13 : 25),
+      // padding: EdgeInsets.only(top:16),
       color: Colors.white,
       child: Image.asset(
         assets,

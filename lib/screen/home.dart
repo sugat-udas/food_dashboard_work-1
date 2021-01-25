@@ -109,32 +109,32 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              EachDashboardMenu(
+              EachDashboardMenuItem(
                 icons: Icons.dashboard,
                 text: "Dashboard",
                 index: 0,
               ),
-              EachDashboardMenu(
+              EachDashboardMenuItem(
                 icons: Icons.local_dining,
                 text: "Orders",
                 index: 1,
               ),
-              EachDashboardMenu(
+              EachDashboardMenuItem(
                 icons: Icons.menu_book_rounded,
                 text: "Product",
                 index: 2,
               ),
-              EachDashboardMenu(
+              EachDashboardMenuItem(
                 icons: Icons.group_rounded,
                 text: "Customers",
                 index: 3,
               ),
-              EachDashboardMenu(
+              EachDashboardMenuItem(
                 icons: Icons.star,
                 text: "Credit",
                 index: 4,
               ),
-              EachDashboardMenu(
+              EachDashboardMenuItem(
                   icons: Icons.settings, text: "Settings", index: 5),
             ],
           ),

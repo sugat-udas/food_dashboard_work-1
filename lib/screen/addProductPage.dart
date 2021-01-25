@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food/Responsive.dart';
 
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/addProductController.dart';
@@ -17,15 +18,13 @@ class AddProductPage extends StatelessWidget {
   var _addItemControllerState;
   var _productControllerState;
 
-  List<Widget> _categoryList;
-
   OutlineInputBorder borderData;
 
   var commonHeight;
   @override
   Widget build(BuildContext context) {
     commonHeight = getDeviceType()
-        ? 30
+        ? 30.0
         : Get.context.isPortrait
             ? (Get.height * .035)
             : (Get.height * .05);
@@ -33,15 +32,19 @@ class AddProductPage extends StatelessWidget {
     _addItemControllerState = Provider.of<AddProductController>(context);
     _productControllerState = Provider.of<ProductController>(context);
     borderData = OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5),
-        borderSide: BorderSide(color: Color(0xffD9D9D9)));
+      borderRadius: BorderRadius.circular(5),
+      borderSide: BorderSide(
+        color: Color(0xffD9D9D9),
+      ),
+    );
     return _body(context);
   }
 
   Widget _body(context) {
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        padding: EdgeInsets.symmetric(
+            horizontal: Responsive.isDesktop(context) ? 40 : 30, vertical: 20),
         color: CustomColors.backgroundLightGrey,
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -74,12 +77,26 @@ class AddProductPage extends StatelessWidget {
   _allItemInfo() {
     return Column(
       children: [
+        Responsive.isMobile(Get.context)
+            ? _mobileCategoryAddons()
+            : _webTabCategoryAddons(),
+        SizedBox(
+          height: 30,
+        ),
+        _extra(),
+      ],
+    );
+  }
+
+  Widget _webTabCategoryAddons() {
+    return Column(
+      children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(child: _itemInfo()),
             SizedBox(
-              width: 20,
+              width: Responsive.isDesktop(Get.context) ? 30 : 20,
             ),
             Expanded(child: _itemThumbnail()),
           ],
@@ -90,15 +107,29 @@ class AddProductPage extends StatelessWidget {
           children: [
             Expanded(child: _category()),
             SizedBox(
-              width: 20,
+              width: 30,
             ),
             Expanded(child: _addOns()),
           ],
         ),
+      ],
+    );
+  }
+
+  Widget _mobileCategoryAddons() {
+    return Column(
+      children: [
+        _itemInfo(),
         SizedBox(
           height: 30,
         ),
-        _extra(),
+        _itemThumbnail(),
+        SizedBox(height: 30),
+        _category(),
+        SizedBox(
+          height: 30,
+        ),
+        _addOns(),
       ],
     );
   }
@@ -114,7 +145,7 @@ class AddProductPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
             child: Text(
               "Item Information",
               style: TextStyle(fontWeight: FontWeight.bold),
@@ -158,8 +189,10 @@ class AddProductPage extends StatelessWidget {
         ),
         color: Colors.white,
       ),
-      height: getDeviceType() ? 370 : 390,
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+      height: getDeviceType() ? 380 : 400,
+      padding: EdgeInsets.symmetric(
+          vertical: 8.0,
+          horizontal: Responsive.isDesktop(Get.context) ? 90 : 20),
       child: Column(
         children: [
           SizedBox(
@@ -197,6 +230,40 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _imgPreview() {
+    return Responsive.isMobile(Get.context)
+        ? _mobResImgPrev()
+        : _webTabResImgPrev();
+  }
+
+  Widget _mobResImgPrev() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 100),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Image Preview",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _largeImg(),
+              SizedBox(
+                width: 20,
+              ),
+              _tileImg(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _webTabResImgPrev() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -210,11 +277,11 @@ class AddProductPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(child: _largeImg()),
+            Flexible(child: _largeImg()),
             SizedBox(
               width: 20,
             ),
-            Expanded(child: _tileImg()),
+            Flexible(child: _tileImg()),
           ],
         ),
       ],
@@ -246,8 +313,8 @@ class AddProductPage extends StatelessWidget {
               shape: boxShape ?? BoxShape.rectangle,
               color: CustomColors.backgroundLightGrey,
             ),
-            height: getDeviceType() ? 135 : 140,
-            width: getDeviceType() ? 135 : 140,
+            height: 145,
+            width: 145,
             child: DottedBorder(
               dashPattern: [8, 8],
               borderType: borderType ?? BorderType.RRect,
@@ -263,8 +330,6 @@ class AddProductPage extends StatelessWidget {
               _addItemControllerState.image,
             ),
           );
-
-    ;
   }
 
   Widget _itemInfoBody() {
@@ -276,9 +341,12 @@ class AddProductPage extends StatelessWidget {
         ),
         color: Colors.white,
       ),
-      height: getDeviceType() ? 370 : 390,
+      height: getDeviceType() ? 375 : 400,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+        padding: EdgeInsets.symmetric(
+          vertical: 8.0,
+          horizontal: 20,
+        ),
         child: Column(
           children: [
             SizedBox(height: 10),
@@ -390,13 +458,15 @@ class AddProductPage extends StatelessWidget {
       padding: EdgeInsets.only(
           top: 8,
           bottom: 8,
-          right: getDeviceType() ? 8 : 20,
-          left: getDeviceType() ? 0 : 20),
+          right: 5,
+          left: Responsive.isDesktop(Get.context) ? 10 : 5),
       child: Wrap(direction: Axis.horizontal, children: [
         ..._addItemControllerState.categoryList.keys.map((String key) {
           return key == "add"
               ? Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 16.0),
+                  padding: Responsive.isDesktop(Get.context)
+                      ? EdgeInsets.only(top: 8.0, left: 8.0)
+                      : EdgeInsets.only(top: 15.0, left: 16.0),
                   child: Icon(
                     Icons.add_circle,
                     size: 16,
@@ -404,7 +474,7 @@ class AddProductPage extends StatelessWidget {
                   ),
                 )
               : Container(
-                  width: getDeviceType() ? 108 : 110.0,
+                  width: 110.0,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     // mainAxisAlignment: MainAxisAlignment.start,
@@ -469,13 +539,15 @@ class AddProductPage extends StatelessWidget {
       padding: EdgeInsets.only(
           top: 8,
           bottom: 8,
-          right: getDeviceType() ? 8 : 20,
-          left: getDeviceType() ? 0 : 20),
+          right: getDeviceType() ? 8 : 5,
+          left: Responsive.isDesktop(Get.context) ? 10 : 5),
       child: Wrap(direction: Axis.horizontal, children: [
         ..._addItemControllerState.addonsList.keys.map((String key) {
           return key == "add"
               ? Padding(
-                  padding: const EdgeInsets.only(top: 15.0, left: 16.0),
+                  padding: Responsive.isDesktop(Get.context)
+                      ? EdgeInsets.only(top: 8.0, left: 8.0)
+                      : EdgeInsets.only(top: 15.0, left: 16.0),
                   child: Icon(
                     Icons.add_circle,
                     size: 16,
@@ -483,7 +555,7 @@ class AddProductPage extends StatelessWidget {
                   ),
                 )
               : Container(
-                  width: getDeviceType() ? 108 : 110.0,
+                  width: 112,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     // mainAxisAlignment: MainAxisAlignment.start,
@@ -491,8 +563,9 @@ class AddProductPage extends StatelessWidget {
                       Transform.scale(
                         scale: 0.7,
                         child: Checkbox(
+                          focusColor: Colors.blue,
                           value: _addItemControllerState.addonsList[key],
-                          activeColor: Colors.pinkAccent,
+                          activeColor: Colors.indigoAccent,
                           checkColor: Colors.white,
                           onChanged: (bool value) {
                             _addItemControllerState.onChangeAddOnsState(
@@ -500,11 +573,15 @@ class AddProductPage extends StatelessWidget {
                           },
                         ),
                       ),
-                      Expanded(child: Text(key)),
+                      Expanded(
+                        child: SizedBox(
+                          child: Text(key),
+                        ),
+                      ),
                     ],
                   ),
                 );
-        }).toList(),
+        }).toList()
       ]),
     );
   }

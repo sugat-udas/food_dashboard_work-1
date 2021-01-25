@@ -6,10 +6,10 @@ class ProductController extends ChangeNotifier {
   double _checkIndex = 2;
   bool tickState = false;
   List _urlList = [
-    "http://www.pngall.com/wp-content/uploads/5/Chocolate-Cake-PNG-Clipart.png",
-    "https://s.clipartkey.com/mpngs/s/84-849910_los-angeles-nepal-food-momos-png.png",
-    "http://www.pngall.com/wp-content/uploads/2016/05/Burger-PNG-Image.png",
-    "http://www.pngall.com/wp-content/uploads/4/Fries-Transparent.png"
+    "assets/food/burger.png",
+    "assets/food/cake.png",
+    "assets/food/momo.png",
+    "assets/food/fries.png",
   ];
 
   List get urlList => _urlList;
