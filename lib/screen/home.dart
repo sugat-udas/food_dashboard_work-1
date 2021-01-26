@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food/constants/customColors.dart';
+import 'package:food/responsive.dart';
 import 'package:food/util/commonMethods.dart';
 import 'package:food/controller/homeController.dart';
 import 'package:food/util/eachDashboardMenu.dart';
@@ -61,7 +62,7 @@ class HomePage extends StatelessWidget {
               ? _menuSideBar(context)
               : SizedBox(),
           _homeControllerState.screensList[homeController
-              .currentIndex], //Using global variable to use the context from the staleless widgets
+              .currentMenuItemIndex], //Using global variable to use the context from the staleless widgets
         ],
       );
     });
@@ -119,11 +120,15 @@ class HomePage extends StatelessWidget {
                 text: "Orders",
                 index: 1,
               ),
-              EachDashboardMenuItem(
-                icons: Icons.menu_book_rounded,
-                text: "Product",
-                index: 2,
-              ),
+              (_homeControllerState.productToggleFlag &&
+                      _homeControllerState.currentMenuItemIndex == 2)
+                  ? _allProductMenuItem()
+                  : EachDashboardMenuItem(
+                      icons: Icons.menu_book_rounded,
+                      text: "Product",
+                      index: 2,
+                      trailling: Icons.keyboard_arrow_down,
+                    ),
               EachDashboardMenuItem(
                 icons: Icons.group_rounded,
                 text: "Customers",
@@ -138,6 +143,77 @@ class HomePage extends StatelessWidget {
                   icons: Icons.settings, text: "Settings", index: 5),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  _allProductMenuItem() {
+    return Container(
+      height: Responsive.isDesktop(Get.context) ? 230 : 218,
+      child: Stack(
+        children: [
+          Positioned(
+            top: 30,
+            child: _productVariousPage(),
+          ),
+          EachDashboardMenuItem(
+            icons: Icons.menu_book_rounded,
+            text: "Product",
+            index: 2,
+            trailling: Icons.keyboard_arrow_down,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _productVariousPage() {
+    return Container(
+      width: _menuSidebarSizeMaintain(Get.context) -
+          (Responsive.isDesktop(Get.context) ? 40 : 20),
+      padding: EdgeInsets.only(
+        top: 10,
+        bottom: 10,
+      ),
+      decoration: BoxDecoration(
+          color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10)),
+      margin: EdgeInsets.symmetric(
+          horizontal: Responsive.isDesktop(Get.context) ? 20.0 : 10.0,
+          vertical: 2.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 6,
+          ),
+          for (var each in _homeControllerState.productList)
+            _eachProductMenuItem(
+              label: each,
+              index: _homeControllerState.productList.indexOf(each),
+            ),
+        ],
+      ),
+    );
+  }
+
+  _eachProductMenuItem({String label, int index}) {
+    return GestureDetector(
+      onTap: () {
+        _homeControllerState.onSelectProductMenu(index);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: Responsive.isDesktop(Get.context) ? 20 : 11),
+        child: Text(
+          label,
+          style: TextStyle(
+              fontSize: Responsive.isDesktop(Get.context) ? 20 : 17,
+              fontWeight: FontWeight.w400,
+              color: _homeControllerState.currentProductIndex == index
+                  ? CustomColors.buttonGreenColor
+                  : Colors.black),
         ),
       ),
     );

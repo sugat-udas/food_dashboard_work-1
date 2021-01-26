@@ -6,13 +6,34 @@ import 'package:food/screen/order_screen.dart';
 import 'package:food/screen/product_screen.dart';
 import 'package:food/screen/setting_screen.dart';
 
-
-
 class HomeController extends ChangeNotifier {
   int _currentIndex = 2;
-  int get currentIndex => _currentIndex;
 
- int getOpacityForOrientation(context) {
+  int _currentProductIndex = 0;
+
+  int get currentProductIndex => _currentProductIndex;
+
+  set currentProductIndex(int value) => _currentProductIndex = value;
+
+  int get currentMenuItemIndex => _currentIndex;
+
+  bool productToggleFlag = false;
+  bool get getProductToggleFlag => productToggleFlag;
+
+  set setProductToggleFlag(bool productToggleFlag) =>
+      this.productToggleFlag = productToggleFlag;
+
+  List productList = [
+    "Categories",
+    "Addons Items",
+    "Quantity",
+    "Type",
+  ];
+  List get getProductList => productList;
+
+  set setProductList(List productList) => this.productList = productList;
+
+  int getOpacityForOrientation(context) {
     if (MediaQuery.of(context).orientation == Orientation.landscape) {
       return 0;
     } else {
@@ -31,12 +52,22 @@ class HomeController extends ChangeNotifier {
 
   List get screensList => _screens;
 
-  set currentIndex(int value) {
+  set currentMenuItemIndex(int value) {
     _currentIndex = value;
   }
 
+  void onProductToggle() {
+    productToggleFlag = !productToggleFlag;
+    notifyListeners();
+  }
+
   void onSelect(int index) {
-    currentIndex = index;
+    currentMenuItemIndex = index;
+    notifyListeners();
+  }
+
+  void onSelectProductMenu(int index) {
+    currentProductIndex = index;
     notifyListeners();
   }
 }
