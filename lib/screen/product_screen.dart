@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food/Responsive.dart';
+
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
-import 'package:food/screen/addProductPage.dart';
+
 import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
@@ -14,8 +14,8 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ProductScreen extends StatelessWidget {
-  var _productControllerState;
-  var _addProductControllerState;
+  ProductController _productControllerState;
+  AddProductController _addProductControllerState;
 
   double commonHeight;
 
@@ -40,9 +40,10 @@ class ProductScreen extends StatelessWidget {
 
   Widget _body() {
     return Expanded(
-      child: _productControllerState.addProductFlag
-          ? AddProductPage()
-          : Container(
+      child: 
+          //  _productControllerState
+          //     .productScreens[_productControllerState.currentProductIndex]
+           Container(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
               color: Color(0xffF4F4F4),
               child: Column(

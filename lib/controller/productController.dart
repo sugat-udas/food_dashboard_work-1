@@ -1,7 +1,31 @@
 import 'package:flutter/cupertino.dart';
+import 'package:food/screen/addProductScreen.dart';
+import 'package:food/screen/product_screen.dart';
+import 'package:food/screen/product_screens/addon_screen.dart';
+import 'package:food/screen/product_screens/category_screen.dart';
+import 'package:food/screen/product_screens/quantity_screen.dart';
+import 'package:food/screen/product_screens/type_screen.dart';
 
 class ProductController extends ChangeNotifier {
-  bool addProductFlag = false;
+  int _currentProductIndex = 5;
+
+  List productScreens = [
+    CategoryScreen(),
+    AddonScreen(),
+    QuantityScreen(),
+    TypeScreen(),
+    AddProductPage(),
+    ProductScreen()
+  ];
+
+  onAllProductMenuClick(int index) {
+    currentProductIndex = index;
+    notifyListeners();
+  }
+
+  int get currentProductIndex => _currentProductIndex;
+
+  set currentProductIndex(int value) => _currentProductIndex = value;
 
   double _checkIndex = 2;
   bool tickState = false;
@@ -94,6 +118,11 @@ class ProductController extends ChangeNotifier {
     ],
   ];
 
+  List get getProductScreens => productScreens;
+
+  set setProductScreens(List productScreens) =>
+      this.productScreens = productScreens;
+
   List get infoList => _infoList;
 
   List get infoHeadList => _infoHeadList;
@@ -104,7 +133,6 @@ class ProductController extends ChangeNotifier {
   }
 
   onAddProductClick() {
-    addProductFlag = !addProductFlag;
     notifyListeners();
   }
 

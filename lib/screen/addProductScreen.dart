@@ -15,8 +15,8 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class AddProductPage extends StatelessWidget {
-  var _addItemControllerState;
-  var _productControllerState;
+  AddProductController _addItemControllerState;
+  ProductController _productControllerState;
 
   OutlineInputBorder borderData;
 

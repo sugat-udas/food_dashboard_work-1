@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food/constants/customColors.dart';
+import 'package:food/controller/productController.dart';
 import 'package:food/responsive.dart';
 import 'package:food/util/commonMethods.dart';
 import 'package:food/controller/homeController.dart';
@@ -11,7 +12,8 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  var _homeControllerState;
+  HomeController _homeControllerState;
+  ProductController _productControllerState;
 
   String url =
       "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=K7SoRreE8DAAX_sx1qg&_nc_ht=scontent.fktm3-1.fna&oh=f00647a1eaff1045999abed17c74f31a&oe=60286AD1";
@@ -27,6 +29,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _homeControllerState = Provider.of<HomeController>(context);
+    _productControllerState = Provider.of<ProductController>(context);
 
     realOrientation = MediaQuery.of(context).orientation;
     height = Get.height;
@@ -150,7 +153,7 @@ class HomePage extends StatelessWidget {
 
   _allProductMenuItem() {
     return Container(
-      height: Responsive.isDesktop(Get.context) ? 230 : 218,
+      height: Responsive.isDesktop(Get.context) ? 240 : 218,
       child: Stack(
         children: [
           Positioned(
@@ -201,6 +204,7 @@ class HomePage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         _homeControllerState.onSelectProductMenu(index);
+        _productControllerState.onAllProductMenuClick(index);
       },
       child: Container(
         padding: EdgeInsets.symmetric(

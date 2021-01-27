@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:food/Responsive.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/homeController.dart';
+import 'package:food/controller/productController.dart';
 import 'package:provider/provider.dart';
 
 class EachDashboardMenuItem extends StatelessWidget {
-  var _homeControllerState;
+  HomeController _homeControllerState;
+  ProductController _productControllerState;
   final IconData icons;
   final String text;
   final int index;
@@ -21,9 +23,15 @@ class EachDashboardMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _homeControllerState = Provider.of<HomeController>(context);
+    _productControllerState = Provider.of<ProductController>(context);
     return GestureDetector(
       onTap: () {
         Provider.of<HomeController>(context, listen: false).onSelect(index);
+        _productControllerState.currentProductIndex == 5 &&
+                _homeControllerState.currentMenuItemIndex == index
+            ? _homeControllerState.onProductToggle()
+            : _productControllerState.onAllProductMenuClick(5);
+        _homeControllerState.onSelectProductMenu(4);
       },
       child: Container(
         decoration: BoxDecoration(

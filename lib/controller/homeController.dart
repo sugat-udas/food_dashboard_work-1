@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:food/screen/allProductScreen.dart';
 import 'package:food/screen/credit_screen.dart';
 import 'package:food/screen/customer_screen.dart';
 import 'package:food/screen/dashboard_screen.dart';
 import 'package:food/screen/order_screen.dart';
-import 'package:food/screen/product_screen.dart';
 import 'package:food/screen/setting_screen.dart';
 
 class HomeController extends ChangeNotifier {
   int _currentIndex = 2;
 
-  int _currentProductIndex = 0;
+  int _currentProductIndex;
 
   int get currentProductIndex => _currentProductIndex;
 
@@ -17,11 +17,10 @@ class HomeController extends ChangeNotifier {
 
   int get currentMenuItemIndex => _currentIndex;
 
-  bool productToggleFlag = false;
-  bool get getProductToggleFlag => productToggleFlag;
+  bool _productToggleFlag = false;
+  bool get productToggleFlag => _productToggleFlag;
 
-  set setProductToggleFlag(bool productToggleFlag) =>
-      this.productToggleFlag = productToggleFlag;
+  set productToggleFlag(bool value) => _productToggleFlag = value;
 
   List productList = [
     "Categories",
@@ -44,7 +43,7 @@ class HomeController extends ChangeNotifier {
   List _screens = [
     DashboardScreen(),
     OrderScreen(),
-    ProductScreen(),
+    AllProductScreen(),
     CustomerScreen(),
     CreditDashboard(),
     SettingScreen(),
