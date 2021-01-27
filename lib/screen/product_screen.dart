@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
+import 'package:food/screen/addProductScreen.dart';
 
 import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
@@ -40,10 +41,9 @@ class ProductScreen extends StatelessWidget {
 
   Widget _body() {
     return Expanded(
-      child: 
-          //  _productControllerState
-          //     .productScreens[_productControllerState.currentProductIndex]
-           Container(
+      child: _productControllerState.addItemFlag
+          ? AddProductPage()
+          : Container(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
               color: Color(0xffF4F4F4),
               child: Column(

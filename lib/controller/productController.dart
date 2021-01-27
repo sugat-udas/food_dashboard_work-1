@@ -8,6 +8,7 @@ import 'package:food/screen/product_screens/type_screen.dart';
 
 class ProductController extends ChangeNotifier {
   int _currentProductIndex = 5;
+  bool addItemFlag = false;
 
   List productScreens = [
     CategoryScreen(),
@@ -133,6 +134,7 @@ class ProductController extends ChangeNotifier {
   }
 
   onAddProductClick() {
+    addItemFlag = !addItemFlag;
     notifyListeners();
   }
 

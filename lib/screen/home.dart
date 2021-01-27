@@ -153,7 +153,7 @@ class HomePage extends StatelessWidget {
 
   _allProductMenuItem() {
     return Container(
-      height: Responsive.isDesktop(Get.context) ? 240 : 218,
+      height: Responsive.isDesktop(Get.context) ? 250 : 218,
       child: Stack(
         children: [
           Positioned(
