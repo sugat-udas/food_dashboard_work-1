@@ -857,11 +857,11 @@ class AddProductPage extends StatelessWidget {
       child: RaisedButton(
         onPressed: () {
           print("Item Added");
-
+_productControllerState.onAddProductClick();
           _addItemControllerState.getCategoryCheckItems();
           _addItemControllerState.getAddonCheckItems();
-          _productControllerState.onAddProductClick();
-          _productControllerState.onAddProductClick();
+          
+         
         },
         elevation: 1,
         child: Text(
