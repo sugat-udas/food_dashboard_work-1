@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/creditController.dart';
+import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
+import 'package:food/controller/productScreenControllers/typeController.dart';
 import 'package:food/screen/home.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,12 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (_) => AddProductController(),
+    ),
+    ChangeNotifierProvider(
+      create: (_) => QuantityController(),
+    ),
+    ChangeNotifierProvider(
+      create: (_) => TypeController(),
     ),
   ], child: MyApp()));
 }

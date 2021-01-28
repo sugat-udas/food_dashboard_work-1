@@ -11,7 +11,7 @@ class AddonScreen extends StatelessWidget {
         ),
         Center(
           child: Text(
-              "Addons Page is under maintenance",
+            "Addons Page is under maintenance",
             style: TextStyle(color: Colors.blueGrey, fontSize: 20),
           ),
         ),

@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class AddProductPage extends StatelessWidget {
+class AddQuantityScreen extends StatelessWidget {
   AddProductController _addItemControllerState;
   ProductController _productControllerState;
 
@@ -75,17 +75,7 @@ class AddProductPage extends StatelessWidget {
   }
 
   _allItemInfo() {
-    return Column(
-      children: [
-        Responsive.isMobile(Get.context)
-            ? _mobileCategoryAddons()
-            : _webTabCategoryAddons(),
-        SizedBox(
-          height: 30,
-        ),
-        _extra(),
-      ],
-    );
+    return _webTabCategoryAddons();
   }
 
   Widget _webTabCategoryAddons() {
@@ -98,38 +88,8 @@ class AddProductPage extends StatelessWidget {
             SizedBox(
               width: Responsive.isDesktop(Get.context) ? 30 : 20,
             ),
-            Expanded(child: _itemThumbnail()),
           ],
         ),
-        SizedBox(height: 30),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child: _category()),
-            SizedBox(
-              width: 30,
-            ),
-            Expanded(child: _addOns()),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _mobileCategoryAddons() {
-    return Column(
-      children: [
-        _itemInfo(),
-        SizedBox(
-          height: 30,
-        ),
-        _itemThumbnail(),
-        SizedBox(height: 30),
-        _category(),
-        SizedBox(
-          height: 30,
-        ),
-        _addOns(),
       ],
     );
   }
@@ -157,78 +117,11 @@ class AddProductPage extends StatelessWidget {
     );
   }
 
-  Widget _itemThumbnail() {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(5),
-        color: CustomColors.colorInfoThumbnailHeader,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
-            child: Text(
-              "Thumbnail",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          _itemThumbnailBody()
-        ],
-      ),
-    );
-  }
+  
 
-  Widget _itemThumbnailBody() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomRight: Radius.circular(5),
-          bottomLeft: Radius.circular(5),
-        ),
-        color: Colors.white,
-      ),
-      height: getDeviceType() ? 380 : 400,
-      padding: EdgeInsets.symmetric(
-          vertical: 8.0,
-          horizontal: Responsive.isDesktop(Get.context) ? 90 : 20),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          _uploadImgBtn(),
-          SizedBox(
-            height: 60,
-          ),
-          _imgPreview()
-        ],
-      ),
-    );
-  }
+  
 
-  Widget _uploadImgBtn() {
-    return RaisedButton.icon(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      elevation: 0,
-      onPressed: () {
-        _addItemControllerState.getImage();
-      },
-      icon: Padding(
-        padding: const EdgeInsets.only(left: 5),
-        child: Icon(
-          Icons.add_a_photo,
-          size: 20,
-        ),
-      ),
-      label: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
-        child: Text("Upload Image"),
-      ),
-    );
-  }
-
+  
   Widget _imgPreview() {
     return Responsive.isMobile(Get.context)
         ? _mobResImgPrev()
