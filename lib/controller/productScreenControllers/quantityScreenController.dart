@@ -5,6 +5,7 @@ class QuantityController extends ChangeNotifier {
     "Per plate ",
     "A bowl",
     "10 pieces",
+    "2 Large",
   ];
 
   bool addQualtityFlag = false;
@@ -29,5 +30,15 @@ class QuantityController extends ChangeNotifier {
   onAddQuantityClick() {
     addQualtityFlag = !addQualtityFlag;
     notifyListeners();
+  }
+
+  String _quantityName;
+ String get quantityName => _quantityName;
+
+ set quantityName(String value) => _quantityName = value;
+  setName(String val) {
+    quantityName = val;
+    notifyListeners();
+    print(quantityName);
   }
 }

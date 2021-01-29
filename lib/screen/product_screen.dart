@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
+import 'package:food/responsive.dart';
 import 'package:food/screen/addProductScreen.dart';
 
 import 'package:food/util/commonMethods.dart';
@@ -30,11 +31,6 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     _productControllerState = Provider.of<ProductController>(context);
     _addProductControllerState = Provider.of<AddProductController>(context);
-    commonHeight = getDeviceType()
-        ? 30
-        : Get.context.isPortrait
-            ? (Get.height * .035)
-            : (Get.height * .05);
 
     return _body();
   }
@@ -44,16 +40,21 @@ class ProductScreen extends StatelessWidget {
       child: _productControllerState.addItemFlag
           ? AddProductPage()
           : Container(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+              padding: EdgeInsets.symmetric(
+                  horizontal: Responsive.isMobile(Get.context) ? 15 : 30,
+                  vertical: Responsive.isMobile(Get.context) ? 12 : 25),
               color: Color(0xffF4F4F4),
               child: Column(
                 children: [
                   _searchBarItems(),
                   SizedBox(
-                    height: 20,
+                    height: Responsive.isMobile(Get.context) ? 12 : 20,
                   ),
                   Expanded(
-                      child: SingleChildScrollView(child: _foodDataTable())),
+                    child: SingleChildScrollView(
+                      child: _foodDataTable(),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -160,7 +161,7 @@ class ProductScreen extends StatelessWidget {
                 ),
                 TableCell(
                   verticalAlignment: TableCellVerticalAlignment.middle,
-                  child: actionButtons(onPressed: () {
+                  child: actionButtons(onPressDelete: () {
                     _productControllerState.deleteProduct(
                         _productControllerState.infoList.indexOf(eachList));
                   }),
@@ -251,70 +252,18 @@ class ProductScreen extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Row(
-              children: [
-                Container(
-                  height: commonHeight,
-                  child: RaisedButton.icon(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    icon: Icon(
-                      Icons.menu,
-                      size: 18,
-                    ),
-                    label: Text("Showing 6 entries"),
-                    onPressed: () {},
-                    color: Color(0xffDBDBDB),
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Container(
-                  width: commonHeight,
-                  height: commonHeight,
-                  child: Card(
-                    elevation: 0,
-                    child: Icon(
-                      Icons.add,
-                      size: 20,
-                    ),
-                    margin: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)),
-                    color: Color(0xffDBDBDB),
-                  ),
-                ),
-              ],
-            ),
+            child: Row(children: [
+              EntriesShowBtn(),
+              SizedBox(
+                width: 5,
+              ),
+              AddEntriesBtn(),
+            ]),
           ),
-          Container(
-            height: commonHeight,
-            child: RaisedButton(
-              elevation: 1,
-              onPressed: () {
-                _productControllerState.onAddProductClick();
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.add,
-                    size: 14,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    " Add New",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                ],
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              color: CustomColors.buttonGreenColor,
-            ),
+          addnewBtn(
+            onPress: () {
+              _productControllerState.onAddProductClick();
+            },
           ),
         ],
       ),
