@@ -167,7 +167,9 @@ class QuantityScreen extends StatelessWidget {
             flex: 4,
             child: Row(
               children: [
-                EntriesShowBtn(),
+                EntriesShowBtn(
+                  entries: _quantityControllerState.getQuantityInfoList.length,
+                ),
                 SizedBox(
                   width: 5,
                 ),

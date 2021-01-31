@@ -34,6 +34,8 @@ class AddEntriesBtn extends StatelessWidget {
 }
 
 class EntriesShowBtn extends StatelessWidget {
+  final int entries;
+  EntriesShowBtn({this.entries});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,7 +47,7 @@ class EntriesShowBtn extends StatelessWidget {
           Icons.menu,
           size: 18,
         ),
-        label: Text("Showing 6 entries"),
+        label: Text("Showing ${entries} entries"),
         onPressed: () {},
         color: Color(0xffDBDBDB),
       ),

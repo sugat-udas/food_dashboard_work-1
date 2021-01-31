@@ -253,7 +253,7 @@ class ProductScreen extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Row(children: [
-              EntriesShowBtn(),
+              EntriesShowBtn(entries: _productControllerState.infoList.length,),
               SizedBox(
                 width: 5,
               ),
