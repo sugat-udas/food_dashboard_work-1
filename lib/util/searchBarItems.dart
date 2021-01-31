@@ -112,7 +112,7 @@ class SearchBar extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
           height: getDeviceType()
-              ? 30
+              ? 33
               : context.isPortrait
                   ? (Get.height * .0345)
                   : (Get.height * .05),
