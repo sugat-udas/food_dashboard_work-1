@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,28 +6,32 @@ import 'package:food/Responsive.dart';
 
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
+import 'package:food/controller/productScreenControllers/typeController.dart';
 
 import 'package:food/util/commonMethods.dart';
+import 'package:food/util/customWidgets.dart';
 
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class AddQuantityScreen extends StatelessWidget {
-  QuantityController _quantityControllerState;
+class AddTypeScreen extends StatelessWidget {
+  TypeController _typeControllerState;
 
   OutlineInputBorder borderData;
-
+  double bodyHeight;
   var commonHeight;
   @override
   Widget build(BuildContext context) {
+    bodyHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + kToolbarHeight + 20.0);
     commonHeight = getDeviceType()
         ? 30.0
         : Get.context.isPortrait
             ? (Get.height * .035)
             : (Get.height * .05);
 
-    _quantityControllerState = Provider.of<QuantityController>(context);
+    _typeControllerState = Provider.of<TypeController>(context);
     borderData = OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(
@@ -37,35 +42,41 @@ class AddQuantityScreen extends StatelessWidget {
   }
 
   Widget _body(context) {
-    return Container(
-      width: Get.width,
-      padding: EdgeInsets.symmetric(
-          horizontal: Responsive.isDesktop(context) ? 40 : 30, vertical: 20),
-      color: CustomColors.backgroundLightGrey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              _saveItemBtn(context),
-            ],
-          ),
-          Row(
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Container(
+          height: bodyHeight,
+          width: Get.width,
+          padding: EdgeInsets.symmetric(
+              horizontal: Responsive.isDesktop(context) ? 40 : 30,
+              vertical: 20),
+          color: CustomColors.backgroundLightGrey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _backBtn(context),
-              SizedBox(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(),
+                  _saveItemBtn(context),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _backBtn(context),
+                  SizedBox(),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              _itemInfo(),
             ],
           ),
-          SizedBox(
-            height: 20,
-          ),
-          _itemInfo(),
-        ],
+        ),
       ),
     );
   }
@@ -73,7 +84,7 @@ class AddQuantityScreen extends StatelessWidget {
   Widget _backBtn(context) {
     return GestureDetector(
       onTap: () {
-        _quantityControllerState.onAddQuantityClick();
+        _typeControllerState.onAddTypeClick();
       },
       child: Container(
         child: Row(
@@ -104,7 +115,7 @@ class AddQuantityScreen extends StatelessWidget {
       child: RaisedButton(
         onPressed: () {
           print("Item Added");
-          _quantityControllerState.onAddQuantityClick();
+          _typeControllerState.onAddTypeClick();
         },
         elevation: 1,
         child: Text(
@@ -134,7 +145,7 @@ class AddQuantityScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
             child: Text(
-              "Quantity Information",
+              "Item Type Information",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -146,7 +157,7 @@ class AddQuantityScreen extends StatelessWidget {
 
   Widget _itemInfoBody() {
     return Container(
-      height: Responsive.isMobile(Get.context) ? 100 : 105,
+      height: 190,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(5),
@@ -160,20 +171,56 @@ class AddQuantityScreen extends StatelessWidget {
           horizontal: 30,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(height: 20),
             _itemName(),
+            SizedBox(height: 20),
+            _uploadImg(name: "Choose Image"),
           ],
         ),
       ),
     );
   }
 
+  Widget _uploadImg({String name}) {
+    return Column(
+      crossAxisAlignment: _typeControllerState.image == null
+          ? CrossAxisAlignment.stretch
+          : CrossAxisAlignment.start,
+      children: [
+        Text(
+          name,
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
+        ),
+        _typeControllerState.image == null
+            ? UploadImgBtn(onPressed: () async {
+                await _typeControllerState.getImage();
+              })
+            : Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: _typeImg(),
+              ),
+      ],
+    );
+  }
+
+  Widget _typeImg() {
+    return Container(
+      width: 40,
+      height: 40,
+      child: Image.file(_typeControllerState.image),
+    );
+  }
+
   Widget _itemName() {
     return _eachItem(
-      name: "Total Quantity",
-      hint: "Enter quantity",
-      onChange: (newVal) => _quantityControllerState.setName(newVal),
+      name: "Item Type Name",
+      hint: "Enter item type",
+      onChange: (newVal) => _typeControllerState.setName(newVal),
     );
   }
 

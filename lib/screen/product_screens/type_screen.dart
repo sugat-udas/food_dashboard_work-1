@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/controller/productScreenControllers/typeController.dart';
+import 'package:food/screen/product_screens/add_type_screen.dart';
 import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:food/util/searchBarItems.dart';
@@ -36,35 +37,33 @@ class TypeScreen extends StatelessWidget {
   }
 
   Widget _body() {
-    return Expanded(
-      child:
-          //  _typeControllerState.addQualtityFlag
-          //     ? AddQuantityScreen()
-          //     :
-          Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 30,
-          vertical: 25,
-        ),
-        color: Color(0xffF4F4F4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _searchBarItems(),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              child: Expanded(
-                child: SingleChildScrollView(
-                  child: _typeDataTable(),
-                ),
+    return _typeControllerState.addTypeFlag
+        ? AddTypeScreen()
+        : Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 30,
+                vertical: 25,
+              ),
+              color: Color(0xffF4F4F4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _searchBarItems(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        child: _typeDataTable(),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 
   Widget _typeDataTable() {
@@ -204,10 +203,10 @@ class TypeScreen extends StatelessWidget {
             ),
           ),
           addnewBtn(
-              // onPress: () {
-              //   _typeControllerState.onAddQuantityClick();
-              // },
-              ),
+            onPress: () {
+              _typeControllerState.onAddTypeClick();
+            },
+          ),
         ],
       ),
     );

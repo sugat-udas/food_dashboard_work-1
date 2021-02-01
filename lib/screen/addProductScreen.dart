@@ -9,6 +9,7 @@ import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
 
 import 'package:food/util/commonMethods.dart';
+import 'package:food/util/customWidgets.dart';
 
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -198,7 +199,9 @@ class AddProductPage extends StatelessWidget {
           SizedBox(
             height: 40,
           ),
-          _uploadImgBtn(),
+          UploadImgBtn(onPressed: () {
+        _addItemControllerState.getImage();
+      }),
           SizedBox(
             height: 60,
           ),
@@ -208,26 +211,7 @@ class AddProductPage extends StatelessWidget {
     );
   }
 
-  Widget _uploadImgBtn() {
-    return RaisedButton.icon(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      elevation: 0,
-      onPressed: () {
-        _addItemControllerState.getImage();
-      },
-      icon: Padding(
-        padding: const EdgeInsets.only(left: 5),
-        child: Icon(
-          Icons.add_a_photo,
-          size: 20,
-        ),
-      ),
-      label: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
-        child: Text("Upload Image"),
-      ),
-    );
-  }
+ 
 
   Widget _imgPreview() {
     return Responsive.isMobile(Get.context)
