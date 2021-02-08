@@ -1,16 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/screen/product_screens/addon_screen_components/item.dart';
 
-class TableItem extends StatefulWidget {
+class AddonsTableItem extends StatefulWidget {
   @override
-  _TableItemState createState() => _TableItemState();
+  _AddonsTableItemState createState() => _AddonsTableItemState();
 }
 
-class _TableItemState extends State<TableItem> {
+class _AddonsTableItemState extends State<AddonsTableItem> {
   List<Item> items;
   bool _onSelected = false;
   bool _checkValue = false;
+  List<String> infoHeader = [
+    "Name",
+    "Limit",
+    "Description",
+    "Price",
+    "Not Available",
+    "Action",
+  ];
 
   @override
   void initState() {
@@ -20,54 +29,18 @@ class _TableItemState extends State<TableItem> {
 
   DataTable dataBody() {
     return DataTable(
+        columnSpacing: 30,
         columns: [
-          DataColumn(
-            label: Text(
-              'Name',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'Limit',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'Description',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ),
-          DataColumn(
-            label: Text(
-              'Price',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-          ),
-          DataColumn(
+          for (String each in infoHeader)
+            DataColumn(
               label: Text(
-            "Not Available",
-            style: TextStyle(
-              fontSize: 16,
+                each,
+                style: TextStyle(
+                  fontSize: xHeaderFont,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
-          )),
-          DataColumn(
-              label: Text(
-            'Action',
-            style: TextStyle(
-              fontSize: 16,
-            ),
-          ))
         ],
         rows: items.map(
           (item) {
@@ -77,7 +50,6 @@ class _TableItemState extends State<TableItem> {
                   Text(item.name),
                 ),
                 DataCell(
-                  
                   Text(item.limit.toString()),
                 ),
                 DataCell(
@@ -104,14 +76,13 @@ class _TableItemState extends State<TableItem> {
                         Icons.assignment,
                         color: Colors.blue,
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       GestureDetector(
                         onTap: () {
-
                           items.remove(item);
-                          setState(() {
-                            
-                          });
+                          setState(() {});
                         },
                         child: Icon(
                           Icons.delete,
@@ -130,6 +101,12 @@ class _TableItemState extends State<TableItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(
+          bottom: 8.0,
+          top: 8.0,
+          left: 15,
+          right: 15,
+        ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5.0),

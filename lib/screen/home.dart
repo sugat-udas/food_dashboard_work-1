@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productController.dart';
-import 'package:food/responsive.dart';
 import 'package:food/util/commonMethods.dart';
 import 'package:food/controller/homeController.dart';
 import 'package:food/util/eachDashboardMenu.dart';
@@ -44,13 +44,14 @@ class HomePage extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       drawer: (getDeviceType() ||
               (getDeviceType() == false &&
                   _homeControllerState.getOpacityForOrientation(context) == 1))
           ? _menuSideBar(context)
           : null,
-      appBar: _appBar(),
-      backgroundColor: Colors.white,
+      appBar:
+          PreferredSize(preferredSize: Size.fromHeight(56.0), child: _appBar()),
       body: _body(context),
     );
   }
@@ -71,25 +72,28 @@ class HomePage extends StatelessWidget {
     });
   }
 
-  double _menuSidebarSizeMaintain(context) {
-    double value;
-    if (getDeviceType()) {
-      value = 180;
-    } else if (!getDeviceType() &&
-        _homeControllerState.getOpacityForOrientation(context) == 0) {
-      value = width * 0.17;
-    } else if (!getDeviceType() &&
-        _homeControllerState.getOpacityForOrientation(context) == 1) {
-      value = width * 0.22;
-      // print("yess it is potrait and tablet");
-    }
+  // double _menuSidebarSizeMaintain(context) {
+  //   double value;
+  //   if (getDeviceType()) {
+  //     value = 180;
+  //   } else if (!getDeviceType() &&
+  //       _homeControllerState.getOpacityForOrientation(context) == 0) {
+  //     value = width * 0.17;
+  //   } else if (!getDeviceType() &&
+  //       _homeControllerState.getOpacityForOrientation(context) == 1) {
+  //     value = width * 0.22;
+  //     // print("yess it is potrait and tablet");
+  //   }
 
-    return value;
-  }
+  //   return value;
+  // }
 
   Widget _menuSideBar(context) {
     return Container(
-      width: _menuSidebarSizeMaintain(context),
+      color: Colors.white,
+      width: 207.0
+      // _menuSidebarSizeMaintain(context)
+      ,
       child: Drawer(
         elevation: 0,
         child: SingleChildScrollView(
@@ -104,7 +108,8 @@ class HomePage extends StatelessWidget {
                         child: Text(
                           "Menu",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 22),
+                              fontWeight: FontWeight.bold,
+                              fontSize: xHeaderFont),
                         ),
                         margin: EdgeInsets.zero,
                       ),
@@ -153,11 +158,12 @@ class HomePage extends StatelessWidget {
 
   _allProductMenuItem() {
     return Container(
-      height: Responsive.isDesktop(Get.context) ? 250 : 218,
+      height: 218,
       child: Stack(
         children: [
           Positioned(
             top: 30,
+            left: 18,
             child: _productVariousPage(),
           ),
           EachDashboardMenuItem(
@@ -173,17 +179,14 @@ class HomePage extends StatelessWidget {
 
   Widget _productVariousPage() {
     return Container(
-      width: _menuSidebarSizeMaintain(Get.context) -
-          (Responsive.isDesktop(Get.context) ? 40 : 20),
+      width: 180,
       padding: EdgeInsets.only(
         top: 10,
         bottom: 10,
+        left: 10.0,
       ),
       decoration: BoxDecoration(
           color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.symmetric(
-          horizontal: Responsive.isDesktop(Get.context) ? 20.0 : 10.0,
-          vertical: 2.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -204,16 +207,14 @@ class HomePage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         _homeControllerState.onSelectProductMenu(index);
-        _productControllerState.onAllProductMenuClick(index);
+        _productControllerState.onEachProductMenuClick(index);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: Responsive.isDesktop(Get.context) ? 20 : 11),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Text(
           label,
           style: TextStyle(
-              fontSize: Responsive.isDesktop(Get.context) ? 20 : 17,
+              fontSize: xHeaderFont,
               fontWeight: FontWeight.w400,
               color: _homeControllerState.currentProductIndex == index
                   ? CustomColors.buttonGreenColor

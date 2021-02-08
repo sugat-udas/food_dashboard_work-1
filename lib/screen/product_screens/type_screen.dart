@@ -38,29 +38,32 @@ class TypeScreen extends StatelessWidget {
 
   Widget _body() {
     return _typeControllerState.addTypeFlag
-        ? AddTypeScreen()
+        ? Expanded(
+            child: AddTypeScreen(),
+          )
         : Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 30,
-                vertical: 25,
-              ),
-              color: Color(0xffF4F4F4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _searchBarItems(),
-                  SizedBox(
-                    height: 20,
+              height: double.infinity,
+              child: SingleChildScrollView(
+                child: Container(
+                  color: Color(0xffF4F4F4),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 25,
                   ),
-                  Container(
-                    child: Expanded(
-                      child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _searchBarItems(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
                         child: _typeDataTable(),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           );

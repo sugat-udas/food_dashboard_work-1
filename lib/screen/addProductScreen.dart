@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:food/Responsive.dart';
 
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
 
@@ -149,7 +150,8 @@ class AddProductPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
             child: Text(
               "Item Information",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
             ),
           ),
           _itemInfoBody()
@@ -172,7 +174,8 @@ class AddProductPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
             child: Text(
               "Thumbnail",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
             ),
           ),
           _itemThumbnailBody()
@@ -200,8 +203,8 @@ class AddProductPage extends StatelessWidget {
             height: 40,
           ),
           UploadImgBtn(onPressed: () {
-        _addItemControllerState.getImage();
-      }),
+            _addItemControllerState.getImage();
+          }),
           SizedBox(
             height: 60,
           ),
@@ -210,8 +213,6 @@ class AddProductPage extends StatelessWidget {
       ),
     );
   }
-
- 
 
   Widget _imgPreview() {
     return Responsive.isMobile(Get.context)
@@ -227,7 +228,7 @@ class AddProductPage extends StatelessWidget {
         children: [
           Text(
             "Image Preview",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
           ),
           SizedBox(
             height: 20,
@@ -253,7 +254,7 @@ class AddProductPage extends StatelessWidget {
       children: [
         Text(
           "Image Preview",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
         ),
         SizedBox(
           height: 20,
@@ -305,6 +306,7 @@ class AddProductPage extends StatelessWidget {
               child: Center(
                   child: Text(
                 label,
+                style: TextStyle(fontSize: xBodyFont),
               )),
             ),
           )
@@ -376,7 +378,8 @@ class AddProductPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
             child: Text(
               "Category",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
             ),
           ),
           _categoryBody()
@@ -403,7 +406,8 @@ class AddProductPage extends StatelessWidget {
               children: [
                 Text(
                   "Extra",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: xHeaderFont),
                 ),
                 Icon(Icons.keyboard_arrow_down)
               ],
@@ -477,7 +481,10 @@ class AddProductPage extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Text(key),
+                        child: Text(
+                          key,
+                          style: TextStyle(fontSize: xBodyFont),
+                        ),
                       ),
                     ],
                   ),
@@ -501,7 +508,8 @@ class AddProductPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
             child: Text(
               "AddOns",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
             ),
           ),
           _addOnsBody()
@@ -532,10 +540,16 @@ class AddProductPage extends StatelessWidget {
                   padding: Responsive.isDesktop(Get.context)
                       ? EdgeInsets.only(top: 8.0, left: 8.0)
                       : EdgeInsets.only(top: 15.0, left: 16.0),
-                  child: Icon(
-                    Icons.add_circle,
-                    size: 16,
-                    color: Colors.grey.shade500,
+                  child: GestureDetector(
+                    onTap: () async {
+                      // await _productControllerState.onEachProductMenuClick(1);
+                      // Get.to(AllProductScreen());
+                    },
+                    child: Icon(
+                      Icons.add_circle,
+                      size: 16,
+                      color: Colors.grey.shade500,
+                    ),
                   ),
                 )
               : Container(
@@ -559,7 +573,10 @@ class AddProductPage extends StatelessWidget {
                       ),
                       Expanded(
                         child: SizedBox(
-                          child: Text(key),
+                          child: Text(
+                            key,
+                            style: TextStyle(fontSize: xBodyFont),
+                          ),
                         ),
                       ),
                     ],
@@ -596,7 +613,7 @@ class AddProductPage extends StatelessWidget {
           child: Text(
             "Type",
             textAlign: TextAlign.start,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
           ),
         ),
         SizedBox(
@@ -636,7 +653,7 @@ class AddProductPage extends StatelessWidget {
                     child: Text(
                       value,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: xBodyFont,
                         color: Colors.black54,
                       ),
                     ),
@@ -666,9 +683,7 @@ class AddProductPage extends StatelessWidget {
       children: [
         Text(
           name,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
         ),
         SizedBox(
           height: 5,
@@ -696,7 +711,7 @@ class AddProductPage extends StatelessWidget {
                 hintText: hint,
                 hintStyle: TextStyle(
                   color: Colors.black54,
-                  fontSize: 12,
+                  fontSize: xBodyFont,
                 ),
                 filled: true,
                 fillColor: Colors.white),
@@ -714,6 +729,7 @@ class AddProductPage extends StatelessWidget {
         Text(
           "Description",
           style: TextStyle(
+            fontSize: xBodyFont,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -728,11 +744,11 @@ class AddProductPage extends StatelessWidget {
             decoration: InputDecoration(
                 focusedBorder: borderData,
                 enabledBorder: borderData,
-                contentPadding: EdgeInsets.only(left: 10.0, top: 10.0),
+                contentPadding: EdgeInsets.only(left: 10.0, top: 20.0),
                 hintText: "Enter item Name",
                 hintStyle: TextStyle(
                   color: Colors.black54,
-                  fontSize: 12,
+                  fontSize: xBodyFont,
                 ),
                 filled: true,
                 fillColor: Colors.white),
@@ -749,7 +765,7 @@ class AddProductPage extends StatelessWidget {
       children: [
         Text(
           "Quantity",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
         ),
         SizedBox(
           height: 5,
@@ -795,7 +811,7 @@ class AddProductPage extends StatelessWidget {
                     child: Text(
                       value,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: xBodyFont,
                         color: Colors.black54,
                       ),
                     ),
@@ -827,6 +843,7 @@ class AddProductPage extends StatelessWidget {
               "Back",
               style: TextStyle(
                 color: Colors.black87,
+                fontSize: xBodyFont,
               ),
             ),
           ],
@@ -848,8 +865,7 @@ class AddProductPage extends StatelessWidget {
         elevation: 1,
         child: Text(
           "Save Item",
-          style: TextStyle(
-              color: Colors.white, fontSize: 15, fontFamily: "Roboto"),
+          style: TextStyle(color: Colors.white, fontSize: xHeaderFont),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),

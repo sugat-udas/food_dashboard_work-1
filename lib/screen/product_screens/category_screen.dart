@@ -11,12 +11,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: SingleChildScrollView(
-        child: Container(
-           height: Get.height-MediaQuery.of(context).padding.top-kToolbarHeight,
-          child: CategoryScreenBody(),
-        ),
+          child: Container(
+            height: double.infinity,
+            child: SingleChildScrollView(
+        child: CategoryScreenBody(),
       ),
+          ),
     );
   }
 }

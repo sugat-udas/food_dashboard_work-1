@@ -22,10 +22,7 @@ class ProductScreen extends StatelessWidget {
   double commonHeight;
 
   BoxShadow boxShad = BoxShadow(
-      color: Colors.grey.withOpacity(0.5),
-      spreadRadius: 2,
-      blurRadius: 4,
-      offset: Offset(2, 2));
+      color: Colors.grey.withOpacity(0.5), blurRadius: 6, offset: Offset(0, 3));
 
   @override
   Widget build(BuildContext context) {
@@ -36,29 +33,29 @@ class ProductScreen extends StatelessWidget {
   }
 
   Widget _body() {
-    return Expanded(
-      child: _productControllerState.addItemFlag
-          ? AddProductPage()
-          : Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: Responsive.isMobile(Get.context) ? 15 : 30,
-                  vertical: Responsive.isMobile(Get.context) ? 12 : 25),
-              color: Color(0xffF4F4F4),
-              child: Column(
-                children: [
-                  _searchBarItems(),
-                  SizedBox(
-                    height: Responsive.isMobile(Get.context) ? 12 : 20,
+    return _productControllerState.addItemFlag
+        ? Expanded(child: AddProductPage())
+        : Expanded(
+            child: Container(
+              height: double.infinity,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Responsive.isMobile(Get.context) ? 15 : 34,
+                      vertical: Responsive.isMobile(Get.context) ? 12 : 25),
+                  child: Column(
+                    children: [
+                      _searchBarItems(),
+                      SizedBox(
+                        height: Responsive.isMobile(Get.context) ? 12 : 25,
+                      ),
+                      _foodDataTable(),
+                    ],
                   ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: _foodDataTable(),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-    );
+          );
   }
 
   Widget _foodDataTable() {
@@ -246,14 +243,16 @@ class ProductScreen extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Expanded(flex: 4, child: SearchBar()),
+          Expanded(flex: 4, child: Container(width: 400.0, child: SearchBar())),
           SizedBox(
             width: 15,
           ),
           Expanded(
             flex: 4,
             child: Row(children: [
-              EntriesShowBtn(entries: _productControllerState.infoList.length,),
+              EntriesShowBtn(
+                entries: _productControllerState.infoList.length,
+              ),
               SizedBox(
                 width: 5,
               ),

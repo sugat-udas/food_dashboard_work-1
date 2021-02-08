@@ -1,5 +1,4 @@
-
-import 'package:food/screen/product_screens/addon_screen_components/main_item_body.dart';
+import 'package:food/screen/product_screens/addon_screen_components/addons_table_item.dart';
 
 import '../../util/customWidgets.dart';
 import '../../util/searchBarItems.dart';
@@ -17,7 +16,6 @@ class _AddonScreenState extends State<AddonScreen> {
       blurRadius: 4,
       offset: Offset(2, 2));
 
-
   Widget dataBody() {
     return Container(
       decoration: BoxDecoration(
@@ -27,15 +25,7 @@ class _AddonScreenState extends State<AddonScreen> {
           boxShad,
         ],
       ),
-      child: Padding(
-        padding: EdgeInsets.only(
-          bottom: 8.0,
-          top: 8.0,
-          right: 20,
-          left: 20
-        ),
-        child: TableItem(),
-      ),
+      child: AddonsTableItem(),
     );
   }
 
@@ -55,8 +45,8 @@ class _AddonScreenState extends State<AddonScreen> {
             child: Row(
               children: [
                 EntriesShowBtn(
-                  // entries: _quantityControllerState.getQuantityInfoList.length,
-                ),
+                    // entries: _quantityControllerState.getQuantityInfoList.length,
+                    ),
                 SizedBox(
                   width: 5,
                 ),
@@ -78,22 +68,27 @@ class _AddonScreenState extends State<AddonScreen> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 30,
-          vertical: 25,
-        ),
+        width: double.infinity,
         color: Color(0xffF4F4F4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _searchBarItems(),
-            SizedBox(
-              height: 20,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 35,
+              vertical: 25,
             ),
-            Container(
-              child: dataBody(),
-            )
-          ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                _searchBarItems(),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: dataBody(),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

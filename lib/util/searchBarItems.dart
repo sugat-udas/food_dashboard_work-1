@@ -105,10 +105,11 @@ class SearchBar extends StatelessWidget {
     return Transform.translate(
       offset: Offset(-4, 0),
       child: Card(
-        shape: RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(   
           borderRadius: BorderRadius.circular(5),
         ),
-        elevation: 2,
+        elevation: 1,
+        
         child: Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
           height: getDeviceType()

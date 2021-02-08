@@ -19,7 +19,7 @@ class ProductController extends ChangeNotifier {
     ProductScreen()
   ];
 
-  onAllProductMenuClick(int index) {
+  onEachProductMenuClick(int index) {
     currentProductIndex = index;
     notifyListeners();
   }

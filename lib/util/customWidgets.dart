@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/util/commonMethods.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -75,6 +76,7 @@ class EntriesShowBtn extends StatelessWidget {
 
 Widget addnewBtn({Function onPress}) {
   return Container(
+    width: 130.0,
     height: commonHeight,
     child: RaisedButton(
       elevation: 1,
@@ -84,12 +86,12 @@ Widget addnewBtn({Function onPress}) {
         children: [
           Icon(
             Icons.add,
-            size: 14,
+            size: 18,
             color: Colors.white,
           ),
           Text(
             " Add New",
-            style: TextStyle(color: Colors.white, fontSize: 15),
+            style: TextStyle(color: Colors.white, fontSize: xHeaderFont),
           ),
         ],
       ),

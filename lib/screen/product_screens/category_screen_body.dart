@@ -25,6 +25,7 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
 
   Widget dataBody() {
     return Container(
+     
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
@@ -36,8 +37,8 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
         padding: EdgeInsets.only(
           bottom: 8.0,
           top: 8.0,
-          left: 20,
-          right: 20,
+          left: 15,
+          right: 15,
         ),
         child: DataTable(
           columns: [
@@ -159,26 +160,25 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
+    return Container(
+     
         padding: EdgeInsets.symmetric(
-          horizontal: 30,
+          horizontal: 35,
           vertical: 25,
         ),
         color: Color(0xffF4F4F4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _searchBarItems(),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              child: dataBody(),
-            )
+    _searchBarItems(),
+    SizedBox(
+      height: 25,
+    ),
+    Container(
+      child: dataBody(),
+    )
           ],
         ),
-      ),
-    );
+      );
   }
 }
