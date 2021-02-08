@@ -11,24 +11,25 @@ double commonHeight = getDeviceType()
         ? (Get.height * .035)
         : (Get.height * .05);
 
- Widget UploadImgBtn({Function onPressed}) {
-    return RaisedButton.icon(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      elevation: 0,
-      onPressed: onPressed,
-      icon: Padding(
-        padding: const EdgeInsets.only(left: 5),
-        child: Icon(
-          Icons.add_a_photo,
-          size: 20,
-        ),
+Widget UploadImgBtn({Function onPressed}) {
+  return RaisedButton.icon(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+    elevation: 0,
+    onPressed: onPressed,
+    icon: Padding(
+      padding: const EdgeInsets.only(left: 5),
+      child: Icon(
+        Icons.add_a_photo,
+        size: 20,
       ),
-      label: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
-        child: Text("Upload Image"),
-      ),
-    );
-  }
+    ),
+    label: Padding(
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
+      child: Text("Upload Image"),
+    ),
+  );
+}
+
 class AddEntriesBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,10 @@ class EntriesShowBtn extends StatelessWidget {
           Icons.menu,
           size: 18,
         ),
-        label: Text("Showing ${entries} entries"),
+        label: Text(
+          "Showing ${entries} entries",
+          style: TextStyle(fontSize: 14),
+        ),
         onPressed: () {},
         color: Color(0xffDBDBDB),
       ),

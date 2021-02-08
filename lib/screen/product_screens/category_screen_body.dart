@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food/constants/customFonts.dart';
 import '../../util/customWidgets.dart';
 import '../../util/searchBarItems.dart';
 import 'category_data.dart';
@@ -15,7 +16,7 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
       blurRadius: 4,
       offset: Offset(2, 2));
   String valueChoose;
-  List listItem = ['Categories', 'Addon Items', 'Quantity', 'Type'];
+  List listHeader = ['Name', 'Color', 'Thumbnail', 'Total Item', "Action"];
   List<Data> datas;
   @override
   void initState() {
@@ -25,7 +26,6 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
 
   Widget dataBody() {
     return Container(
-     
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5),
@@ -42,48 +42,25 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
         ),
         child: DataTable(
           columns: [
-            DataColumn(
-              label: Text(
-                "Name",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            for (var each in listHeader)
+              DataColumn(
+                label: Text(
+                  each,
+                  style: TextStyle(
+                      fontSize: xHeaderFont, fontWeight: FontWeight.bold),
+                ),
+                numeric: false,
               ),
-              numeric: false,
-            ),
-            DataColumn(
-              label: Text(
-                "Color",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              numeric: false,
-            ),
-            DataColumn(
-              label: Text(
-                "Thumbnail",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              numeric: false,
-            ),
-            DataColumn(
-              label: Text(
-                "Total Item",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              numeric: false,
-            ),
-            DataColumn(
-              label: Text(
-                "Action",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-              ),
-              numeric: false,
-            )
           ],
           rows: datas
               .map(
                 (datas) => DataRow(
                   cells: [
                     DataCell(
-                      Text(datas.name),
+                      Text(
+                        datas.name,
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ),
                     DataCell(Container(
                       height: 20,
@@ -98,6 +75,7 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
                     DataCell(
                       Text(
                         datas.totalitem.toString(),
+                        style: TextStyle(fontSize: 14),
                       ),
                     ),
                     DataCell(
@@ -139,8 +117,8 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
             child: Row(
               children: [
                 EntriesShowBtn(
-                     entries: datas.length,
-                    ),
+                  entries: datas.length,
+                ),
                 SizedBox(
                   width: 5,
                 ),
@@ -161,24 +139,23 @@ class _CategoryScreenBodyState extends State<CategoryScreenBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-     
-        padding: EdgeInsets.symmetric(
-          horizontal: 35,
-          vertical: 25,
-        ),
-        color: Color(0xffF4F4F4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-    _searchBarItems(),
-    SizedBox(
-      height: 25,
-    ),
-    Container(
-      child: dataBody(),
-    )
-          ],
-        ),
-      );
+      padding: EdgeInsets.symmetric(
+        horizontal: 35,
+        vertical: 25,
+      ),
+      color: Color(0xffF4F4F4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _searchBarItems(),
+          SizedBox(
+            height: 25,
+          ),
+          Container(
+            child: dataBody(),
+          )
+        ],
+      ),
+    );
   }
 }

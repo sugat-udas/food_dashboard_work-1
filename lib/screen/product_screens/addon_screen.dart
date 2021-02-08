@@ -68,7 +68,7 @@ class _AddonScreenState extends State<AddonScreen> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        width: double.infinity,
+        height: double.infinity,
         color: Color(0xffF4F4F4),
         child: SingleChildScrollView(
           child: Container(
