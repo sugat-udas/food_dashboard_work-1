@@ -1,15 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
-import 'package:food/util/commonMethods.dart';
-import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
-double commonHeight = getDeviceType()
-    ? 33
-    : Get.context.isPortrait
-        ? (Get.height * .035)
-        : (Get.height * .05);
+double commonHeight = 35;
+
+class CustomCheckbox extends StatelessWidget {
+  final bool checkValue;
+  final Function onCheckboxClick;
+  final Color bgColor;
+  CustomCheckbox({
+    this.checkValue,
+    this.onCheckboxClick,
+    this.bgColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onCheckboxClick,
+      child: Container(
+        height: 15,
+        width: 15,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(1),
+          color: checkValue ? CustomColors.buttonGreenColor : Colors.white,
+          border:
+              Border.all(width: 0.5, color: CustomColors.backgroundLightGrey),
+        ),
+        child: checkValue
+            ? Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 4.0,
+                  right: 2,
+                ),
+                child: Icon(
+                  Icons.check,
+                  size: 14.0,
+                  color: checkValue ? Colors.white : bgColor,
+                ),
+              )
+            : SizedBox(),
+      ),
+    );
+  }
+}
 
 Widget UploadImgBtn({Function onPressed}) {
   return RaisedButton.icon(
@@ -25,7 +59,10 @@ Widget UploadImgBtn({Function onPressed}) {
     ),
     label: Padding(
       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5),
-      child: Text("Upload Image"),
+      child: Text(
+        "Upload Image",
+        style: TextStyle(fontSize: xHeaderFont),
+      ),
     ),
   );
 }
@@ -59,8 +96,10 @@ class EntriesShowBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 150,
       height: commonHeight,
       child: RaisedButton.icon(
+        padding: EdgeInsets.zero,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         icon: Icon(
@@ -68,8 +107,8 @@ class EntriesShowBtn extends StatelessWidget {
           size: 18,
         ),
         label: Text(
-          "Showing ${entries} entries",
-          style: TextStyle(fontSize: 14),
+          "Showing ${entries ?? 0} entries",
+          style: TextStyle(fontSize: xBodyFont),
         ),
         onPressed: () {},
         color: Color(0xffDBDBDB),
@@ -137,7 +176,7 @@ Widget actionButtons({Function onPressDelete}) {
           size: 20,
         ),
         customSizedBoxed(
-          width: 10,
+          width: 5,
         ),
         GestureDetector(
           onTap: onPressDelete,

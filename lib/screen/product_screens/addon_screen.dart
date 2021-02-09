@@ -1,4 +1,6 @@
+import 'package:food/responsive.dart';
 import 'package:food/screen/product_screens/addon_screen_components/addons_table_item.dart';
+import 'package:get/get.dart';
 
 import '../../util/customWidgets.dart';
 import '../../util/searchBarItems.dart';
@@ -29,40 +31,53 @@ class _AddonScreenState extends State<AddonScreen> {
     );
   }
 
-  Widget _searchBarItems() {
+
+ Widget _searchBarItems() {
     return Container(
       child: Row(
         children: [
           Expanded(
-            flex: 4,
-            child: SearchBar(),
-          ),
-          SizedBox(
-            width: 15,
-          ),
-          Expanded(
-            flex: 4,
-            child: Row(
-              children: [
-                EntriesShowBtn(
-                    // entries: _quantityControllerState.getQuantityInfoList.length,
-                    ),
-                SizedBox(
-                  width: 5,
-                ),
-                AddEntriesBtn(),
-              ],
+            flex: 3,
+            child: Container(
+              width: 400.0,
+              child: SearchBar(),
             ),
           ),
-          addnewBtn(
-            onPress: () {
-              // _quantityControllerState.onAddQuantityClick();
-            },
+          SizedBox(
+            width: Responsive.isMobile(Get.context) ||
+                    Responsive.isTablet(Get.context)
+                ? 15
+                : 30,
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              child: Row(
+                children: [
+                  EntriesShowBtn(
+              // entries: _quantityControllerState.getQuantityInfoList.length,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  AddEntriesBtn(),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            child: addnewBtn(
+              onPress: () {
+                // _quantityControllerState.onAddQuantityClick();
+              },
+            ),
           ),
         ],
       ),
     );
   }
+
+  
 
   @override
   Widget build(BuildContext context) {

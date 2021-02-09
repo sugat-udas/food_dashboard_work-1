@@ -46,8 +46,8 @@ class EachDashboardMenuItem extends StatelessWidget {
           left: 20.0,
         ),
         margin: EdgeInsets.only(
-          left: 18.0,
-          right: 9.0
+          left: 13.0,
+          right: 13.0
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
 import 'package:food/responsive.dart';
@@ -68,23 +69,23 @@ class ProductScreen extends StatelessWidget {
           boxShadow: [boxShad]),
 
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+        padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 19),
         child: Table(
           columnWidths: {
-            0: FlexColumnWidth(getDeviceType() ? 0.9 : 1.0),
-            1: FlexColumnWidth(getDeviceType() ? 0.9 : 1.2),
-            2: FlexColumnWidth(2.4),
-            3: FlexColumnWidth(1.7),
-            4: FlexColumnWidth(2.5),
-            5: FlexColumnWidth(getDeviceType() ? 1.4 : 1.5),
-            6: FlexColumnWidth(1.8),
-            7: FlexColumnWidth(2.2),
-            8: FlexColumnWidth(1.2),
+            0: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 70 : 95),
+            1: FlexColumnWidth(76),
+            2: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 140 : 165),
+            3: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 130 : 116),
+            4: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 151 : 110),
+            5: FlexColumnWidth(100),
+            6: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 114 : 100),
+            7: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 132 : 120),
+            8: FlexColumnWidth(Responsive.isDesktop(Get.context) ? 48 : 83),
           },
           border: TableBorder(
             horizontalInside:
-                BorderSide(width: 0.5, color: CustomColors.borderDividerColor),
-            // bottom: BorderSide(width: 1, color: Colors.red)
+                BorderSide(width: 1, color: CustomColors.backgroundLightGrey),
+           
           ),
           children: [
             TableRow(children: [
@@ -97,7 +98,8 @@ class ProductScreen extends StatelessWidget {
                   ),
                   child: Text(
                     head.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: xHeaderFont),
                   ),
                 ))
             ]),
@@ -125,14 +127,27 @@ class ProductScreen extends StatelessWidget {
                       ],
                     )),
                 TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: _productName(text: eachList[2])),
+                  verticalAlignment: TableCellVerticalAlignment.middle,
+                  child: _productName(
+                    text: eachList[2],
+                  ),
+                ),
                 TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: _productName(text: eachList[3])),
+                  verticalAlignment: TableCellVerticalAlignment.middle,
+                  child: SizedBox(
+                    width: 82,
+                    child: _productName(text: eachList[3]),
+                  ),
+                ),
                 TableCell(
-                    verticalAlignment: TableCellVerticalAlignment.middle,
-                    child: _productName(text: eachList[4])),
+                  verticalAlignment: TableCellVerticalAlignment.middle,
+                  child: SizedBox(
+                    width: 124.0,
+                    child: _productName(
+                      text: eachList[4],
+                    ),
+                  ),
+                ),
                 TableCell(
                     verticalAlignment: TableCellVerticalAlignment.middle,
                     child: _productName(
@@ -150,7 +165,7 @@ class ProductScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       SizedBox(
-                        width: 20,
+                        width: Responsive.isDesktop(Get.context) ? 35 : 20,
                       ),
                       _productNotAvail()
                     ],
@@ -171,15 +186,12 @@ class ProductScreen extends StatelessWidget {
   }
 
   Widget _productNotAvail() {
-    return Theme(
-      data: ThemeData(unselectedWidgetColor: Colors.grey.shade400),
-      child: Checkbox(
-        tristate: false,
-        value: _productControllerState.tickState,
-        onChanged: (value) {
-          _productControllerState.changeTickState();
-        },
-      ),
+    return CustomCheckbox(
+      bgColor: CustomColors.buttonGreenColor,
+      checkValue: _productControllerState.tickState,
+      onCheckboxClick: () {
+        _productControllerState.onTapOnCheckbox();
+      },
     );
   }
 
@@ -194,9 +206,8 @@ class ProductScreen extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-              // fontFamily:
-              //     "Roboto",
-              ),
+            fontSize: xBodyFont,
+          ),
         ),
       ),
     );
@@ -206,8 +217,8 @@ class ProductScreen extends StatelessWidget {
       {String url, BoxShape shape, double height, double bottomPadding}) {
     return Container(
       margin: EdgeInsets.only(top: 16, bottom: bottomPadding ?? 16, right: 15),
-      height: height ?? 25,
-      width: 40,
+      height: height ?? 30,
+      width: 30,
       decoration: BoxDecoration(
         shape: shape ?? BoxShape.rectangle,
         image: DecorationImage(
@@ -243,29 +254,46 @@ class ProductScreen extends StatelessWidget {
     return Container(
       child: Row(
         children: [
-          Expanded(flex: 4, child: Container(width: 400.0, child: SearchBar())),
+          Expanded(
+            flex: 3,
+            child: Container(
+              width: 400.0,
+              child: SearchBar(),
+            ),
+          ),
           SizedBox(
-            width: 15,
+            width: Responsive.isMobile(Get.context) ||
+                    Responsive.isTablet(Get.context)
+                ? 15
+                : 30,
           ),
           Expanded(
-            flex: 4,
-            child: Row(children: [
-              EntriesShowBtn(
-                entries: _productControllerState.infoList.length,
+            flex: 2,
+            child: Container(
+              child: Row(
+                children: [
+                  EntriesShowBtn(
+                    entries: _productControllerState.infoList.length,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  AddEntriesBtn(),
+                ],
               ),
-              SizedBox(
-                width: 5,
-              ),
-              AddEntriesBtn(),
-            ]),
+            ),
           ),
-          addnewBtn(
-            onPress: () {
-              _productControllerState.onAddProductClick();
-            },
+          Container(
+            child: addnewBtn(
+              onPress: () {
+                _productControllerState.onAddProductClick();
+              },
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+

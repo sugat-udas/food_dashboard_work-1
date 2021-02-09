@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CreditDashboard extends StatelessWidget {
+  double commonHeight;
+
   CreditController _adminControllerState;
   String url =
       "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/122777514_4658406440867560_8980358279672578081_o.jpg?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=K7SoRreE8DAAX_sx1qg&_nc_ht=scontent.fktm3-1.fna&oh=f00647a1eaff1045999abed17c74f31a&oe=60286AD1";
@@ -24,6 +26,7 @@ class CreditDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // commonHeight = 50;
     _adminControllerState = Provider.of<CreditController>(context);
     height = Get.height;
     width = Get.width;
@@ -297,7 +300,7 @@ class CreditDashboard extends StatelessWidget {
           },
           border: TableBorder(
             horizontalInside:
-                BorderSide(width: 0.5, color: CustomColors.borderDividerColor),
+                BorderSide(width: 0.5, color: CustomColors.backgroundLightGrey),
             // bottom: BorderSide(width: 1, color: Colors.red)
           ),
           children: [

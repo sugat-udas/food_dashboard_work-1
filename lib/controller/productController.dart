@@ -128,7 +128,7 @@ class ProductController extends ChangeNotifier {
 
   List get infoHeadList => _infoHeadList;
 
-  changeTickState() {
+  onTapOnCheckbox() {
     tickState = !tickState;
     notifyListeners();
   }

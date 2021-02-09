@@ -163,7 +163,7 @@ class HomePage extends StatelessWidget {
         children: [
           Positioned(
             top: 30,
-            left: 18,
+            left: 13,
             child: _productVariousPage(),
           ),
           EachDashboardMenuItem(
