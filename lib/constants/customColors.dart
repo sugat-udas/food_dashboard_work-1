@@ -6,5 +6,7 @@ class CustomColors {
   static Color sideMenuColor = Color(0xffFAFAFA);
   static Color colorInfoThumbnailHeader = Color(0xffE4E4E4);
   static Color backgroundLightGrey = Color(0xffF4F4F4);
-  static Color checkboxColor = Colors.grey.shade400;
+  static Color checkboxBorder = Color(0xff707070);
+
+  
 }

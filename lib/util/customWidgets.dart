@@ -25,7 +25,7 @@ class CustomCheckbox extends StatelessWidget {
           borderRadius: BorderRadius.circular(1),
           color: checkValue ? CustomColors.buttonGreenColor : Colors.white,
           border:
-              Border.all(width: 0.5, color: CustomColors.backgroundLightGrey),
+              Border.all(width: 0.5, color: CustomColors.checkboxBorder),
         ),
         child: checkValue
             ? Padding(
