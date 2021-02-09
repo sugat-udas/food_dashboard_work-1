@@ -47,7 +47,7 @@ class AddProductPage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(
             horizontal: Responsive.isDesktop(context) ? 40 : 30, vertical: 20),
-        color: CustomColors.backgroundLightGrey,
+        color: CustomColors.borderLightGreyBg,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -296,7 +296,7 @@ class AddProductPage extends StatelessWidget {
         ? Container(
             decoration: BoxDecoration(
               shape: boxShape ?? BoxShape.rectangle,
-              color: CustomColors.backgroundLightGrey,
+              color: CustomColors.borderLightGreyBg,
             ),
             height: 145,
             width: 145,
@@ -870,7 +870,7 @@ class AddProductPage extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        color: CustomColors.buttonGreenColor,
+        color: CustomColors.greenBtn,
       ),
     );
   }

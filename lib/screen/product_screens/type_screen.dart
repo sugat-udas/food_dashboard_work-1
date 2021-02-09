@@ -96,7 +96,7 @@ class TypeScreen extends StatelessWidget {
             },
             border: TableBorder(
               horizontalInside: BorderSide(
-                  width: 0.5, color: CustomColors.backgroundLightGrey),
+                  width: 1, color: CustomColors.borderLightGreyBg),
             ),
             children: [
               TableRow(

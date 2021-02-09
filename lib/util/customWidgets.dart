@@ -23,9 +23,9 @@ class CustomCheckbox extends StatelessWidget {
         width: 15,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(1),
-          color: checkValue ? CustomColors.buttonGreenColor : Colors.white,
+          color: checkValue ? CustomColors.greenBtn : Colors.white,
           border:
-              Border.all(width: 0.5, color: CustomColors.checkboxBorder),
+              Border.all(width: 0.5, color: CustomColors.borderMedGreyForChkBox),
         ),
         child: checkValue
             ? Padding(
@@ -106,9 +106,12 @@ class EntriesShowBtn extends StatelessWidget {
           Icons.menu,
           size: 18,
         ),
-        label: Text(
-          "Showing ${entries ?? 0} entries",
-          style: TextStyle(fontSize: xBodyFont),
+        label: Transform.translate(
+          offset: Offset(-5,0),
+                  child: Text(
+            "Showing ${entries ?? 0} entries",
+            style: TextStyle(fontSize: xBodyFont),
+          ),
         ),
         onPressed: () {},
         color: Color(0xffDBDBDB),
@@ -141,7 +144,7 @@ Widget addnewBtn({Function onPress}) {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
-      color: CustomColors.buttonGreenColor,
+      color: CustomColors.greenBtn,
     ),
   );
 }

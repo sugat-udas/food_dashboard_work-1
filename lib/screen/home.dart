@@ -90,10 +90,8 @@ class HomePage extends StatelessWidget {
 
   Widget _menuSideBar(context) {
     return Container(
-      color: Colors.white,
-      width: 207.0
-      // _menuSidebarSizeMaintain(context)
-      ,
+     
+      width: 207.0,
       child: Drawer(
         elevation: 0,
         child: SingleChildScrollView(
@@ -217,7 +215,7 @@ class HomePage extends StatelessWidget {
               fontSize: xHeaderFont,
               fontWeight: FontWeight.w400,
               color: _homeControllerState.currentProductIndex == index
-                  ? CustomColors.buttonGreenColor
+                  ? CustomColors.greenBtn
                   : Colors.black),
         ),
       ),
@@ -230,7 +228,7 @@ class HomePage extends StatelessWidget {
       title: Text(
         "FOODIZM",
         style: TextStyle(
-          color: CustomColors.buttonGreenColor,
+          color: CustomColors.greenBtn,
         ),
       ),
       actions: [

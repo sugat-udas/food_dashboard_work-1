@@ -97,7 +97,7 @@ class CreditDashboard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
           boxShadow: [
-            Constants.kGeneralBoxShadow,
+            kGeneralBoxShadow,
           ]),
       margin: EdgeInsets.only(left: 20),
       child: Column(
@@ -164,7 +164,7 @@ class CreditDashboard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
           boxShadow: [
-            Constants.kGeneralBoxShadow,
+            kGeneralBoxShadow,
           ]),
       margin: EdgeInsets.only(left: 20),
       child: Column(
@@ -205,7 +205,7 @@ class CreditDashboard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
           boxShadow: [
-            Constants.kGeneralBoxShadow,
+           kGeneralBoxShadow,
           ]),
       margin: EdgeInsets.only(left: 20, right: 20),
       child: Padding(
@@ -283,7 +283,7 @@ class CreditDashboard extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [Constants.kGeneralBoxShadow]),
+          boxShadow: [kGeneralBoxShadow]),
 
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
@@ -300,7 +300,7 @@ class CreditDashboard extends StatelessWidget {
           },
           border: TableBorder(
             horizontalInside:
-                BorderSide(width: 0.5, color: CustomColors.backgroundLightGrey),
+                BorderSide(width: 0.5, color: CustomColors.borderLightGreyBg),
             // bottom: BorderSide(width: 1, color: Colors.red)
           ),
           children: [

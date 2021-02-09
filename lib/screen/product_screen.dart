@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food/constants/constants.dart';
 
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
@@ -22,9 +23,7 @@ class ProductScreen extends StatelessWidget {
 
   double commonHeight;
 
-  BoxShadow boxShad = BoxShadow(
-      color: Colors.grey.withOpacity(0.5), blurRadius: 6, offset: Offset(0, 3));
-
+  
   @override
   Widget build(BuildContext context) {
     _productControllerState = Provider.of<ProductController>(context);
@@ -66,7 +65,7 @@ class ProductScreen extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
-          boxShadow: [boxShad]),
+          boxShadow: [kGeneralBoxShadow]),
 
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 13.0, horizontal: 19),
@@ -84,7 +83,7 @@ class ProductScreen extends StatelessWidget {
           },
           border: TableBorder(
             horizontalInside:
-                BorderSide(width: 1, color: CustomColors.backgroundLightGrey),
+                BorderSide(width: 1, color: CustomColors.borderLightGreyBg),
            
           ),
           children: [
@@ -187,7 +186,7 @@ class ProductScreen extends StatelessWidget {
 
   Widget _productNotAvail() {
     return CustomCheckbox(
-      bgColor: CustomColors.buttonGreenColor,
+      bgColor: CustomColors.greenBtn,
       checkValue: _productControllerState.tickState,
       onCheckboxClick: () {
         _productControllerState.onTapOnCheckbox();

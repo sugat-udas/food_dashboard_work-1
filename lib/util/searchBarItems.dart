@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 
 import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
 import 'package:get/get.dart';
 
-
-
- 
 class SearchBarItems extends StatelessWidget {
-  
   double _commonHeight;
   @override
   Widget build(BuildContext context) {
-   
     _commonHeight = getDeviceType()
         ? 30
         : context.isPortrait
@@ -32,17 +29,14 @@ class SearchBarItems extends StatelessWidget {
           width: 13,
         ),
         Expanded(
-          flex:  9 ,
+          flex: 9,
           child: Card(
             elevation: 2,
             color: Colors.white,
             child: Container(
               height: _commonHeight,
               child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  right: 4
-                ),
+                padding: const EdgeInsets.only(left: 10, right: 4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -104,39 +98,34 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Transform.translate(
       offset: Offset(-4, 0),
-      child: Card(
-        shape: RoundedRectangleBorder(   
-          borderRadius: BorderRadius.circular(5),
-        ),
-        elevation: 1,
-        
-        child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-          height: getDeviceType()
-              ? 33
-              : context.isPortrait
-                  ? (Get.height * .0345)
-                  : (Get.height * .05),
-          child: TextField(
-            decoration: InputDecoration(
-                contentPadding: EdgeInsets.only(left: 15),
-                hintText: "Search...",
-                hintStyle: TextStyle(color: Colors.grey),
-                suffixIcon: Icon(
-                  Icons.search,
-                  size: 19,
-                  color: Colors.grey,
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                enabled: true,
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    borderSide: BorderSide.none),
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100),
-                    borderSide: BorderSide.none)),
-          ),
+      child: Container(
+        decoration: BoxDecoration(
+            border:
+                Border.all(width: 0.25, color: CustomColors.borderMedGreyForChkBox),
+            borderRadius: BorderRadius.circular(5)),
+        height:35,
+        child: TextField(
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(left: 15),
+              hintText: "Search...",
+              hintStyle: TextStyle(
+                color: Colors.grey,
+                fontSize: xBodyFont,
+              ),
+              suffixIcon: Icon(
+                Icons.search,
+                size: 19,
+                color: Colors.grey,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              enabled: true,
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  borderSide: BorderSide.none),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  borderSide: BorderSide.none)),
         ),
       ),
     );

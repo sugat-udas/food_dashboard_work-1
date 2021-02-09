@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData( 
+        
         scaffoldBackgroundColor: Color(0xffF4F4F4),
         textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme,

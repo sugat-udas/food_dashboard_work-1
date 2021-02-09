@@ -37,7 +37,7 @@ class EachDashboardMenuItem extends StatelessWidget {
         width: 180.0,
         decoration: BoxDecoration(
             color: _homeControllerState.currentMenuItemIndex == index
-                ? CustomColors.buttonGreenColor
+                ? CustomColors.greenBtn
                 : CustomColors.sideMenuColor,
             borderRadius: BorderRadius.circular(10)),
         padding: EdgeInsets.only(
