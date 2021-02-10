@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class EachDashboardMenuItem extends StatelessWidget {
   HomeController _homeControllerState;
   ProductController _productControllerState;
-  final IconData icons;
+  final String icons;
   final String text;
   final int index;
   final IconData trailling;
@@ -45,23 +45,24 @@ class EachDashboardMenuItem extends StatelessWidget {
           bottom: 10,
           left: 20.0,
         ),
-        margin: EdgeInsets.only(
-          left: 13.0,
-          right: 13.0
-        ),
+        margin: EdgeInsets.only(left: 13.0, right: 13.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                Icon(
-                  icons,
-                  color: _homeControllerState.currentMenuItemIndex == index
-                      ? Colors.white
-                      : Colors.black,
+                Container(
+                  height: 15,
+                  width: 15,
+                  child: Image.asset(
+                    icons,
+                    color: _homeControllerState.currentMenuItemIndex == index
+                        ? Colors.white
+                        : Colors.black,
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left:7 ),
+                  padding: const EdgeInsets.only(left: 7),
                   child: Text(
                     text,
                     style: TextStyle(
@@ -81,18 +82,18 @@ class EachDashboardMenuItem extends StatelessWidget {
                       _homeControllerState.onProductToggle();
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(right:5.0),
+                      padding: const EdgeInsets.only(right: 5.0),
                       child: Icon(
                         trailling,
                         size: 24,
-                        color: _homeControllerState.currentMenuItemIndex == index
-                            ? Colors.white
-                            : Colors.black,
+                        color:
+                            _homeControllerState.currentMenuItemIndex == index
+                                ? Colors.white
+                                : Colors.black,
                       ),
                     ),
                   )
                 : SizedBox()
-             
           ],
         ),
       ),

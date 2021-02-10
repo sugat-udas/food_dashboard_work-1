@@ -24,8 +24,8 @@ class CustomCheckbox extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(1),
           color: checkValue ? CustomColors.greenBtn : Colors.white,
-          border:
-              Border.all(width: 0.5, color: CustomColors.borderMedGreyForChkBox),
+          border: Border.all(
+              width: 0.5, color: CustomColors.borderMedGreyForChkBox),
         ),
         child: checkValue
             ? Padding(
@@ -107,8 +107,8 @@ class EntriesShowBtn extends StatelessWidget {
           size: 18,
         ),
         label: Transform.translate(
-          offset: Offset(-5,0),
-                  child: Text(
+          offset: Offset(-5, 0),
+          child: Text(
             "Showing ${entries ?? 0} entries",
             style: TextStyle(fontSize: xBodyFont),
           ),
@@ -167,29 +167,35 @@ Widget customSizedBoxed({double height, double width}) {
   return SizedBox(height: height, width: width);
 }
 
-Widget actionButtons({Function onPressDelete}) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 15.0),
-    child: (Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Icon(
-          Icons.edit,
-          color: Colors.blue,
-          size: 20,
-        ),
-        customSizedBoxed(
-          width: 5,
-        ),
-        GestureDetector(
-          onTap: onPressDelete,
-          child: Icon(
-            Icons.delete,
-            color: Colors.red,
-            size: 20,
+Widget actionButtons({Function onPressDelete, Function onPressEdit}) {
+  return (Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      GestureDetector(
+        onTap: onPressEdit,
+        child: Container(
+          width: 15,
+          height: 15,
+          child: Image.asset(
+            "assets/icons/edit.png",
+            color: CustomColors.editActionBtnColor,
           ),
         ),
-      ],
-    )),
-  );
+      ),
+      SizedBox(
+        width: 15.0,
+      ),
+      GestureDetector(
+        onTap: onPressDelete,
+        child: Container(
+          width: 15,
+          height: 15,
+          child: Image.asset(
+            "assets/icons/delete.png",
+            color: CustomColors.deleteActionBtnColor,
+          ),
+        ),
+      ),
+    ],
+  ));
 }

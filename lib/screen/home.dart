@@ -90,7 +90,6 @@ class HomePage extends StatelessWidget {
 
   Widget _menuSideBar(context) {
     return Container(
-     
       width: 207.0,
       child: Drawer(
         elevation: 0,
@@ -117,12 +116,12 @@ class HomePage extends StatelessWidget {
                 height: 10,
               ),
               EachDashboardMenuItem(
-                icons: Icons.dashboard,
+                icons: "assets/icons/dashboard.png",
                 text: "Dashboard",
                 index: 0,
               ),
               EachDashboardMenuItem(
-                icons: Icons.local_dining,
+                icons: "assets/icons/orders.png",
                 text: "Orders",
                 index: 1,
               ),
@@ -130,23 +129,26 @@ class HomePage extends StatelessWidget {
                       _homeControllerState.currentMenuItemIndex == 2)
                   ? _allProductMenuItem()
                   : EachDashboardMenuItem(
-                      icons: Icons.menu_book_rounded,
+                      icons: "assets/icons/menu.png",
                       text: "Product",
                       index: 2,
                       trailling: Icons.keyboard_arrow_down,
                     ),
               EachDashboardMenuItem(
-                icons: Icons.group_rounded,
+                icons: "assets/icons/customer.png",
                 text: "Customers",
                 index: 3,
               ),
               EachDashboardMenuItem(
-                icons: Icons.star,
+                icons: "assets/icons/star.png",
                 text: "Credit",
                 index: 4,
               ),
               EachDashboardMenuItem(
-                  icons: Icons.settings, text: "Settings", index: 5),
+                icons: "assets/icons/settings.png",
+                text: "Settings",
+                index: 5,
+              ),
             ],
           ),
         ),
@@ -165,7 +167,7 @@ class HomePage extends StatelessWidget {
             child: _productVariousPage(),
           ),
           EachDashboardMenuItem(
-            icons: Icons.menu_book_rounded,
+            icons: "assets/icons/menu.png",
             text: "Product",
             index: 2,
             trailling: Icons.keyboard_arrow_down,

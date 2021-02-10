@@ -47,6 +47,7 @@ flutter:
     - assets/
     - assets/food/
     - assets/veg&nonVeg/
+    - assets/icons/
 
   fonts:
     - family: Roboto
