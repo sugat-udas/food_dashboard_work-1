@@ -83,7 +83,7 @@ class ProductScreen extends StatelessWidget {
           },
           border: TableBorder(
             horizontalInside:
-                BorderSide(width: 1, color: CustomColors.borderLightGreyBg),
+                BorderSide(width: 1, color: CustomColors.borderLightGreyLineBg),
            
           ),
           children: [

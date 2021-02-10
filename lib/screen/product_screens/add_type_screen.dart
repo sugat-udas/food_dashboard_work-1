@@ -50,7 +50,7 @@ class AddTypeScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: Responsive.isDesktop(context) ? 40 : 30,
               vertical: 20),
-          color: CustomColors.borderLightGreyBg,
+          color: CustomColors.borderLightGreyLineBg,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,

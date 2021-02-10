@@ -2,12 +2,12 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:food/Responsive.dart';
 
 import 'package:food/constants/customColors.dart';
 import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/addProductController.dart';
 import 'package:food/controller/productController.dart';
+import 'package:food/responsive.dart';
 
 import 'package:food/util/commonMethods.dart';
 import 'package:food/util/customWidgets.dart';
@@ -21,33 +21,35 @@ class AddProductPage extends StatelessWidget {
   ProductController _productControllerState;
 
   OutlineInputBorder borderData;
+  Border borderTextField;
 
   var commonHeight;
   @override
   Widget build(BuildContext context) {
-    commonHeight = getDeviceType()
-        ? 30.0
-        : Get.context.isPortrait
-            ? (Get.height * .035)
-            : (Get.height * .05);
+    commonHeight = 35.0;
 
     _addItemControllerState = Provider.of<AddProductController>(context);
     _productControllerState = Provider.of<ProductController>(context);
     borderData = OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(
-        color: Color(0xffD9D9D9),
+        width: 0.25,
+        color: CustomColors.borderMedGreyForChkBox,
       ),
     );
+    borderTextField = Border.all(
+      width: 0.25,
+      color: CustomColors.borderMedGreyForChkBox,
+    );
+
     return _body(context);
   }
 
   Widget _body(context) {
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: Responsive.isDesktop(context) ? 40 : 30, vertical: 20),
-        color: CustomColors.borderLightGreyBg,
+        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+        color: CustomColors.borderLightGreyLineBg,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -79,9 +81,9 @@ class AddProductPage extends StatelessWidget {
   _allItemInfo() {
     return Column(
       children: [
-        Responsive.isMobile(Get.context)
-            ? _mobileCategoryAddons()
-            : _webTabCategoryAddons(),
+        Responsive.isMobile(Get.context) || Responsive.isTablet(Get.context)
+            ? _mobileViewAllItem()
+            : _webViewAllItem(),
         SizedBox(
           height: 30,
         ),
@@ -90,7 +92,7 @@ class AddProductPage extends StatelessWidget {
     );
   }
 
-  Widget _webTabCategoryAddons() {
+  Widget _webViewAllItem() {
     return Column(
       children: [
         Row(
@@ -98,7 +100,7 @@ class AddProductPage extends StatelessWidget {
           children: [
             Expanded(child: _itemInfo()),
             SizedBox(
-              width: Responsive.isDesktop(Get.context) ? 30 : 20,
+              width: 28,
             ),
             Expanded(child: _itemThumbnail()),
           ],
@@ -109,7 +111,7 @@ class AddProductPage extends StatelessWidget {
           children: [
             Expanded(child: _category()),
             SizedBox(
-              width: 30,
+              width: 28,
             ),
             Expanded(child: _addOns()),
           ],
@@ -118,7 +120,7 @@ class AddProductPage extends StatelessWidget {
     );
   }
 
-  Widget _mobileCategoryAddons() {
+  Widget _mobileViewAllItem() {
     return Column(
       children: [
         _itemInfo(),
@@ -138,6 +140,7 @@ class AddProductPage extends StatelessWidget {
 
   Widget _itemInfo() {
     return Container(
+      
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(5),
@@ -146,8 +149,12 @@ class AddProductPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+          Container(
+            height: 40,
+            padding: EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 30,
+            ),
             child: Text(
               "Item Information",
               style:
@@ -170,8 +177,12 @@ class AddProductPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+          Container(
+            height: 40,
+            padding: EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 30,
+            ),
             child: Text(
               "Thumbnail",
               style:
@@ -193,14 +204,14 @@ class AddProductPage extends StatelessWidget {
         ),
         color: Colors.white,
       ),
-      height: getDeviceType() ? 380 : 400,
+      height: 414,
       padding: EdgeInsets.symmetric(
-          vertical: 8.0,
-          horizontal: Responsive.isDesktop(Get.context) ? 90 : 20),
+          
+          horizontal: Responsive.isDesktop(Get.context) ? 35 : 50),
       child: Column(
         children: [
           SizedBox(
-            height: 40,
+            height: 50,
           ),
           UploadImgBtn(onPressed: () {
             _addItemControllerState.getImage();
@@ -215,36 +226,33 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _imgPreview() {
-    return Responsive.isMobile(Get.context)
+    return Responsive.isMobile(Get.context) || Responsive.isTablet(Get.context)
         ? _mobResImgPrev()
         : _webTabResImgPrev();
   }
 
   Widget _mobResImgPrev() {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 100),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Image Preview",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _largeImg(),
-              SizedBox(
-                width: 20,
-              ),
-              _tileImg(),
-            ],
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Image Preview",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _largeImg(),
+            SizedBox(
+              width: 20,
+            ),
+            _tileImg(),
+          ],
+        ),
+      ],
     );
   }
 
@@ -296,10 +304,10 @@ class AddProductPage extends StatelessWidget {
         ? Container(
             decoration: BoxDecoration(
               shape: boxShape ?? BoxShape.rectangle,
-              color: CustomColors.borderLightGreyBg,
+              color: CustomColors.borderLightGreyLineBg,
             ),
-            height: 145,
-            width: 145,
+            height: 190,
+            width: 190,
             child: DottedBorder(
               dashPattern: [8, 8],
               borderType: borderType ?? BorderType.RRect,
@@ -310,16 +318,21 @@ class AddProductPage extends StatelessWidget {
               )),
             ),
           )
-        : ClipRRect(
-            borderRadius: BorderRadius.circular(circleRadiusVal ?? 0),
-            child: Image.file(
-              _addItemControllerState.image,
+        : Container(
+            height: 190,
+            width: 190,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(circleRadiusVal ?? 0),
+              child: Image.file(
+                _addItemControllerState.image,
+              ),
             ),
           );
   }
 
   Widget _itemInfoBody() {
     return Container(
+      height: 414,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(5),
@@ -327,34 +340,33 @@ class AddProductPage extends StatelessWidget {
         ),
         color: Colors.white,
       ),
-      height: getDeviceType() ? 375 : 400,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: 8.0,
-          horizontal: 20,
+          vertical: 10.0,
+          horizontal: 30,
         ),
         child: Column(
           children: [
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(child: _itemName()),
                 SizedBox(
-                  width: 15,
+                  width: 35,
                 ),
                 Expanded(child: _itemQuantity()),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
             _type(),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
             _itemDescription(),
-            SizedBox(height: 20),
+            SizedBox(height: 15),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Expanded(child: _actualPrice()),
               SizedBox(
-                width: 15,
+                width: 35,
               ),
               Expanded(child: _offerPrice()),
             ]),
@@ -613,28 +625,26 @@ class AddProductPage extends StatelessWidget {
           child: Text(
             "Type",
             textAlign: TextAlign.start,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
+            style: TextStyle(fontSize: xBodyFont),
           ),
         ),
         SizedBox(
-          height: 5,
+          height: 10,
         ),
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: Color(0xffD9D9D9))),
-          height: getDeviceType()
-              ? 30
-              : Get.context.isPortrait
-                  ? (Get.height * .0345)
-                  : (Get.height * .05),
+              borderRadius: BorderRadius.circular(5), border: borderTextField),
+          height: 35,
           child: DropdownButton(
             isExpanded: true,
-            icon: Icon(
-              Icons.keyboard_arrow_down,
-              color: Colors.black54,
-              size: 20,
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: Icon(
+                Icons.keyboard_arrow_down,
+                color: CustomColors.textLightGrey,
+                size: 20,
+              ),
             ),
             underline: Container(
               width: 0,
@@ -649,12 +659,12 @@ class AddProductPage extends StatelessWidget {
               return DropdownMenuItem(
                   value: value,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: Text(
                       value,
                       style: TextStyle(
                         fontSize: xBodyFont,
-                        color: Colors.black54,
+                        color: CustomColors.textLightGrey,
                       ),
                     ),
                   ));
@@ -683,17 +693,13 @@ class AddProductPage extends StatelessWidget {
       children: [
         Text(
           name,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
+          style: TextStyle(fontSize: xBodyFont),
         ),
         SizedBox(
-          height: 5,
+          height: 10,
         ),
         Container(
-          height: getDeviceType()
-              ? 30
-              : Get.context.isPortrait
-                  ? (Get.height * .0345)
-                  : (Get.height * .05),
+          height: 35,
           child: TextFormField(
             onChanged: (String newVal) {
               onChange(newVal);
@@ -707,7 +713,7 @@ class AddProductPage extends StatelessWidget {
             decoration: InputDecoration(
                 focusedBorder: borderData,
                 enabledBorder: borderData,
-                contentPadding: EdgeInsets.only(left: 10.0),
+                contentPadding: EdgeInsets.only(left: 15.0),
                 hintText: hint,
                 hintStyle: TextStyle(
                   color: Colors.black54,
@@ -730,24 +736,26 @@ class AddProductPage extends StatelessWidget {
           "Description",
           style: TextStyle(
             fontSize: xBodyFont,
-            fontWeight: FontWeight.bold,
           ),
         ),
         SizedBox(
-          height: 5,
+          height: 10,
         ),
         Container(
-          height: 100,
+          height: 110,
           child: TextFormField(
             maxLines: 6,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
                 focusedBorder: borderData,
                 enabledBorder: borderData,
-                contentPadding: EdgeInsets.only(left: 10.0, top: 20.0),
+                contentPadding: EdgeInsets.only(
+                  left: 15.0,
+                  top: 25.0,
+                ),
                 hintText: "Enter item Name",
                 hintStyle: TextStyle(
-                  color: Colors.black54,
+                  color: CustomColors.textLightGrey,
                   fontSize: xBodyFont,
                 ),
                 filled: true,
@@ -765,24 +773,24 @@ class AddProductPage extends StatelessWidget {
       children: [
         Text(
           "Quantity",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
+          style: TextStyle(fontSize: xBodyFont),
         ),
         SizedBox(
-          height: 5,
+          height: 10,
         ),
         Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: Color(0xffD9D9D9))),
-          height: getDeviceType()
-              ? 30
-              : Get.context.isPortrait
-                  ? (Get.height * .0345)
-                  : (Get.height * .05),
+            borderRadius: BorderRadius.circular(5),
+            border: borderTextField,
+          ),
+          height: commonHeight,
           child: DropdownButton(
             isExpanded: true,
-            icon: Icon(Icons.keyboard_arrow_down,
-                color: Colors.black54, size: 20),
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 5.0),
+              child: Icon(Icons.keyboard_arrow_down,
+                  color: CustomColors.textLightGrey, size: 20),
+            ),
             underline: Container(
               width: 0,
             ),
@@ -807,7 +815,7 @@ class AddProductPage extends StatelessWidget {
               return DropdownMenuItem(
                   value: value,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: Text(
                       value,
                       style: TextStyle(
@@ -854,6 +862,7 @@ class AddProductPage extends StatelessWidget {
 
   Widget _saveItemBtn(context) {
     return Container(
+      width: 130,
       height: commonHeight,
       child: RaisedButton(
         onPressed: () {

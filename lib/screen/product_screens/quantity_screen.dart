@@ -41,28 +41,27 @@ class QuantityScreen extends StatelessWidget {
       child: _quantityControllerState.addQualtityFlag
           ? AddQuantityScreen()
           : Container(
-              
               height: double.infinity,
               color: Color(0xffF4F4F4),
               child: SingleChildScrollView(
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                horizontal: 30,
-                vertical: 25,
-              ),
-                                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _searchBarItems(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      child: _quantityDataTable(),
-                    ),
-                  ],
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 25,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _searchBarItems(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        child: _quantityDataTable(),
+                      ),
+                    ],
+                  ),
                 ),
-                              ),
               ),
             ),
     );
@@ -94,7 +93,7 @@ class QuantityScreen extends StatelessWidget {
             },
             border: TableBorder(
               horizontalInside: BorderSide(
-                  width: 1, color: CustomColors.borderLightGreyBg),
+                  width: 1, color: CustomColors.borderLightGreyLineBg),
             ),
             children: [
               TableRow(

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:food/Responsive.dart';
 
 import 'package:food/constants/customColors.dart';
+import 'package:food/constants/customFonts.dart';
 import 'package:food/controller/productScreenControllers/quantityScreenController.dart';
 
 import 'package:food/util/commonMethods.dart';
@@ -20,11 +21,7 @@ class AddQuantityScreen extends StatelessWidget {
   var commonHeight;
   @override
   Widget build(BuildContext context) {
-    commonHeight = getDeviceType()
-        ? 30.0
-        : Get.context.isPortrait
-            ? (Get.height * .035)
-            : (Get.height * .05);
+    commonHeight = 35;
 
     _quantityControllerState = Provider.of<QuantityController>(context);
     borderData = OutlineInputBorder(
@@ -40,8 +37,10 @@ class AddQuantityScreen extends StatelessWidget {
     return Container(
       width: Get.width,
       padding: EdgeInsets.symmetric(
-          horizontal: Responsive.isDesktop(context) ? 40 : 30, vertical: 20),
-      color: CustomColors.borderLightGreyBg,
+        horizontal: 32,
+        vertical: 20,
+      ),
+      color: CustomColors.borderLightGreyLineBg,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
@@ -88,9 +87,7 @@ class AddQuantityScreen extends StatelessWidget {
             ),
             Text(
               "Back",
-              style: TextStyle(
-                color: Colors.black87,
-              ),
+              style: TextStyle(color: Colors.black87, fontSize: xBodyFont),
             ),
           ],
         ),
@@ -110,7 +107,7 @@ class AddQuantityScreen extends StatelessWidget {
         child: Text(
           "Save Item",
           style: TextStyle(
-              color: Colors.white, fontSize: 15, fontFamily: "Roboto"),
+              color: Colors.white, fontSize: xHeaderFont, fontFamily: "Roboto"),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
@@ -184,19 +181,14 @@ class AddQuantityScreen extends StatelessWidget {
         Text(
           name,
           style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
+            fontSize: xBodyFont,
           ),
         ),
         SizedBox(
           height: 5,
         ),
         Container(
-          height: getDeviceType()
-              ? 30
-              : Get.context.isPortrait
-                  ? (Get.height * .0345)
-                  : (Get.height * .05),
+          height: 35,
           child: TextFormField(
             onChanged: (String newVal) {
               onChange(newVal);
@@ -205,11 +197,11 @@ class AddQuantityScreen extends StatelessWidget {
             decoration: InputDecoration(
                 focusedBorder: borderData,
                 enabledBorder: borderData,
-                contentPadding: EdgeInsets.only(left: 10.0),
+                contentPadding: EdgeInsets.only(left: 15.0),
                 hintText: hint,
                 hintStyle: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 14,
+                  color: CustomColors.textLightGrey,
+                  fontSize: xBodyFont,
                 ),
                 filled: true,
                 fillColor: Colors.white),
