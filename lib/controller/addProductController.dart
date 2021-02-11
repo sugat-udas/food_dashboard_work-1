@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductController extends ChangeNotifier {
-  File image;
+  var image;
   String name;
   String actualPrice;
   String offeredPrice;
@@ -34,14 +34,19 @@ class AddProductController extends ChangeNotifier {
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      image = File(pickedFile.path);
+if (kIsWeb) {
+     image=pickedFile.path;
+    }else{
+      image=File(pickedFile.path);
+    }
+
+      // image = File(pickedFile.path);
       notifyListeners();
     } else {
       print("Images");
     }
+    
   }
-
- 
 
   Map<String, bool> categoryList = {
     'Snack': false,
