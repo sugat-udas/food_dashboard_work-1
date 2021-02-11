@@ -81,9 +81,11 @@ class AddProductPage extends StatelessWidget {
   _allItemInfo() {
     return Column(
       children: [
-        Responsive.isMobile(Get.context) || Responsive.isTablet(Get.context)
-            ? _mobileViewAllItem()
-            : _webViewAllItem(),
+        Responsive(
+          mobile: _mobileViewAllItem(),
+          desktop: _webViewAllItem(),
+          tablet: _mobileViewAllItem(),
+        ),
         SizedBox(
           height: 30,
         ),
@@ -140,7 +142,6 @@ class AddProductPage extends StatelessWidget {
 
   Widget _itemInfo() {
     return Container(
-      
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(5),
@@ -206,7 +207,6 @@ class AddProductPage extends StatelessWidget {
       ),
       height: 414,
       padding: EdgeInsets.symmetric(
-          
           horizontal: Responsive.isDesktop(Get.context) ? 35 : 50),
       child: Column(
         children: [
@@ -226,32 +226,36 @@ class AddProductPage extends StatelessWidget {
   }
 
   Widget _imgPreview() {
-    return Responsive.isMobile(Get.context) || Responsive.isTablet(Get.context)
-        ? _mobResImgPrev()
-        : _webTabResImgPrev();
+    return Responsive(
+      mobile: _mobResImgPrev(),
+      desktop: _webTabResImgPrev(),
+      tablet: _mobResImgPrev(),
+    );
+    // return Responsive.isMobile(Get.context) || Responsive.isTablet(Get.context)
+    //     ? _mobResImgPrev()
+    //     : _webTabResImgPrev();
   }
 
   Widget _mobResImgPrev() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text(
-          "Image Preview",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: xBodyFont),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _largeImg(),
-            SizedBox(
-              width: 20,
+            Text(
+              "Image Preview",
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
             ),
-            _tileImg(),
+            SizedBox(
+              height: 20.0,
+            ),
+            _largeImg(),
           ],
         ),
+        _tileImg(),
       ],
     );
   }
@@ -268,13 +272,16 @@ class AddProductPage extends StatelessWidget {
           height: 20,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(child: _largeImg()),
+            Flexible(
+              child: _largeImg(),
+            ),
             SizedBox(
               width: 20,
             ),
-            Flexible(child: _tileImg()),
+            Flexible(
+              child: _tileImg(),
+            ),
           ],
         ),
       ],
@@ -387,7 +394,10 @@ class AddProductPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            padding: EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 30,
+            ),
             child: Text(
               "Category",
               style:
@@ -411,7 +421,10 @@ class AddProductPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            padding: EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 30,
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -440,7 +453,10 @@ class AddProductPage extends StatelessWidget {
         ),
         color: Colors.white,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+      padding: EdgeInsets.symmetric(
+        vertical: 10.0,
+        horizontal: 30,
+      ),
       height: 150,
     );
   }
@@ -456,10 +472,11 @@ class AddProductPage extends StatelessWidget {
         color: Colors.white,
       ),
       padding: EdgeInsets.only(
-          top: 8,
-          bottom: 8,
-          right: 5,
-          left: Responsive.isDesktop(Get.context) ? 10 : 5),
+        top: 10,
+        bottom: 10,
+        right: Responsive.isDesktop(Get.context) ? 20 : 15,
+        left: Responsive.isDesktop(Get.context) ? 20 : 15,
+      ),
       child: Wrap(direction: Axis.horizontal, children: [
         ..._addItemControllerState.categoryList.keys.map((String key) {
           return key == "add"
@@ -470,7 +487,7 @@ class AddProductPage extends StatelessWidget {
                   child: Icon(
                     Icons.add_circle,
                     size: 16,
-                    color: Colors.grey.shade500,
+                    color: CustomColors.greenBtn,
                   ),
                 )
               : Container(
@@ -484,7 +501,7 @@ class AddProductPage extends StatelessWidget {
                         child: Checkbox(
                           focusColor: Colors.blue,
                           value: _addItemControllerState.categoryList[key],
-                          activeColor: Colors.indigoAccent,
+                          activeColor: CustomColors.greenBtn,
                           checkColor: Colors.white,
                           onChanged: (bool value) {
                             _addItemControllerState.onChangeCategoryState(
@@ -517,11 +534,16 @@ class AddProductPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            padding: const EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 30,
+            ),
             child: Text(
               "AddOns",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, fontSize: xHeaderFont),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: xHeaderFont,
+              ),
             ),
           ),
           _addOnsBody()
@@ -541,10 +563,11 @@ class AddProductPage extends StatelessWidget {
         color: Colors.white,
       ),
       padding: EdgeInsets.only(
-          top: 8,
-          bottom: 8,
-          right: getDeviceType() ? 8 : 5,
-          left: Responsive.isDesktop(Get.context) ? 10 : 5),
+        top: 10,
+        bottom: 10,
+        right: Responsive.isDesktop(Get.context) ? 20 : 15,
+        left: Responsive.isDesktop(Get.context) ? 20 : 15,
+      ),
       child: Wrap(direction: Axis.horizontal, children: [
         ..._addItemControllerState.addonsList.keys.map((String key) {
           return key == "add"
@@ -552,20 +575,14 @@ class AddProductPage extends StatelessWidget {
                   padding: Responsive.isDesktop(Get.context)
                       ? EdgeInsets.only(top: 8.0, left: 8.0)
                       : EdgeInsets.only(top: 15.0, left: 16.0),
-                  child: GestureDetector(
-                    onTap: () async {
-                      // await _productControllerState.onEachProductMenuClick(1);
-                      // Get.to(AllProductScreen());
-                    },
-                    child: Icon(
-                      Icons.add_circle,
-                      size: 16,
-                      color: Colors.grey.shade500,
-                    ),
+                  child: Icon(
+                    Icons.add_circle,
+                    size: 16,
+                    color: CustomColors.greenBtn,
                   ),
                 )
               : Container(
-                  width: 112,
+                  width: 110.0,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     // mainAxisAlignment: MainAxisAlignment.start,
@@ -575,7 +592,7 @@ class AddProductPage extends StatelessWidget {
                         child: Checkbox(
                           focusColor: Colors.blue,
                           value: _addItemControllerState.addonsList[key],
-                          activeColor: Colors.indigoAccent,
+                          activeColor: CustomColors.greenBtn,
                           checkColor: Colors.white,
                           onChanged: (bool value) {
                             _addItemControllerState.onChangeAddOnsState(
@@ -584,11 +601,9 @@ class AddProductPage extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: SizedBox(
-                          child: Text(
-                            key,
-                            style: TextStyle(fontSize: xBodyFont),
-                          ),
+                        child: Text(
+                          key,
+                          style: TextStyle(fontSize: xBodyFont),
                         ),
                       ),
                     ],
