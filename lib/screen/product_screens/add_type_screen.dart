@@ -126,7 +126,7 @@ class AddTypeScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        color: CustomColors.greenBtn,
+        color: CustomColors.green,
       ),
     );
   }

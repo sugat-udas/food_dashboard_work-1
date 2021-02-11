@@ -50,8 +50,10 @@ class HomePage extends StatelessWidget {
                   _homeControllerState.getOpacityForOrientation(context) == 1))
           ? _menuSideBar(context)
           : null,
-      appBar:
-          PreferredSize(preferredSize: Size.fromHeight(56.0), child: _appBar()),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(56.0),
+        child: _appBar(),
+      ),
       body: _body(context),
     );
   }
@@ -217,7 +219,7 @@ class HomePage extends StatelessWidget {
               fontSize: xHeaderFont,
               fontWeight: FontWeight.w400,
               color: _homeControllerState.currentProductIndex == index
-                  ? CustomColors.greenBtn
+                  ? CustomColors.green
                   : Colors.black),
         ),
       ),
@@ -226,11 +228,11 @@ class HomePage extends StatelessWidget {
 
   Widget _appBar() {
     return AppBar(
-      iconTheme: IconThemeData(color: Colors.green),
+      iconTheme: IconThemeData(color: CustomColors.green),
       title: Text(
         "FOODIZM",
         style: TextStyle(
-          color: CustomColors.greenBtn,
+          color: CustomColors.green,
         ),
       ),
       actions: [
@@ -247,15 +249,21 @@ class HomePage extends StatelessWidget {
             ),
             Text(
               "Niraj Karanjeet",
-              style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+              style: TextStyle(
+                color: CustomColors.borderMedGreyForChkBox,
+                fontSize: xHeaderFont,
+              ),
+            ),
+             SizedBox(
+              width: 5,
             ),
             Icon(
               Icons.keyboard_arrow_down,
               color: Colors.grey.shade600,
-              size: 22,
+             
             ),
             SizedBox(
-              width: 30,
+              width: 45,
             ),
           ],
         )

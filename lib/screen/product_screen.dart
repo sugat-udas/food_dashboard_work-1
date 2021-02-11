@@ -186,7 +186,7 @@ class ProductScreen extends StatelessWidget {
 
   Widget _productNotAvail() {
     return CustomCheckbox(
-      bgColor: CustomColors.greenBtn,
+      bgColor: CustomColors.green,
       checkValue: _productControllerState.tickState,
       onCheckboxClick: () {
         _productControllerState.onTapOnCheckbox();

@@ -231,9 +231,7 @@ class AddProductPage extends StatelessWidget {
       desktop: _webTabResImgPrev(),
       tablet: _mobResImgPrev(),
     );
-    // return Responsive.isMobile(Get.context) || Responsive.isTablet(Get.context)
-    //     ? _mobResImgPrev()
-    //     : _webTabResImgPrev();
+   
   }
 
   Widget _mobResImgPrev() {
@@ -487,7 +485,7 @@ class AddProductPage extends StatelessWidget {
                   child: Icon(
                     Icons.add_circle,
                     size: 16,
-                    color: CustomColors.greenBtn,
+                    color: CustomColors.green,
                   ),
                 )
               : Container(
@@ -501,7 +499,7 @@ class AddProductPage extends StatelessWidget {
                         child: Checkbox(
                           focusColor: Colors.blue,
                           value: _addItemControllerState.categoryList[key],
-                          activeColor: CustomColors.greenBtn,
+                          activeColor: CustomColors.green,
                           checkColor: Colors.white,
                           onChanged: (bool value) {
                             _addItemControllerState.onChangeCategoryState(
@@ -578,7 +576,7 @@ class AddProductPage extends StatelessWidget {
                   child: Icon(
                     Icons.add_circle,
                     size: 16,
-                    color: CustomColors.greenBtn,
+                    color: CustomColors.green,
                   ),
                 )
               : Container(
@@ -592,7 +590,7 @@ class AddProductPage extends StatelessWidget {
                         child: Checkbox(
                           focusColor: Colors.blue,
                           value: _addItemControllerState.addonsList[key],
-                          activeColor: CustomColors.greenBtn,
+                          activeColor: CustomColors.green,
                           checkColor: Colors.white,
                           onChanged: (bool value) {
                             _addItemControllerState.onChangeAddOnsState(
@@ -894,7 +892,7 @@ class AddProductPage extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        color: CustomColors.greenBtn,
+        color: CustomColors.green,
       ),
     );
   }

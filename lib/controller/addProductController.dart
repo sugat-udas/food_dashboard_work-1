@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -38,6 +40,8 @@ class AddProductController extends ChangeNotifier {
       print("Images");
     }
   }
+
+ 
 
   Map<String, bool> categoryList = {
     'Snack': false,
@@ -132,7 +136,7 @@ class AddProductController extends ChangeNotifier {
     print(dropdownTypeValue);
   }
 
-  List list;
+  // List list;
 
   // onSave() async {
   //   getCategoryCheckItems();

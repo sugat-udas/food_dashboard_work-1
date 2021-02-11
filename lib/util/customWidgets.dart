@@ -23,7 +23,7 @@ class CustomCheckbox extends StatelessWidget {
         width: 15,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(1),
-          color: checkValue ? CustomColors.greenBtn : Colors.white,
+          color: checkValue ? CustomColors.green : Colors.white,
           border: Border.all(
               width: 0.5, color: CustomColors.borderMedGreyForChkBox),
         ),
@@ -144,7 +144,7 @@ Widget addnewBtn({Function onPress}) {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
       ),
-      color: CustomColors.greenBtn,
+      color: CustomColors.green,
     ),
   );
 }
