@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import 'controller/homeController.dart';
 import 'controller/productController.dart';
+import 'controller/productScreenControllers/addoOnScreenControllers.dart';
 
 void main() {
   runApp(
@@ -33,6 +34,9 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => TypeController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AddOnScreenController(),
         ),
         
       ],
